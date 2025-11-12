@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Game / Midman Profile</title>
+  <style>
+    :root {
+      --bg: #050608;
+      --panel: #0f1217;
+      --accent: #f5ab41;
+      --text: #ffffff;
+      --muted: #9aa0a6;
+      --line: rgba(255,255,255,.05);
+      --radius: 12px;
+      --max: 1100px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f1217 0%, #000 85%);
+      color: var(--text);
+    }
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px 14px 80px;
+    }
+    /* HEADER – нэг мөр */
+    .header {
+      background: rgba(5,6,8,.8);
+      border: 1px solid rgba(255,255,255,.02);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      overflow: hidden;
+    }
+    .photo {
+      width: 120px;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(245,171,65,.25);
+      flex-shrink: 0;
+      background: #222;
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .head-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .role {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(245,171,65,.4);
+      background: rgba(245,171,65,.05);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+    }
+    .contact-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .icon {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 auto;
+    }
+    .icon svg { width: 100%; height: 100%; display: block; }
+
+    /* MAIN – PC дээр 2 багана, утсан дээр 1 */
+    .main {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .section {
+      background: rgba(5,6,8,.45);
+      border: 1px solid rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    .text {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .pill {
+      display: block;
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.04);
+      border-radius: 8px;
+      padding: 6px 10px;
+      margin-bottom: 6px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .proof-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .proof-list a {
+      display: block;
+      background: rgba(255,255,255,.015);
+      border: 1px solid rgba(255,255,255,.03);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: background .15s ease;
+    }
+    .proof-list a:hover {
+      background: rgba(245,171,65,0.1);
+      color: #fff;
+    }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.03);
+      border-radius: 8px;
+      padding: 7px 10px 6px;
+      margin-bottom: 6px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .price-row span:last-child {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* READY ACCOUNTS – үргэлж доор */
+    .ready {
+      margin-top: 16px;
+      background: rgba(5,6,8,.45);
+      border: 1px solid rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .account-card {
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.03);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .account-card img {
+      width: 100%;
+      aspect-ratio: 16 / 9; /* landscape зураг утсан дээр бүтнээрээ гарна */
+      object-fit: cover;
+      display: block;
+    }
+    .acc-body { padding: 8px 10px 10px; }
+    .acc-title { margin: 0; font-size: 0.8rem; font-weight: 600; }
+    .acc-text { margin: 4px 0; font-size: 0.72rem; color: var(--muted); }
+    .acc-price { font-size: 0.75rem; color: var(--accent); font-weight: 600; }
+
+    footer {
+      text-align: center;
+      font-size: 0.65rem;
+      color: #6f7278;
+      margin-top: 20px;
+    }
+
+    /* RESPONSIVE BREAKPOINTS */
+    @media (max-width: 900px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 520px) {
+      .header {
+        gap: 12px;
+        padding: 12px;
+      }
+      .photo {
+        width: 90px;
+        height: 90px;
+      }
+      .name { font-size: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- HEADER -->
+    <div class="header">
+      <div class="photo">
+        <!-- энд өөрийн зургаа хийнэ -->
+        <img src="https://i.postimg.cc/J7brv8FB/557149993-2003046580431595-7428406203553023357-n.jpg" alt="profile">
+      </div>
+      <div class="head-info">
+        <div class="name">Жаргалсайхан</div>
+        <div class="role">Game account • Midman • Top-up</div>
+
+        <div class="contact-line">
+          <span class="icon">
+            <!-- phone icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f5ab41" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.1 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.37 1.77.73 2.59a2 2 0 0 1-.45 2.11L8.1 10.49a16 16 0 0 0 6 6l2-2.29a2 2 0 0 1 2.11-.45c.82.36 1.69.61 2.59.73A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </span>
+          <a href="tel:+97672028804" style="color:inherit;text-decoration:none;">+976 72 02 88 04</a>
+        </div>
+
+        <div class="contact-line">
+          <span class="icon">
+            <!-- facebook icon -->
+            <svg viewBox="0 0 24 24" fill="#1877F2">
+              <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.08 5.66 21.22 10.44 22v-6.99H7.9v-2.95h2.54v-2.2c0-2.5 1.5-3.89 3.79-3.89 1.1 0 2.25.2 2.25.2v2.48h-1.27c-1.25 0-1.63.78-1.63 1.58v1.9h2.78l-.44 2.95h-2.34V22C18.34 21.22 22 17.08 22 12.06z"/>
+            </svg>
+          </span>
+          <a href="https://facebook.com/jargalsaikhan.official" target="_blank" style="color:inherit;text-decoration:none;">facebook.com/jargalsaikhan.official</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+      <!-- LEFT -->
+      <div>
+        <!-- ABOUT -->
+        <div class="section" id="about">
+          <div class="section-title">About me</div>
+          <p class="text">
+            Цахим тоглоомын аккаунт зарж/авах, хоёр талын наймааг аюулгүй дамжуулах midman үйлчилгээ, мөн тоглоом цэнэглэлт гэх үйлчилгээг үзүүлж байна.
+            Facebook verfied badge идвэхжүүлсэн буюу хувийн үндсэн хаяг тул скаммдуулах эрсдэл байхгүй.
+          </p>
+        </div>
+
+        <!-- SERVICES -->
+        <div class="section" id="services">
+          <div class="section-title">Services</div>
+          <div class="pill">• Account авах / зарах (MLBB, PUBG, Standoff 2, Steam)</div>
+          <div class="pill">• Midman / зууч — 2 талын аюулгүй гүйлгээ</div>
+          <div class="pill">• Тоглоомын цэнэглэлт (MLBB, PUBG, Standoff 2, Steam)</div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div>
+        <!-- PROOF -->
+        <div class="section" id="proof">
+          <div class="section-title">Proof / Groups</div>
+          <div class="proof-list">
+            <a href="https://facebook.com/profile.php?id=61561712856021" target="_blank">Game Market MN  — PAGE ADMIN</a>
+
+            <a href="https://facebook.com/groups/186310009926522" target="_blank">PUBG Аккоунт худалдаа 🇲🇳 — ADMIN</a>
+            <a href="https://facebook.com/groups/905083090111442" target="_blank">PUBG MOBILE Аккоунт худалдаа & мид 🇲🇳💵💵 — ADMIN</a>
+
+            <a href="https://facebook.com/groups/1851470735099237" target="_blank">PUBG MOBILE 🇲🇳 АККАУНТ ХУДАЛДАА — MODERATOR</a>
+            <a href="https://facebook.com/groups/1174890543611872" target="_blank">Mobile Legends Mongolia 🇲🇳 — MODERATOR</a>
+            <a href="https://facebook.com/groups/368178865899824" target="_blank">Mobile Legends Mongolia 🇲🇳 — MODERATOR</a>
+            <a href="https://facebook.com/groups/2998606320453023" target="_blank">Mobile legends: mongolia✅ — MODERATOR</a>
+            <a href="https://facebook.com/groups/806727429744887" target="_blank">Standoff 2: Mongolia🇲🇳 — MODERATOR</a>
+            <a href="https://facebook.com/groups/980953797128182" target="_blank">MLBB-Mongolia acc awn zarn🇲🇳🔥 — MODERATOR</a>
+            <a href="https://facebook.com/groups/5321202191332717" target="_blank">STALWART ESPORTS — MODERATOR</a>
+            <a href="https://facebook.com/groups/793255685887110" target="_blank">Acc turees | PUBG ,ML | — MODERATOR</a>
+
+          <p class="text" style="font-size:0.7rem;margin-top:4px;">
+            Эдгээр линкүүд миний жинхэнэ proof болох болно. 
+          </p>
+        </div>
+
+        <!-- WORK TIME -->
+        <div class="section" id="worktime">
+          <div class="section-title">Work time</div>
+          <p class="text">
+            Өдөр бүр: 10:00 – 23:59<br>
+            <small>Үйлчилгээ хэрэгтэй бол шууд чатаар холбогдоно уу.</small>
+          </p>
+        </div>
+
+        <!-- PRICE -->
+        <div class="section" id="price">
+          <div class="section-title">Үйлчилгээний үнэ</div>
+          <div class="price-row"><span>Midman (1 сая дотор)</span><span>5,000₮</span></div>
+          <div class="price-row"><span>Midman (1–5 сая)</span><span>10,000₮</span></div>
+          <div class="price-row"><span>Account зарж өгөх</span><span>Аккоунтын үнэлгээний 5% </span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- READY ACCOUNTS (АЛЬ Ч ТӨХӨӨРӨМЖ ДЭЭР ХАМГИЙН ДОРОО) -->
+    <div class="ready" id="ready-accounts">
+      <div class="section-title">Бэлэн аккаунтууд</div>
+
+      <!-- 1-р аккаунт -->
+      <div class="account-card">
+        <img src="https://i.postimg.cc/W3YHfdv4/6098072194559707931.jpg">
+        <div class="acc-body">
+          <h4 class="acc-title">PUBG ACCOUNT KR/JP version • Lv.88 • 6 super cars</h4>
+          <p class="acc-text">Bind-X</p>
+          <div class="acc-price">Үнэ: 1,000,000₮</div>
+        </div>
+      </div>
+
+      <!-- 2-р аккаунт -->
+      <div class="account-card">
+        <img src="https://i.postimg.cc/GhcYtXwF/6098072194559707912.jpg" alt="PUBG account">
+        <div class="acc-body">
+          <h4 class="acc-title">PUBG ACCOUNT Global vesion • Lv.85 • Rare items</h4>
+          <p class="acc-text">Bind-Elink.</p>
+          <div class="acc-price">Үнэ: 900,000₮</div>
+        </div>
+      </div>
+
+      <!-- дараагийн аккаунтуудаа энэ блокаа copy/paste хийгээд src, текстээ солиод яв -->
+    </div>
+
+    <footer>
+      © <span id="year"></span> Жаргалсайхан — Game & Midman Service
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
