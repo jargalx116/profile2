@@ -3,19 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Game / Midman Profile</title>
+  <title>Жаргалсайхан • Game / Midman Profile</title>
   <style>
     :root {
       --bg:#050608; --panel:#0f1217; --accent:#f5ab41; --text:#ffffff; --muted:#9aa0a6; --line:rgba(255,255,255,.05);
-      --radius:12px; --max:1100px;
+      --radius:14px; --max:1100px;
     }
-    *{ box-sizing:border-box }
+    *{ box-sizing:border-box; margin:0; padding:0 }
     body{
       margin:0; font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
-      background: radial-gradient(circle at top, #0f1217 0%, #000 85%);
+      background: radial-gradient(circle at top, #151822 0%, #000 80%);
       color:var(--text);
-      overflow-x:hidden; /* гулсалт зогсоо */
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
     }
+    a{ color:inherit }
 
     /* ===== Animated background canvas ===== */
     #bg-net{
@@ -23,77 +25,334 @@
       z-index:0; pointer-events:none;
     }
 
+    /* ===== TOP NAVBAR ===== */
+    .topbar{
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:5;
+      backdrop-filter:blur(18px);
+      background:linear-gradient(to right, rgba(5,6,8,.92), rgba(10,12,15,.92));
+      border-bottom:1px solid rgba(255,255,255,.05);
+    }
+    .topbar-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:10px 14px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-shrink:0;
+    }
+    .brand-badge{
+      width:26px; height:26px;
+      border-radius:999px;
+      border:1px solid rgba(245,171,65,.7);
+      background:radial-gradient(circle at 30% 0, #ffe0a3 0%, #f5ab41 40%, #5b380e 100%);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.8rem; font-weight:700; color:#1b1305;
+      box-shadow:0 0 18px rgba(245,171,65,.7);
+    }
+    .brand-text{
+      display:flex; flex-direction:column;
+      font-size:.75rem;
+    }
+    .brand-text strong{ font-size:.82rem; letter-spacing:.04em; text-transform:uppercase }
+    .brand-text span{ color:var(--muted); font-size:.7rem }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:auto;
+      font-size:.72rem;
+    }
+    .nav-links a{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+      text-decoration:none;
+      color:var(--muted);
+      cursor:pointer;
+      transition:background .16s ease, border-color .16s ease, color .16s ease, transform .16s ease;
+      white-space:nowrap;
+    }
+    .nav-links a:hover{
+      background:rgba(245,171,65,.1);
+      border-color:rgba(245,171,65,.75);
+      color:#fff;
+      transform:translateY(-1px);
+    }
+    .nav-cta{
+      border-color:rgba(245,171,65,.85)!important;
+      background:rgba(245,171,65,.18);
+      color:#fff!important;
+      font-weight:600;
+    }
+
+    .nav-toggle{
+      display:none;
+      margin-left:auto;
+      cursor:pointer;
+      width:28px; height:28px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      align-items:center;
+      justify-content:center;
+      background:rgba(5,6,8,.9);
+    }
+    .nav-toggle span{
+      display:block;
+      width:14px; height:2px;
+      background:#fff;
+      position:relative;
+    }
+    .nav-toggle span::before,
+    .nav-toggle span::after{
+      content:"";
+      position:absolute; left:0;
+      width:14px; height:2px;
+      background:#fff;
+    }
+    .nav-toggle span::before{ top:-4px }
+    .nav-toggle span::after{ top:4px }
+
+    @media (max-width:720px){
+      .nav-links{ display:none }
+      .topbar-inner{ padding-inline:12px }
+      .nav-toggle{ display:flex }
+      .nav-links.mobile-open{
+        position:fixed;
+        left:10px;
+        right:10px;
+        bottom:12px;
+        display:flex;
+        flex-direction:column;
+        gap:6px;
+        background:rgba(8,10,14,.98);
+        border-radius:14px;
+        border:1px solid rgba(255,255,255,.15);
+        padding:8px;
+        box-shadow:0 16px 40px rgba(0,0,0,.85);
+      }
+      .nav-links.mobile-open a{
+        width:100%;
+        text-align:center;
+      }
+    }
+
     /* ===== PAGE WRAPPER ===== */
     .page{
       max-width:var(--max);
       margin:0 auto;
-      padding:18px 14px 80px;
-      position:relative; z-index:1; /* контентыг дээгүүр гаргана */
+      padding:76px 14px 80px;
+      position:relative; z-index:1;
     }
 
-    /* ===== HEADER (нэг мөр) ===== */
+    /* ===== HEADER (PROFILE CARD) ===== */
     .header{
-      background:rgba(5,6,8,.8);
-      border:1px solid rgba(255,255,255,.02);
+      background:radial-gradient(circle at top left, rgba(245,171,65,.12), rgba(5,6,8,.95));
+      border:1px solid rgba(255,255,255,.05);
       border-radius:var(--radius);
-      padding:16px;
-      display:flex; flex-direction:row; align-items:center; gap:16px; overflow:hidden;
+      padding:16px 18px 16px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:10px;
+      overflow:hidden;
+      box-shadow:0 18px 40px rgba(0,0,0,.7);
+      position:relative;
+    }
+    .header::after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:radial-gradient(circle at 0 0, rgba(245,171,65,.12), transparent 55%);
+      opacity:.7;
+      pointer-events:none;
+    }
+
+    .hero-top{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      width:100%;
     }
     .photo{
-      width:120px; aspect-ratio:1/1; border-radius:16px; overflow:hidden;
-      border:2px solid rgba(245,171,65,.25); flex-shrink:0; background:#222;
+      width:130px;
+      aspect-ratio:1/1;
+      border-radius:18px;
+      overflow:hidden;
+      border:2px solid rgba(245,171,65,.6);
+      flex-shrink:0;
+      background:#222;
+      box-shadow:0 0 22px rgba(245,171,65,.6);
     }
     .photo img{ width:100%; height:100%; object-fit:cover; display:block }
-    .head-info{ flex:1; min-width:0 }
-    .name{ font-size:1.5rem; font-weight:700; line-height:1.1 }
-    .role{
-      display:inline-block; margin-top:4px; padding:3px 10px; border-radius:999px;
-      border:1px solid rgba(245,171,65,.4); background:rgba(245,171,65,.05);
-      font-size:.62rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted)
-    }
-    .contact-line{
-      display:flex; align-items:center; gap:6px; margin-top:4px;
-      font-size:.75rem; color:var(--muted)
-    }
-    .icon{ width:14px; height:14px; flex:0 0 auto }
-    .icon svg{ width:100%; height:100%; display:block }
 
-    /* contact link-ийг товч шиг болгоно */
-    .contact-line a{
-      padding:3px 8px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.06);
-      background:rgba(255,255,255,.02);
-      text-decoration:none;
-      color:var(--accent);
-      font-weight:500;
-      cursor:pointer;
-      transition:background .15s ease, transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    .title-block{
+      flex:1;
+      min-width:0;
     }
-    .contact-line a:hover{
-      background:rgba(245,171,65,.12);
+
+    .name-row{
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .name{
+      font-size:1.6rem; font-weight:700; line-height:1.1;
+    }
+
+    /* зөвхөн дугуй icon */
+    .verified-badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:20px;
+      height:20px;
+      flex-shrink:0;
+    }
+    .verified-icon{
+      width:100%;
+      height:100%;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .verified-icon svg{
+      width:100%;
+      height:100%;
+      display:block;
+    }
+
+    .role-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:8px;
+    }
+    .role{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:4px 11px; border-radius:999px;
+      border:1px solid rgba(245,171,65,.55); background:rgba(5,6,8,.9);
+      font-size:.63rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)
+    }
+    .role-dot{
+      width:6px; height:6px; border-radius:999px;
+      background:radial-gradient(circle at 30% 0, #ffe0a3 0%, #f5ab41 50%, #5b380e 100%);
+      box-shadow:0 0 8px rgba(245,171,65,.9);
+    }
+
+    .trust-label{
+      position:relative;
+      z-index:1;
+      margin-top:2px;
+      font-size:.7rem;
+      color:var(--muted);
+    }
+    .trust-label span{
+      color:#52ffb5;
+      font-weight:600;
+    }
+
+    .contact-row{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:6px;
+      width:100%;
+    }
+    .contact-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:5px 11px;
+      border-radius:999px;
+      background:rgba(12,15,20,.96);
+      border:1px solid rgba(255,255,255,.08);
+      text-decoration:none;
+      font-size:.74rem;
+      color:var(--muted);
+      cursor:pointer;
+      transition:background .15s ease, transform .15s ease, box-shadow .15s ease, border-color .15s.ease, color .15s ease;
+    }
+    .contact-chip strong{ color:var(--accent); font-weight:600 }
+    .contact-chip .icon{
+      width:15px; height:15px; flex:0 0 auto;
+    }
+    .contact-chip svg{ width:100%; height:100%; display:block }
+    .contact-chip:hover{
+      background:rgba(245,171,65,.14);
       border-color:rgba(245,171,65,.9);
       color:#fff;
-      box-shadow:0 8px 22px rgba(0,0,0,.6);
+      box-shadow:0 10px 26px rgba(0,0,0,.72);
       transform:translateY(-1px);
     }
 
     /* ===== MAIN GRID ===== */
-    .main{ display:grid; grid-template-columns:1.05fr .95fr; gap:16px; margin-top:16px }
-    .section{
-      background:rgba(5,6,8,.45);
-      border:1px solid rgba(255,255,255,.03);
-      border-radius:var(--radius);
-      padding:14px; margin-bottom:14px;
+    .main{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:16px;
+      margin-top:18px;
     }
-    .section-title{ font-weight:600; color:var(--accent); font-size:.9rem; margin-bottom:8px }
-    .text{ font-size:.78rem; color:var(--muted); line-height:1.5 }
-    .pill{
-      display:block; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.04);
-      border-radius:8px; padding:6px 10px; margin-bottom:6px; font-size:.75rem; color:var(--muted)
+    .section{
+      background:rgba(5,6,8,.75);
+      border:1px solid rgba(255,255,255,.05);
+      border-radius:var(--radius);
+      padding:14px 14px 13px;
+      margin-bottom:14px;
+      box-shadow:0 10px 26px rgba(0,0,0,.65);
+      opacity:0;
+      transform:translateY(8px);
+      animation:fadeInUp .55s ease forwards;
+    }
+    .section:nth-child(2){ animation-delay:.06s }
+    .section:nth-child(3){ animation-delay:.1s }
+
+    .section-title{
+      font-weight:600;
+      color:var(--accent);
+      font-size:.9rem;
+      margin-bottom:8px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .section-title span.subtitle{
+      font-size:.65rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--muted);
     }
 
-    /* Proof линкнүүдийг товч шиг харагдуулна */
+    .text{
+      font-size:.8rem;
+      color:var(--muted);
+      line-height:1.6;
+    }
+    .pill{
+      display:block;
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.05);
+      border-radius:10px;
+      padding:7px 11px;
+      margin-bottom:7px;
+      font-size:.76rem;
+      color:var(--muted);
+    }
+
+    /* Proof buttons */
     .proof-list{
       display:flex; flex-direction:column; gap:6px
     }
@@ -143,77 +402,252 @@
 
     .price-row{
       display:flex; justify-content:space-between; gap:10px;
-      background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.03);
-      border-radius:8px; padding:7px 10px 6px; margin-bottom:6px; font-size:.75rem; color:var(--muted)
+      background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.05);
+      border-radius:10px; padding:7px 11px 6px; margin-bottom:6px; font-size:.76rem; color:var(--muted)
     }
     .price-row span:last-child{ color:var(--accent); font-weight:600 }
 
     /* ===== READY ACCOUNTS ===== */
-    .ready{ margin-top:16px; background:rgba(5,6,8,.45); border:1px solid rgba(255,255,255,.03); border-radius:var(--radius); padding:14px }
+    .ready{
+      margin-top:16px;
+      background:rgba(5,6,8,.82);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:var(--radius);
+      padding:14px;
+      box-shadow:0 18px 40px rgba(0,0,0,.8);
+      opacity:0;
+      transform:translateY(10px);
+      animation:fadeInUp .6s ease forwards;
+      animation-delay:.12s;
+    }
+    .ready-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin-top:6px;
+    }
+
     .account-card{
       background:rgba(255,255,255,.02);
-      border:1px solid rgba(255,255,255,.03);
-      border-radius:10px;
+      border:1px solid rgba(255,255,255,.05);
+      border-radius:12px;
       overflow:hidden;
-      margin-bottom:10px;
       cursor:pointer;
       transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
     }
     .account-card:hover{
-      transform:translateY(-2px);
-      border-color:rgba(245,171,65,.8);
-      background:rgba(245,171,65,.03);
-      box-shadow:0 14px 32px rgba(0,0,0,.65);
+      transform:translateY(-3px);
+      border-color:rgba(245,171,65,.9);
+      background:rgba(245,171,65,.04);
+      box-shadow:0 16px 40px rgba(0,0,0,.8);
     }
     .account-card img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block }
     .acc-body{ padding:8px 10px 10px }
-    .acc-title{ margin:0; font-size:.8rem; font-weight:600 }
-    .acc-text{ margin:4px 0; font-size:.72rem; color:var(--muted) }
-    .acc-price{ font-size:.75rem; color:var(--accent); font-weight:600 }
+    .acc-title{ margin:0; font-size:.83rem; font-weight:600 }
+    .acc-text{ margin:4px 0; font-size:.74rem; color:var(--muted) }
+    .acc-footer{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:4px;
+      font-size:.72rem;
+    }
+    .acc-price{ color:var(--accent); font-weight:600 }
+    .acc-tag{
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.5);
+      color:var(--muted);
+      font-size:.68rem;
+    }
 
-    footer{ text-align:center; font-size:.65rem; color:#6f7278; margin-top:20px }
+    footer{
+      text-align:center;
+      font-size:.65rem;
+      color:#6f7278;
+      margin-top:20px;
+      padding-bottom:6px;
+    }
 
-    /* ===== Responsive ===== */
-    @media (max-width:900px){ .main{ grid-template-columns:1fr } }
+    /* ===== FLOATING CONTACT (mobile quick action) ===== */
+    .floating-contact{
+      position:fixed;
+      inset:auto 14px 18px;
+      z-index:4;
+      display:none;
+    }
+    .floating-contact-inner{
+      display:flex;
+      gap:8px;
+      background:rgba(8,10,14,.96);
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.15);
+      padding:5px 7px;
+      box-shadow:0 16px 40px rgba(0,0,0,.85);
+    }
+    .floating-contact a{
+      flex:1;
+      text-align:center;
+      font-size:.72rem;
+      text-decoration:none;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(245,171,65,.65);
+      color:#fff;
+      background:rgba(245,171,65,.2);
+      font-weight:600;
+    }
+    .floating-contact a:last-child{
+      border-color:rgba(88,101,242,.85);
+      background:rgba(88,101,242,.2);
+    }
+
+    /* ===== Responsive tweaks ===== */
+    @media (max-width:900px){
+      .main{ grid-template-columns:1fr }
+    }
+
+    @media (max-width:720px){
+      .page{
+        padding:76px 12px 96px;
+      }
+      .photo{
+        width:120px;
+      }
+      .name{
+        font-size:1.45rem;
+      }
+      .text{
+        font-size:.86rem;
+      }
+      .pill,
+      .price-row,
+      .proof-list a{
+        font-size:.8rem;
+      }
+      .ready-grid{
+        grid-template-columns:1fr;
+      }
+      .floating-contact{
+        display:block;
+      }
+    }
+
     @media (max-width:520px){
-      .header{ gap:12px; padding:12px }
-      .photo{ width:90px; height:90px }
-      .name{ font-size:1.25rem }
+      .photo{ width:110px; }
+      .name{ font-size:1.35rem }
+      .topbar-inner{ padding-inline:10px }
+    }
+
+    @keyframes fadeInUp{
+      from{ opacity:0; transform:translateY(10px) }
+      to{ opacity:1; transform:translateY(0) }
     }
   </style>
 </head>
 <body>
 
-  <!-- Animated background -->
   <canvas id="bg-net" aria-hidden="true"></canvas>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-badge">JG</div>
+        <div class="brand-text">
+          <strong>Жаргалсайхан</strong>
+          <span>Game account • Midman • Top-up</span>
+        </div>
+      </div>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#" data-scroll="#about">About</a>
+        <a href="#" data-scroll="#services">Services</a>
+        <a href="#" data-scroll="#proof">Proof</a>
+        <a href="#" data-scroll="#ready-accounts">Accounts</a>
+        <a href="#" data-scroll="#worktime" class="nav-cta">Contact</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Navigation">
+        <span></span>
+      </button>
+    </div>
+  </header>
 
   <div class="page">
     <!-- HEADER -->
     <div class="header">
-      <div class="photo">
-        <img src="https://i.postimg.cc/J7brv8FB/557149993-2003046580431595-7428406203553023357-n.jpg" alt="profile">
-      </div>
-      <div class="head-info">
-        <div class="name">Жаргалсайхан</div>
-        <div class="role">Game account • Midman • Top-up</div>
+      <div class="hero-top">
+        <div class="photo">
+          <img src="https://i.postimg.cc/J7brv8FB/557149993-2003046580431595-7428406203553023357-n.jpg" alt="profile">
+        </div>
+        <div class="title-block">
+          <div class="name-row">
+            <div class="name">Жаргалсайхан</div>
+            <div class="verified-badge">
+              <span class="verified-icon">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <circle cx="8" cy="8" r="8" fill="#1877F2"/>
+                  <path d="M4 8.2 6.6 10.5 12 5.5"
+                        fill="none"
+                        stroke="#ffffff"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
 
-        <div class="contact-line">
+          <div class="role-row">
+            <div class="role">
+              <span class="role-dot"></span>
+              Game Account Seller
+            </div>
+            <div class="role">
+              <span class="role-dot"></span>
+              Midman / Secure Trade
+            </div>
+            <div class="role">
+              <span class="role-dot"></span>
+              Top-up Service
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trust-label">
+        Facebook <span>verified / main account</span> – scam эрсдэлгүй, олон group admin / moderator.
+      </div>
+
+      <div class="contact-row">
+        <a class="contact-chip" href="tel:+97672028804">
           <span class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="#f5ab41" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.1 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.37 1.77.73 2.59a2 2 0 0 1-.45 2.11L8.1 10.49a16 16 0 0 0 6 6l2-2.29a2 2 0 0 1 2.11-.45c.82.36 1.69.61 2.59.73A2 2 0 0 1 22 16.92z"/>
             </svg>
           </span>
-          <a href="tel:+97672028804">+976 72 02 88 04</a>
-        </div>
+          <span><strong>Call:</strong> +976 72 02 88 04</span>
+        </a>
 
-        <div class="contact-line">
+        <a class="contact-chip" href="https://facebook.com/jargalsaikhan.official" target="_blank">
           <span class="icon">
             <svg viewBox="0 0 24 24" fill="#1877F2">
               <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.08 5.66 21.22 10.44 22v-6.99H7.9v-2.95h2.54v-2.2c0-2.5 1.5-3.89 3.79-3.89 1.1 0 2.25.2 2.25.2v2.48h-1.27c-1.25 0-1.63.78-1.63 1.58v1.9h2.78l-.44 2.95h-2.34V22C18.34 21.22 22 17.08 22 12.06z"/>
             </svg>
           </span>
-          <a href="https://facebook.com/jargalsaikhan.official" target="_blank">facebook.com/jargalsaikhan.official</a>
-        </div>
+          <span><strong>Facebook</strong> profile</span>
+        </a>
+
+        <a class="contact-chip" href="https://m.me/jargalsaikhan.official" target="_blank">
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00B2FF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2.5C6.76 2.5 2.5 6.44 2.5 11.23c0 2.75 1.35 5.2 3.5 6.77v3.5l3.2-1.75c.57.16 1.18.25 1.8.25 5.24 0 9.5-3.94 9.5-8.73C20.5 6.44 17.24 2.5 12 2.5Z"/>
+              <path d="m7.5 13.2 3.2-3.4 2.6 2.4 3.2-3.4"/>
+            </svg>
+          </span>
+          <span><strong>Messenger</strong> чат</span>
+        </a>
       </div>
     </div>
 
@@ -222,25 +656,37 @@
       <!-- LEFT -->
       <div>
         <div class="section" id="about">
-          <div class="section-title">About me</div>
+          <div class="section-title">
+            <span>About me</span>
+            <span class="subtitle">Who am I?</span>
+          </div>
           <p class="text">
-            Цахим тоглоомын аккаунт зарж/авах, хоёр талын наймааг аюулгүй дамжуулах midman үйлчилгээ, мөн тоглоом цэнэглэлт гэх үйлчилгээг үзүүлж байна.
-            Facebook verified badge идэвхжсэн буюу хувийн үндсэн хаяг тул скаммдуулах эрсдэл байхгүй.
+            Цахим тоглоомын аккаунт <strong>зарж/авах</strong>, хоёр талын наймааг <strong>аюулгүй дамжуулах midman үйлчилгээ</strong>,
+            мөн тоглоомын <strong>цэнэглэлт / top-up</strong> гэх үйлчилгээг үзүүлж байна.<br><br>
+            Миний Facebook хаяг нь <strong>жинхэнэ verified / үндсэн хаяг</strong> тул scammдуулах эрсдэлгүй.
+            Удаан хугацаанд олон group-үүдэд админ, модератор хийж байгаа туршлагатай.
           </p>
         </div>
 
         <div class="section" id="services">
-          <div class="section-title">Services</div>
+          <div class="section-title">
+            <span>Services</span>
+            <span class="subtitle">What I do</span>
+          </div>
           <div class="pill">• Account авах / зарах (MLBB, PUBG, Standoff 2, Steam)</div>
-          <div class="pill">• Midman / зууч — 2 талын аюулгүй гүйлгээ</div>
+          <div class="pill">• Midman / зууч — 2 талын аюулгүй гүйлгээ (buyer & seller хамгаалах)</div>
           <div class="pill">• Тоглоомын цэнэглэлт (MLBB, PUBG, Standoff 2, Steam)</div>
+          <div class="pill">• Аккаунтын үнэлгээ, зөвлөгөө (аюулгүй байдал, үнэ ханш)</div>
         </div>
       </div>
 
       <!-- RIGHT -->
       <div>
         <div class="section" id="proof">
-          <div class="section-title">Proof / Groups</div>
+          <div class="section-title">
+            <span>Proof / Groups</span>
+            <span class="subtitle">Trust & reputation</span>
+          </div>
           <div class="proof-list">
             <a href="https://facebook.com/profile.php?id=61561712856021" target="_blank">Game Market MN — PAGE ADMIN</a>
             <a href="https://facebook.com/groups/186310009926522" target="_blank">PUBG Аккоунт худалдаа 🇲🇳 — ADMIN</a>
@@ -254,18 +700,29 @@
             <a href="https://facebook.com/groups/5321202191332717" target="_blank">STALWART ESPORTS — MODERATOR</a>
             <a href="https://facebook.com/groups/793255685887110" target="_blank">Acc turees | PUBG ,ML | — MODERATOR</a>
           </div>
-          <p class="text" style="font-size:0.7rem;margin-top:4px;">Эдгээр линкүүд миний жинхэнэ proof болох болно.</p>
+          <p class="text" style="font-size:0.7rem;margin-top:4px;">
+            Эдгээр линкүүд нь миний <strong>жинхэнэ proof</strong> бөгөөд олон нийтэд харагддаг үйл ажиллагаа, нэр хүндийг баталж өгнө.
+          </p>
         </div>
 
         <div class="section" id="worktime">
-          <div class="section-title">Work time</div>
-          <p class="text">Өдөр бүр: 10:00 – 23:59<br><small>Үйлчилгээ хэрэгтэй бол шууд чатаар холбогдоно уу.</small></p>
+          <div class="section-title">
+            <span>Work time</span>
+            <span class="subtitle">Availability</span>
+          </div>
+          <p class="text">
+            Өдөр бүр: <strong>10:00 – 23:59</strong><br>
+            <small>Яаралтай зүйл байвал Facebook / Messenger дээр үлдээгээд хариу өгөх үедээ шууд холбогдоно.</small>
+          </p>
         </div>
 
         <div class="section" id="price">
-          <div class="section-title">Үйлчилгээний үнэ</div>
-          <div class="price-row"><span>Midman (1 сая дотор)</span><span>5,000₮</span></div>
-          <div class="price-row"><span>Midman (1–5 сая)</span><span>10,000₮</span></div>
+          <div class="section-title">
+            <span>Үйлчилгээний үнэ</span>
+            <span class="subtitle">Fees</span>
+          </div>
+          <div class="price-row"><span>Midman (1 сая₮ дотор)</span><span>5,000₮</span></div>
+          <div class="price-row"><span>Midman (1–5 сая₮)</span><span>10,000₮</span></div>
           <div class="price-row"><span>Account зарж өгөх</span><span>Аккоунтын үнэлгээний 5%</span></div>
         </div>
       </div>
@@ -273,23 +730,34 @@
 
     <!-- READY ACCOUNTS -->
     <div class="ready" id="ready-accounts">
-      <div class="section-title">Бэлэн аккаунтууд</div>
-
-      <div class="account-card">
-        <img src="https://i.postimg.cc/ZRcWztX7/588165339-2048724139197172-1002089515699487262-n.jpg" alt="PUBG account KR/JP">
-        <div class="acc-body">
-          <h4 class="acc-title">PUBG ACCOUNT KR/JP version • Lv.88 • 6 super cars</h4>
-          <p class="acc-text">Bind-X</p>
-          <div class="acc-price">Үнэ: 1,000,000₮</div>
-        </div>
+      <div class="section-title">
+        <span>Бэлэн аккаунтууд</span>
+        <span class="subtitle">For sale</span>
       </div>
 
-      <div class="account-card">
-        <img src="https://i.postimg.cc/rz6XhzQz/588341195-2048194565916796-6228642500418269699-n.jpg" alt="PUBG account Global">
-        <div class="acc-body">
-          <h4 class="acc-title">PUBG ACCOUNT Global version • Lv.84 • Rare items</h4>
-          <p class="acc-text">Bind-Elink.</p>
-          <div class="acc-price">Үнэ: 700,000₮</div>
+      <div class="ready-grid">
+        <div class="account-card">
+          <img src="https://i.postimg.cc/ZRcWztX7/588165339-2048724139197172-1002089515699487262-n.jpg" alt="PUBG account KR/JP">
+          <div class="acc-body">
+            <h4 class="acc-title">PUBG ACCOUNT KR/JP version • Lv.88 • 6 super cars</h4>
+            <p class="acc-text">Bind-X</p>
+            <div class="acc-footer">
+              <span class="acc-price">Үнэ: 1,000,000₮</span>
+              <span class="acc-tag">High-end / collector</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-card">
+          <img src="https://i.postimg.cc/rz6XhzQz/588341195-2048194565916796-6228642500418269699-n.jpg" alt="PUBG account Global">
+          <div class="acc-body">
+            <h4 class="acc-title">PUBG ACCOUNT Global version • Lv.84 • Rare items</h4>
+            <p class="acc-text">Bind-Elink.</p>
+            <div class="acc-footer">
+              <span class="acc-price">Үнэ: 700,000₮</span>
+              <span class="acc-tag">Rare / ready to play</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -297,17 +765,23 @@
     <footer>© <span id="year"></span> Жаргалсайхан — Game &amp; Midman Service</footer>
   </div>
 
-  <!-- ===== Animated network background script ===== -->
+  <div class="floating-contact">
+    <div class="floating-contact-inner">
+      <a href="tel:+97672028804">Call</a>
+      <a href="https://m.me/jargalsaikhan.official" target="_blank">Messenger</a>
+    </div>
+  </div>
+
   <script>
   (() => {
     const canvas = document.getElementById('bg-net');
     const ctx = canvas.getContext('2d');
 
-    const COLOR_POINT = 'rgba(255,255,255,0.38)';     // цэгийн өнгө
-    const COLOR_LINK  = 'rgba(245,171,65,ALPHA)';     // шугамын өнгө (accent)
-    const MAX_LINK_DIST = 140;                        // ойрын холболтын зай
-    const BASE_DENSITY = 0.00012;                     // цэгийн нягт
-    const SPEED = 0.12;                               // хөдөлгөөний хурд
+    const COLOR_POINT = 'rgba(255,255,255,0.38)';
+    const COLOR_LINK  = 'rgba(245,171,65,ALPHA)';
+    const MAX_LINK_DIST = 140;
+    const BASE_DENSITY = 0.00012;
+    const SPEED = 0.12;
 
     const isMobile = matchMedia('(max-width:600px)').matches;
     const DENSITY = isMobile ? BASE_DENSITY*0.6 : BASE_DENSITY;
@@ -337,11 +811,9 @@
         if(p.x<0||p.x>w) p.vx *= -1;
         if(p.y<0||p.y>h) p.vy *= -1;
 
-        // point
         ctx.fillStyle = COLOR_POINT;
         ctx.beginPath(); ctx.arc(p.x,p.y,1.2,0,Math.PI*2); ctx.fill();
 
-        // links
         for(let j=i+1;j<points.length;j++){
           const q = points[j];
           const dx=p.x-q.x, dy=p.y-q.y, d2=dx*dx+dy*dy;
@@ -354,7 +826,6 @@
         }
       }
 
-      // slight attraction near cursor/touch
       if(mouse.x!=null){
         for(const p of points){
           const dx=p.x-mouse.x, dy=p.y-mouse.y, r2=dx*dx+dy*dy;
@@ -373,7 +844,36 @@
   })();
   </script>
 
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+
+    document.querySelectorAll('[data-scroll]').forEach(el=>{
+      el.addEventListener('click', e=>{
+        const target = el.getAttribute('data-scroll');
+        const node = document.querySelector(target);
+        if(node){
+          e.preventDefault();
+          const topOffset = 80;
+          const y = node.getBoundingClientRect().top + window.scrollY - topOffset;
+          if ('scrollBehavior' in document.documentElement.style) {
+            window.scrollTo({top:y, behavior:'smooth'});
+          } else {
+            window.scrollTo(0, y);
+          }
+        }
+      });
+    });
+
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    if(navToggle && navLinks){
+      navToggle.addEventListener('click', ()=>{
+        navLinks.classList.toggle('mobile-open');
+      });
+      navLinks.querySelectorAll('a').forEach(a=>{
+        a.addEventListener('click', ()=> navLinks.classList.remove('mobile-open'));
+      });
+    }
+  </script>
 </body>
 </html>
-
