@@ -10,13 +10,13 @@
     <style>
         :root {
             --bg-body: #050508;
-            --bg-card: rgba(20, 20, 35, 0.95);
+            --bg-card: #14141a; /* Картыг арай тод болгов */
             --blue: #00f2ff;
             --purple: #bc13fe;
             --gradient: linear-gradient(90deg, var(--blue), var(--purple));
             --text-white: #ffffff;
-            --text-gray: #a0a0c0;
-            --border-color: rgba(255, 255, 255, 0.15);
+            --text-gray: #b0b0c0;
+            --border-color: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,158 +25,153 @@
             font-family: 'Roboto Condensed', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-white);
-            line-height: 1.4;
+            line-height: 1.5;
+            /* Арын фон дэлгэц дүүрэн */
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 242, 255, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(188, 19, 254, 0.05) 0%, transparent 40%);
-            overflow-x: hidden;
+                radial-gradient(circle at top center, rgba(0, 242, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at bottom center, rgba(188, 19, 254, 0.08) 0%, transparent 50%);
+            background-attachment: fixed; /* Гүйлгэхэд фон хөдлөхгүй */
+            min-height: 100vh;
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
 
-        .container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 15px; }
+        /* Үндсэн Хайрцаг (Container) */
+        .container { 
+            max-width: 1100px; /* Хэт өргөн биш, яг гоё хэмжээ */
+            margin: 0 auto; 
+            padding: 0 20px; 
+            position: relative;
+        }
 
         /* HEADER */
         header {
-            background: rgba(5, 5, 8, 0.98);
+            background: rgba(5, 5, 8, 0.9);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
-            width: 100%;
-            padding: 10px 0;
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
         }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.3rem; font-weight: 900; color: #fff; text-transform: uppercase; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
         .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-links a { margin-left: 20px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; font-size: 0.85rem; }
+        .nav-links a { margin-left: 25px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; font-size: 0.9rem; }
         .nav-links a:hover { color: var(--blue); }
 
-        /* HERO - Compact */
-        section { padding: 40px 0; }
-        .hero { display: flex; align-items: center; justify-content: center; gap: 30px; padding-top: 20px; }
+        /* HERO SECTION */
+        section { padding: 80px 0; }
         
+        .hero { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; /* Голлуулна */
+            gap: 60px; 
+        }
+        
+        /* Profile Card - Зүүн тал */
         .hero-card {
-            flex: 0 0 320px;
+            flex: 0 0 340px; /* Тогтмол өргөн */
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 25px;
-            border-radius: 15px;
+            padding: 35px;
+            border-radius: 20px;
             text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5); /* Сүүдэр */
         }
         .hero-img {
-            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
-            border: 2px solid transparent; 
+            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
+            border: 3px solid transparent; 
             background: linear-gradient(var(--bg-body), var(--bg-body)) padding-box, var(--gradient) border-box;
-            padding: 3px; margin-bottom: 10px;
+            padding: 4px; margin-bottom: 15px;
         }
-        .hero-card h2 { font-size: 1.4rem; margin-bottom: 5px; font-weight: 700; color: #fff; }
-        .badge { background: rgba(0, 242, 255, 0.1); color: var(--blue); padding: 3px 12px; font-size: 0.75rem; font-weight: 700; border: 1px solid var(--blue); border-radius: 50px; display: inline-block; margin-bottom: 15px; }
+        .hero-card h2 { font-size: 1.6rem; margin-bottom: 5px; font-weight: 700; color: #fff; }
+        .badge { background: rgba(0, 242, 255, 0.1); color: var(--blue); padding: 4px 15px; font-size: 0.8rem; font-weight: 700; border: 1px solid var(--blue); border-radius: 50px; display: inline-block; margin-bottom: 20px; }
         
-        .hero-btns { display: flex; flex-direction: column; gap: 8px; }
-        .btn-profile { padding: 8px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 6px; font-size: 0.85rem; }
-        .btn-page { background: var(--gradient); color: #fff; }
+        .hero-btns { display: flex; flex-direction: column; gap: 10px; }
+        .btn-profile { padding: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 8px; font-size: 0.9rem; }
+        .btn-page { background: var(--gradient); color: #fff; border: none; }
+        .btn-page:hover { opacity: 0.9; transform: translateY(-2px); }
         .btn-admin { background: transparent; border: 1px solid var(--purple); color: var(--text-white); }
+        .btn-admin:hover { background: rgba(188, 19, 254, 0.1); border-color: var(--blue); }
         
-        .hero-text { flex: 1; max-width: 550px; }
-        .hero-text h1 { font-size: 2.8rem; line-height: 1; font-weight: 900; color: #fff; margin-bottom: 15px; }
+        /* Hero Text - Баруун тал */
+        .hero-text { flex: 1; max-width: 600px; }
+        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; font-weight: 900; color: #fff; margin-bottom: 20px; }
         .hero-text span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-text p { color: var(--text-gray); margin-bottom: 20px; border-left: 3px solid var(--purple); padding-left: 15px; font-size: 1rem; }
-        .btn-main { padding: 10px 25px; background: transparent; color: var(--blue); font-weight: 700; border: 2px solid var(--blue); border-radius: 50px; display: inline-block; font-size: 0.9rem; }
+        .hero-text p { color: var(--text-gray); margin-bottom: 30px; border-left: 4px solid var(--purple); padding-left: 20px; font-size: 1.1rem; }
+        .btn-main { padding: 12px 35px; background: transparent; color: var(--blue); font-weight: 700; border: 2px solid var(--blue); border-radius: 50px; display: inline-block; font-size: 1rem; }
+        .btn-main:hover { background: var(--blue); color: #000; box-shadow: 0 0 20px var(--blue); }
 
-        .section-title { font-size: 1.8rem; text-align: center; margin-bottom: 25px; font-weight: 800; }
-        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 2px solid var(--purple); }
+        .section-title { font-size: 2.2rem; text-align: center; margin-bottom: 50px; font-weight: 800; }
+        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 3px solid var(--purple); padding-bottom: 5px; }
 
         /* PROOF GRID */
-        .proof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
-        .proof-link { display: flex; align-items: center; background: var(--bg-card); padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; }
-        .proof-link i { font-size: 1.1rem; margin-right: 10px; width: 25px; text-align: center; }
-        .proof-text { font-size: 0.8rem; font-weight: 700; color: #fff; }
+        .proof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .proof-link { display: flex; align-items: center; background: var(--bg-card); padding: 15px 20px; border: 1px solid var(--border-color); border-radius: 10px; transition: 0.3s; }
+        .proof-link:hover { transform: translateX(5px); border-color: var(--blue); }
+        .proof-link i { font-size: 1.3rem; margin-right: 15px; width: 30px; text-align: center; }
+        .proof-text { font-size: 0.9rem; font-weight: 700; color: #fff; }
         .proof-link.admin { border-left: 3px solid var(--blue); } .proof-link.admin i { color: var(--blue); }
         .proof-link.mod { border-left: 3px solid var(--purple); } .proof-link.mod i { color: var(--purple); }
 
-        /* --- MARKET GRID (ZERO SPACE FIX) --- */
+        /* MARKET GRID */
         .market-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-            gap: 20px; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 25px; 
             justify-content: center;
-            align-items: start; /* ЭНЭ ЧУХАЛ: Картуудыг дээш нь шахаж, сунахыг болиулна */
         }
 
         .account-card { 
             background: var(--bg-card); 
             border: 1px solid var(--border-color); 
-            border-radius: 12px; 
+            border-radius: 15px; 
             overflow: hidden; 
             transition: 0.3s; 
-            width: 100%;
-            height: fit-content; /* Өндөр нь агуулгадаа таарч дуусна. Илүүдэл зай гарахгүй */
             display: flex;
             flex-direction: column;
         }
+        .account-card:hover { transform: translateY(-5px); border-color: var(--purple); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         
-        /* ЗУРГИЙН ХЭСЭГ */
-        .acc-img-container {
-            width: 100%;
-            line-height: 0; /* Зургийн доор үүсдэг жижиг зайг арилгах */
-        }
-        
-        .acc-img-container img {
-            width: 100%;
-            height: auto; /* Зургийн өөрийнх нь хэмжээ */
-            display: block;
-            object-fit: contain; /* Зургийг таслахгүй бүтэн харуулна */
-        }
+        .acc-img-container { width: 100%; line-height: 0; background: #000; }
+        .acc-img-container img { width: 100%; height: auto; display: block; object-fit: contain; }
 
-        /* МЭДЭЭЛЛИЙН ХЭСЭГ (Zero Padding Bottom) */
-        .acc-info { 
-            padding: 15px; 
-            display: flex;
-            flex-direction: column;
-            gap: 5px; /* Элемент хоорондын зай */
-        }
-        
-        .acc-title { font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.2; }
-        .acc-details { color: var(--text-gray); font-size: 0.85rem; line-height: 1.3; margin-bottom: 5px; }
-        
-        /* Үнэ болон товч */
-        .price-tag { font-size: 1.3rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; display: block; margin: 5px 0; }
+        .acc-info { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
+        .acc-title { font-size: 1.2rem; font-weight: 700; color: #fff; }
+        .acc-details { color: var(--text-gray); font-size: 0.9rem; }
+        .price-tag { font-size: 1.5rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; margin-top: auto; padding-top: 10px; }
         
         .btn-buy { 
-            width: 100%; 
-            padding: 10px; 
-            background: transparent; 
-            color: #fff; 
-            border: 1px solid var(--border-color); 
-            border-radius: 6px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            display: block; 
-            text-align: center; 
-            font-size: 0.9rem;
-            margin-top: 5px; /* Товчны дээрх зай */
+            width: 100%; padding: 12px; background: transparent; color: #fff; 
+            border: 1px solid var(--border-color); border-radius: 8px; font-weight: 700; 
+            cursor: pointer; text-align: center; margin-top: 10px; transition: 0.3s;
         }
         .btn-buy:hover { background: var(--gradient); border-color: transparent; }
 
         /* TARIFF TABLE */
-        .table-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; max-width: 800px; margin: 0 auto; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 400px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
-        th { color: var(--blue); } 
+        .table-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 15px; max-width: 800px; margin: 0 auto; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 18px 25px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { color: var(--blue); background: rgba(255,255,255,0.02); } 
         .free-text { color: #00ff88; font-weight: bold; }
 
-        footer { background: #020205; padding: 40px 0; text-align: center; border-top: 1px solid var(--border-color); margin-top: 20px;}
-        .footer-social a { font-size: 1.3rem; margin: 0 10px; color: var(--text-gray); transition: 0.3s; }
+        footer { background: #020205; padding: 50px 0; text-align: center; border-top: 1px solid var(--border-color); margin-top: 40px;}
+        .footer-social a { font-size: 1.5rem; margin: 0 15px; color: var(--text-gray); transition: 0.3s; }
         .footer-social a:hover { color: var(--blue); }
 
-        /* MOBILE RESPONSIVE */
+        /* MOBILE RESPONSIVE (УТАС) */
         @media (max-width: 768px) {
-            .hero { flex-direction: column; text-align: center; gap: 30px; }
-            .hero-card { width: 100%; max-width: 350px; }
+            .hero { flex-direction: column; gap: 40px; padding-top: 30px; text-align: center; }
+            .hero-card { width: 100%; max-width: 380px; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text p { border-left: none; border-bottom: 3px solid var(--purple); padding-left: 0; padding-bottom: 15px; }
             .nav-links { display: none; }
-            section { padding: 30px 0; }
+            .market-grid { grid-template-columns: 1fr; } /* Утсан дээр 1 эгнээ */
+            .proof-grid { grid-template-columns: 1fr; }
+            .container { padding: 0 15px; }
         }
     </style>
 </head>
@@ -202,7 +197,7 @@
                 <img src="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png" alt="Admin Profile" class="hero-img">
                 <h2>Game Market MN</h2>
                 <div class="badge"><i class="fas fa-check-circle"></i> VERIFIED ADMIN</div>
-                <p style="color: #bbb; font-size: 0.85rem; margin-bottom: 20px;">
+                <p style="color: #bbb; font-size: 0.9rem; margin-bottom: 25px;">
                     Найдвартай Midman үйлчилгээ & <br> Аккоунт худалдаа.
                 </p>
                 <div class="hero-btns">
@@ -268,7 +263,7 @@
     <section id="services" class="container">
         <h2 class="section-title"><span>Үнэ Тариф</span></h2>
         <div class="table-container">
-            <h3 style="text-align: center; color: var(--blue); margin-bottom: 15px; padding-top:10px; font-size: 1.2rem;">Midman & Бусад</h3>
+            <h3 style="text-align: center; color: var(--blue); margin-bottom: 20px; padding-top:10px; font-size: 1.2rem;">Midman & Бусад</h3>
             <table>
                 <tr><th>Үйлчилгээ</th><th>Үнэ / Тариф</th></tr>
                 <tr><td>Midman: 0 - 1,000,000₮</td><td>5,000₮</td></tr>
