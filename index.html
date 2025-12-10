@@ -13,7 +13,7 @@
             --bg-card: rgba(20, 20, 35, 0.95);
             --blue: #00f2ff;
             --purple: #bc13fe;
-            --pink: #ff00c1; /* RGB animation-д хэрэгтэй */
+            --pink: #ff00c1; 
             --gradient: linear-gradient(90deg, var(--blue), var(--purple));
             --text-white: #ffffff;
             --text-gray: #a0a0c0;
@@ -38,12 +38,43 @@
 
         .container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 15px; }
 
-        /* --- 2. RGB NEON BORDER ANIMATION (НЭМСЭН ХЭСЭГ) --- */
+        /* RGB NEON BORDER ANIMATION */
         @keyframes rgb-border {
             0% { border-color: var(--blue); box-shadow: 0 0 15px rgba(0, 242, 255, 0.4); }
             50% { border-color: var(--purple); box-shadow: 0 0 15px rgba(188, 19, 254, 0.4); }
             100% { border-color: var(--pink); box-shadow: 0 0 15px rgba(255, 0, 193, 0.4); }
         }
+
+        /* --- FLOATING ADMIN BUTTON (STATIC - ХӨДӨЛГӨӨНГҮЙ) --- */
+        .float-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(20, 20, 35, 0.95);
+            border: 2px solid var(--purple);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(188, 19, 254, 0.3);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+            /* Animation removed here based on your request */
+        }
+
+        .float-btn:hover {
+            background: var(--purple);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--purple);
+            border-color: #fff;
+        }
+
+        .float-btn i { font-size: 1.3rem; }
 
         /* HEADER */
         header {
@@ -72,7 +103,7 @@
             padding: 25px;
             border-radius: 15px;
             text-align: center;
-            transition: 0.3s; /* Animation smooth байхын тулд */
+            transition: 0.3s;
         }
         /* HERO CARD HOVER RGB EFFECT */
         .hero-card:hover { animation: rgb-border 2s infinite alternate; }
@@ -87,9 +118,17 @@
         .badge { background: rgba(0, 242, 255, 0.1); color: var(--blue); padding: 3px 12px; font-size: 0.75rem; font-weight: 700; border: 1px solid var(--blue); border-radius: 50px; display: inline-block; margin-bottom: 15px; }
         
         .hero-btns { display: flex; flex-direction: column; gap: 8px; }
-        .btn-profile { padding: 8px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 6px; font-size: 0.85rem; }
+        .btn-profile { padding: 8px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 6px; font-size: 0.85rem; transition: 0.3s; }
+        
         .btn-page { background: var(--gradient); color: #fff; }
+        .btn-page:hover { opacity: 0.9; transform: translateY(-2px); }
+
         .btn-admin { background: transparent; border: 1px solid var(--purple); color: var(--text-white); }
+        .btn-admin:hover { background: rgba(188, 19, 254, 0.1); border-color: var(--blue); }
+
+        /* GROUP CHAT BUTTON STYLE */
+        .btn-group { background: transparent; border: 1px solid var(--blue); color: var(--blue); }
+        .btn-group:hover { background: rgba(0, 242, 255, 0.1); box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); }
         
         .hero-text { flex: 1; max-width: 550px; }
         .hero-text h1 { font-size: 2.8rem; line-height: 1; font-weight: 900; color: #fff; margin-bottom: 15px; }
@@ -111,7 +150,7 @@
         .proof-link.admin { border-left: 3px solid var(--blue); } .proof-link.admin i { color: var(--blue); }
         .proof-link.mod { border-left: 3px solid var(--purple); } .proof-link.mod i { color: var(--purple); }
 
-        /* --- MARKET GRID --- */
+        /* MARKET GRID */
         .market-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
@@ -138,46 +177,20 @@
             transform: translateY(-5px);
         }
         
-        .acc-img-container {
-            width: 100%;
-            line-height: 0;
-        }
-        
-        .acc-img-container img {
-            width: 100%;
-            height: auto; 
-            display: block;
-            object-fit: contain; 
-            transition: 0.5s;
-        }
+        .acc-img-container { width: 100%; line-height: 0; }
+        .acc-img-container img { width: 100%; height: auto; display: block; object-fit: contain; transition: 0.5s; }
         .account-card:hover .acc-img-container img { transform: scale(1.02); }
 
-        .acc-info { 
-            padding: 15px; 
-            display: flex;
-            flex-direction: column;
-            gap: 5px; 
-        }
-        
+        .acc-info { padding: 15px; display: flex; flex-direction: column; gap: 5px; }
         .acc-title { font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.2; }
         .acc-details { color: var(--text-gray); font-size: 0.85rem; line-height: 1.3; margin-bottom: 5px; }
-        
         .price-tag { font-size: 1.3rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; display: block; margin: 5px 0; }
         
         .btn-buy { 
-            width: 100%; 
-            padding: 10px; 
-            background: transparent; 
-            color: #fff; 
-            border: 1px solid var(--border-color); 
-            border-radius: 6px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            display: block; 
-            text-align: center; 
-            font-size: 0.9rem;
-            margin-top: 5px; 
-            transition: 0.3s;
+            width: 100%; padding: 10px; background: transparent; color: #fff; 
+            border: 1px solid var(--border-color); border-radius: 6px; 
+            font-weight: 700; cursor: pointer; display: block; text-align: center; 
+            font-size: 0.9rem; margin-top: 5px; transition: 0.3s;
         }
         .btn-buy:hover { background: var(--gradient); border-color: transparent; box-shadow: 0 0 10px var(--purple); }
 
@@ -194,27 +207,14 @@
 
         /* MOBILE RESPONSIVE FIXES */
         @media (max-width: 768px) {
-            .hero { 
-                flex-direction: column; 
-                text-align: center; 
-                gap: 30px; 
-            }
-            .hero-card { 
-                width: 100%; 
-                max-width: 350px; 
-                flex: auto;
-            }
+            .hero { flex-direction: column; text-align: center; gap: 30px; }
+            .hero-card { width: 100%; max-width: 350px; flex: auto; }
             .nav-links { display: none; } 
             section { padding: 30px 0; }
-            
-            .market-grid {
-                grid-template-columns: 1fr;
-                padding: 0 10px;
-            }
-            
-            .proof-grid {
-                grid-template-columns: 1fr;
-            }
+            .market-grid { grid-template-columns: 1fr; padding: 0 10px; }
+            .proof-grid { grid-template-columns: 1fr; }
+            /* Chat button mobile adjustments */
+            .float-btn { bottom: 20px; right: 20px; padding: 10px 20px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -249,6 +249,9 @@
                     </a>
                     <a href="https://www.facebook.com/jargalsaikhan.official" target="_blank" class="btn-profile btn-admin">
                         <i class="fas fa-user-shield"></i> ADMIN FB
+                    </a>
+                    <a href="https://m.me/cm/AbadrhKBoffAja4U/?send_source=cm:copy_invite_link" target="_blank" class="btn-profile btn-group">
+                        <i class="fas fa-users"></i> GROUP CHAT
                     </a>
                 </div>
             </div>
@@ -338,13 +341,13 @@
 
             <div class="account-card">
                 <div class="acc-img-container">
-                    <img src="https://i.ibb.co/JW0Kbwpw/595865809-2060174601385459-6335660528261022994-n.jpg" alt="PUBG Account">
+                    <img src="https://i.ibb.co/XrtgzRD5/595685785-2058484391554480-387863129341016037-n.jpg" alt="MLBB Account">
                 </div>
                 <div class="acc-info">
                     <div class="acc-title">PUBG - GLOBAL VERSION</div>
-                    <p class="acc-details">Collection Lv65, 85 Level, Bape Skins</p>
-                    <p class="acc-details">Bind: Elink</p>
-                    <span class="price-tag">2,000,000₮</span>
+                    <p class="acc-details">Collection Lv61, 84 Level, Bape Skins</p>
+                    <p class="acc-details">Bind: Elink, Number</p>
+                    <span class="price-tag">800,000₮</span>
                     <a href="https://m.me/61561712856021" target="_blank" class="btn-buy">
                         <i class="fab fa-facebook-messenger"></i> Авах (Chat)
                     </a>
@@ -379,6 +382,10 @@
             <p style="color: #555; margin-top:20px; font-size: 0.8rem;">&copy; 2025 Бүх эрх хуулиар хамгаалагдсан.</p>
         </div>
     </footer>
+
+    <a href="https://www.messenger.com/e2ee/t/9552970884792716" target="_blank" class="float-btn">
+        <i class="fas fa-comment-dots"></i> Админтай холбогдох
+    </a>
 
 </body>
 </html>
