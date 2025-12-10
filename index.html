@@ -13,6 +13,7 @@
             --bg-card: rgba(20, 20, 35, 0.95);
             --blue: #00f2ff;
             --purple: #bc13fe;
+            --pink: #ff00c1; /* RGB animation-д хэрэгтэй */
             --gradient: linear-gradient(90deg, var(--blue), var(--purple));
             --text-white: #ffffff;
             --text-gray: #a0a0c0;
@@ -36,6 +37,13 @@
         ul { list-style: none; }
 
         .container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 15px; }
+
+        /* --- 2. RGB NEON BORDER ANIMATION (НЭМСЭН ХЭСЭГ) --- */
+        @keyframes rgb-border {
+            0% { border-color: var(--blue); box-shadow: 0 0 15px rgba(0, 242, 255, 0.4); }
+            50% { border-color: var(--purple); box-shadow: 0 0 15px rgba(188, 19, 254, 0.4); }
+            100% { border-color: var(--pink); box-shadow: 0 0 15px rgba(255, 0, 193, 0.4); }
+        }
 
         /* HEADER */
         header {
@@ -64,7 +72,11 @@
             padding: 25px;
             border-radius: 15px;
             text-align: center;
+            transition: 0.3s; /* Animation smooth байхын тулд */
         }
+        /* HERO CARD HOVER RGB EFFECT */
+        .hero-card:hover { animation: rgb-border 2s infinite alternate; }
+
         .hero-img {
             width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
             border: 2px solid transparent; 
@@ -90,13 +102,16 @@
 
         /* PROOF GRID */
         .proof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
-        .proof-link { display: flex; align-items: center; background: var(--bg-card); padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; }
+        .proof-link { display: flex; align-items: center; background: var(--bg-card); padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; transition: 0.3s; }
         .proof-link i { font-size: 1.1rem; margin-right: 10px; width: 25px; text-align: center; }
         .proof-text { font-size: 0.8rem; font-weight: 700; color: #fff; }
+        
+        .proof-link:hover { transform: translateX(5px); animation: rgb-border 3s infinite alternate; }
+
         .proof-link.admin { border-left: 3px solid var(--blue); } .proof-link.admin i { color: var(--blue); }
         .proof-link.mod { border-left: 3px solid var(--purple); } .proof-link.mod i { color: var(--purple); }
 
-        /* --- MARKET GRID (ZERO SPACE FIX) --- */
+        /* --- MARKET GRID --- */
         .market-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
@@ -116,8 +131,13 @@
             display: flex;
             flex-direction: column;
         }
+
+        /* MARKET CARD HOVER RGB EFFECT */
+        .account-card:hover { 
+            animation: rgb-border 2s infinite alternate; 
+            transform: translateY(-5px);
+        }
         
-        /* ЗУРГИЙН ХЭСЭГ */
         .acc-img-container {
             width: 100%;
             line-height: 0;
@@ -128,9 +148,10 @@
             height: auto; 
             display: block;
             object-fit: contain; 
+            transition: 0.5s;
         }
+        .account-card:hover .acc-img-container img { transform: scale(1.02); }
 
-        /* МЭДЭЭЛЛИЙН ХЭСЭГ */
         .acc-info { 
             padding: 15px; 
             display: flex;
@@ -156,8 +177,9 @@
             text-align: center; 
             font-size: 0.9rem;
             margin-top: 5px; 
+            transition: 0.3s;
         }
-        .btn-buy:hover { background: var(--gradient); border-color: transparent; }
+        .btn-buy:hover { background: var(--gradient); border-color: transparent; box-shadow: 0 0 10px var(--purple); }
 
         /* TARIFF TABLE */
         .table-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; max-width: 800px; margin: 0 auto; overflow-x: auto; }
@@ -182,17 +204,16 @@
                 max-width: 350px; 
                 flex: auto;
             }
-            .nav-links { display: none; } /* Утсан дээр цэсийг нуух */
+            .nav-links { display: none; } 
             section { padding: 30px 0; }
             
-            /* Утсан дээр картуудыг хэт жижигрэхгүй болгох */
             .market-grid {
-                grid-template-columns: 1fr; /* Утсан дээр 1 эгнээгээр */
+                grid-template-columns: 1fr;
                 padding: 0 10px;
             }
             
             .proof-grid {
-                grid-template-columns: 1fr; /* Утсан дээр группууд 1 эгнээгээр */
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -299,6 +320,7 @@
     <section id="market" class="container">
         <h2 class="section-title"><span>Зарах Аккоунтууд</span></h2>
         <div class="market-grid">
+            
             <div class="account-card">
                 <div class="acc-img-container">
                     <img src="https://i.ibb.co/bR2r2nr8/IMG-1143.png" alt="PUBG Account">
@@ -360,4 +382,3 @@
 
 </body>
 </html>
-
