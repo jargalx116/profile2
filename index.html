@@ -2,366 +2,665 @@
 <html lang="mn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Market MN</title>
-    
-    <link rel="icon" href="https://i.ibb.co/chSfJZh6/Gemini-Generated-Image-6idkra6idkra6idk.png" type="image/x-icon">
-    <link rel="shortcut icon" href="https://i.ibb.co/chSfJZh6/Gemini-Generated-Image-6idkra6idkra6idk.png" type="image/x-icon">
-
-    <meta property="og:title" content="Game Market MN ">
-    <meta property="og:description" content="Найдвартай Midman үйлчилгээ, Тоглоомын аккаунт худалдаа. Verified Admin.">
-    <meta property="og:image" content="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://gamemarketmn.vercel.app">
-    <meta property="og:type" content="website">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Game Market Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-body: #050508;
-            --bg-card: rgba(20, 20, 35, 0.95);
-            --blue: #00f2ff;
-            --purple: #bc13fe;
-            --pink: #ff00c1; 
-            --gradient: linear-gradient(90deg, var(--blue), var(--purple));
-            --text-white: #ffffff;
-            --text-gray: #a0a0c0;
-            --border-color: rgba(255, 255, 255, 0.15);
+            --bg-deep: #030014;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --primary: #00f2ff; /* Cyber Blue */
+            --secondary: #bd00ff; /* Neon Purple */
+            --gold: #ffd700;
+            --text-main: #ffffff;
+            --text-muted: #a0a0b0;
+            --nav-height: 75px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body {
-            font-family: 'Roboto Condensed', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-white);
-            line-height: 1.4;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 242, 255, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(188, 19, 254, 0.05) 0%, transparent 40%);
-            overflow-x: hidden;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
         }
 
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
-
-        .container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 15px; }
-
-        /* RGB NEON BORDER ANIMATION */
-        @keyframes rgb-border {
-            0% { border-color: var(--blue); box-shadow: 0 0 15px rgba(0, 242, 255, 0.4); }
-            50% { border-color: var(--purple); box-shadow: 0 0 15px rgba(188, 19, 254, 0.4); }
-            100% { border-color: var(--pink); box-shadow: 0 0 15px rgba(255, 0, 193, 0.4); }
+        /* --- ANIMATED BACKGROUND --- */
+        .ambient-light {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(189, 0, 255, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 242, 255, 0.15), transparent 25%);
+            z-index: -1;
+            animation: pulseLight 10s infinite alternate;
+        }
+        @keyframes pulseLight {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
         }
 
-        /* HEADER */
-        header {
-            background: rgba(5, 5, 8, 0.98);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            width: 100%;
-            padding: 10px 0;
+        /* --- APP FRAME --- */
+        .app-frame {
+            height: 100vh;
+            display: flex; flex-direction: column;
+            max-width: 500px; margin: 0 auto;
+            background: rgba(3, 0, 20, 0.6); /* Semi-transparent */
+            backdrop-filter: blur(20px);
+            position: relative;
+            border-left: 1px solid var(--glass-border);
+            border-right: 1px solid var(--glass-border);
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
         }
-        .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.3rem; font-weight: 900; color: #fff; text-transform: uppercase; }
-        .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-links a { margin-left: 20px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; font-size: 0.85rem; }
-        .nav-links a:hover { color: var(--blue); }
 
-        /* HERO - Compact */
-        section { padding: 40px 0; }
-        .hero { display: flex; align-items: center; justify-content: center; gap: 30px; padding-top: 20px; }
+        /* --- HEADER --- */
+        .top-bar {
+            padding: 20px;
+            display: flex; justify-content: center; align-items: center;
+            background: rgba(3, 0, 20, 0.8);
+            backdrop-filter: blur(15px);
+            z-index: 20; border-bottom: 1px solid var(--glass-border);
+        }
+        .brand { 
+            font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; font-weight: 800; 
+            letter-spacing: 1px; 
+            background: linear-gradient(90deg, #fff, var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+
+        /* --- CONTENT --- */
+        .content-area {
+            flex: 1; overflow-y: auto; padding: 20px;
+            padding-bottom: calc(var(--nav-height) + 30px);
+            scroll-behavior: smooth;
+        }
+        .content-area::-webkit-scrollbar { width: 4px; }
+        .content-area::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 4px; }
+
+        .tab-content { display: none; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* === GLASS CARD STYLE === */
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Subtle shine effect */
+        .glass-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: 0.5s; pointer-events: none;
+        }
+        .glass-card:active::before { left: 100%; transition: 0.3s; }
+
+        /* === HOME PROFILE === */
+        .avatar-wrap { 
+            position: relative; width: 90px; height: 90px; margin: 0 auto 15px; 
+            border-radius: 50%; padding: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        .avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid #000; }
+        .verified-icon { 
+            position: absolute; bottom: 0; right: 0; 
+            background: var(--primary); color: #000; 
+            width: 24px; height: 24px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; font-size: 0.8rem; border: 2px solid #000;
+        }
+
+        .profile-title { font-size: 1.4rem; font-weight: 800; text-align: center; margin-bottom: 5px; color: #fff; }
+        .profile-sub { color: var(--primary); text-align: center; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+
+        /* Action Buttons */
+        .btn-row { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-glow {
+            flex: 1; padding: 12px; border-radius: 12px; 
+            text-align: center; text-decoration: none; font-weight: 600; font-size: 0.85rem;
+            transition: 0.3s; border: 1px solid transparent;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-fb { background: rgba(24, 119, 242, 0.15); color: #4db5ff; border-color: rgba(24, 119, 242, 0.3); }
+        .btn-fb:active { background: rgba(24, 119, 242, 0.4); box-shadow: 0 0 15px rgba(24, 119, 242, 0.4); }
         
-        .hero-card {
-            flex: 0 0 320px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
+        .btn-group { background: rgba(255, 255, 255, 0.05); color: #fff; border-color: rgba(255, 255, 255, 0.1); }
+        .btn-group:active { background: rgba(255, 255, 255, 0.15); }
+
+        /* ADMINS GRID */
+        .section-label { 
+            font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; 
+            margin: 25px 0 10px 5px; font-weight: 700; display: flex; align-items: center; gap: 10px;
+        }
+        .section-label::after { content:''; flex:1; height:1px; background: linear-gradient(90deg, var(--glass-border), transparent); }
+
+        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .admin-card {
+            text-align: center; text-decoration: none; color: inherit;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .admin-img { width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; margin-bottom: 10px; box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
+        .admin-role { font-size: 0.7rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+
+        /* SERVICES */
+        .service-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--glass-border); font-size: 0.9rem; color: #ccc; }
+        .service-row:last-child { border-bottom: none; }
+        .price-hl { color: var(--primary); font-weight: 700; text-shadow: 0 0 8px rgba(0, 242, 255, 0.3); }
+
+        /* WARNING */
+        .warning-box {
+            background: linear-gradient(90deg, rgba(255, 0, 85, 0.1), transparent);
+            border-left: 3px solid #ff0055; padding: 15px; border-radius: 8px;
+            font-size: 0.85rem; color: #ff8fa3; line-height: 1.5; margin-top: 25px;
+            display: flex; align-items: center; gap: 15px;
+        }
+
+        /* === ACCOUNTS === */
+        .search-bar { position: relative; margin-bottom: 15px; }
+        .search-input {
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
+            padding: 14px 14px 14px 45px; border-radius: 12px; color: #fff; font-family: inherit;
             transition: 0.3s;
         }
-        /* HERO CARD HOVER RGB EFFECT */
-        .hero-card:hover { animation: rgb-border 2s infinite alternate; }
+        .search-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); outline: none; }
+        .search-icon { position: absolute; left: 15px; top: 15px; color: var(--text-muted); }
 
-        .hero-img {
-            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
-            border: 2px solid transparent; 
-            background: linear-gradient(var(--bg-body), var(--bg-body)) padding-box, var(--gradient) border-box;
-            padding: 3px; margin-bottom: 10px;
+        .filter-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; -ms-overflow-style: none; scrollbar-width: none; }
+        .filter-scroll::-webkit-scrollbar { display: none; }
+        .filter-chip {
+            padding: 8px 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 30px;
+            font-size: 0.8rem; white-space: nowrap; color: var(--text-muted); cursor: pointer; transition: 0.3s;
         }
-        .hero-card h2 { font-size: 1.4rem; margin-bottom: 5px; font-weight: 700; color: #fff; }
-        .badge { background: rgba(0, 242, 255, 0.1); color: var(--blue); padding: 3px 12px; font-size: 0.75rem; font-weight: 700; border: 1px solid var(--blue); border-radius: 50px; display: inline-block; margin-bottom: 15px; }
-        
-        .hero-btns { display: flex; flex-direction: column; gap: 8px; }
-        .btn-profile { padding: 8px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 6px; font-size: 0.85rem; transition: 0.3s; }
-        
-        .btn-page { background: var(--gradient); color: #fff; }
-        .btn-page:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        .btn-admin { background: transparent; border: 1px solid var(--purple); color: var(--text-white); }
-        .btn-admin:hover { background: rgba(188, 19, 254, 0.1); border-color: var(--blue); }
-
-        /* GROUP CHAT BUTTON STYLE */
-        .btn-group { background: transparent; border: 1px solid var(--blue); color: var(--blue); }
-        .btn-group:hover { background: rgba(0, 242, 255, 0.1); box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); }
-        
-        .hero-text { flex: 1; max-width: 550px; }
-        .hero-text h1 { font-size: 2.8rem; line-height: 1; font-weight: 900; color: #fff; margin-bottom: 15px; }
-        .hero-text span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-text p { color: var(--text-gray); margin-bottom: 20px; border-left: 3px solid var(--purple); padding-left: 15px; font-size: 1rem; }
-        .btn-main { padding: 10px 25px; background: transparent; color: var(--blue); font-weight: 700; border: 2px solid var(--blue); border-radius: 50px; display: inline-block; font-size: 0.9rem; }
-
-        .section-title { font-size: 1.8rem; text-align: center; margin-bottom: 25px; font-weight: 800; }
-        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 2px solid var(--purple); }
-
-        /* PROOF GRID */
-        .proof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
-        .proof-link { display: flex; align-items: center; background: var(--bg-card); padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; transition: 0.3s; }
-        .proof-link i { font-size: 1.1rem; margin-right: 10px; width: 25px; text-align: center; }
-        .proof-text { font-size: 0.8rem; font-weight: 700; color: #fff; }
-        
-        .proof-link:hover { transform: translateX(5px); animation: rgb-border 3s infinite alternate; }
-
-        .proof-link.admin { border-left: 3px solid var(--blue); } .proof-link.admin i { color: var(--blue); }
-        .proof-link.mod { border-left: 3px solid var(--purple); } .proof-link.mod i { color: var(--purple); }
-
-        /* MARKET GRID */
-        .market-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-            gap: 20px; 
-            justify-content: center;
-            align-items: start; 
+        .filter-chip.active { 
+            background: var(--primary); color: #000; font-weight: 700; border-color: var(--primary); 
+            box-shadow: 0 0 15px var(--primary);
         }
 
-        .account-card { 
-            background: var(--bg-card); 
-            border: 1px solid var(--border-color); 
-            border-radius: 12px; 
-            overflow: hidden; 
-            transition: 0.3s; 
-            width: 100%;
-            height: fit-content; 
-            display: flex;
-            flex-direction: column;
+        .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .product-card {
+            background: var(--glass-bg); border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--glass-border); position: relative; cursor: pointer; transition: 0.3s;
         }
-
-        /* MARKET CARD HOVER RGB EFFECT */
-        .account-card:hover { 
-            animation: rgb-border 2s infinite alternate; 
-            transform: translateY(-5px);
-        }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
         
-        .acc-img-container { width: 100%; line-height: 0; }
-        .acc-img-container img { width: 100%; height: auto; display: block; object-fit: contain; transition: 0.5s; }
-        .account-card:hover .acc-img-container img { transform: scale(1.02); }
-
-        .acc-info { padding: 15px; display: flex; flex-direction: column; gap: 5px; }
-        .acc-title { font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.2; }
-        .acc-details { color: var(--text-gray); font-size: 0.85rem; line-height: 1.3; margin-bottom: 5px; }
-        .price-tag { font-size: 1.3rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; display: block; margin: 5px 0; }
+        .p-img-box { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; }
+        .p-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .product-card:hover .p-img { transform: scale(1.1); }
         
-        .btn-buy { 
-            width: 100%; padding: 10px; background: transparent; color: #fff; 
-            border: 1px solid var(--border-color); border-radius: 6px; 
-            font-weight: 700; cursor: pointer; display: block; text-align: center; 
-            font-size: 0.9rem; margin-top: 5px; transition: 0.3s;
+        .p-content { padding: 12px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); position: absolute; bottom: 0; width: 100%; }
+        .p-title { font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .p-price { color: var(--primary); font-weight: 800; font-size: 0.95rem; text-shadow: 0 0 5px #000; }
+
+        /* === PROOFS === */
+        .group-item {
+            display: flex; align-items: center; gap: 15px; 
+            background: linear-gradient(90deg, rgba(255,255,255,0.03), transparent);
+            padding: 12px 15px; border-radius: 12px; margin-bottom: 10px; 
+            border: 1px solid var(--glass-border); text-decoration: none; color: inherit; transition: 0.2s;
         }
-        .btn-buy:hover { background: var(--gradient); border-color: transparent; box-shadow: 0 0 10px var(--purple); }
-
-        /* TARIFF TABLE */
-        .table-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; max-width: 800px; margin: 0 auto; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 400px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
-        th { color: var(--blue); } 
-        .free-text { color: #00ff88; font-weight: bold; }
-
-        footer { background: #020205; padding: 40px 0; text-align: center; border-top: 1px solid var(--border-color); margin-top: 20px;}
-        .footer-social a { font-size: 1.3rem; margin: 0 10px; color: var(--text-gray); transition: 0.3s; }
-        .footer-social a:hover { color: var(--blue); }
-
-        /* MOBILE RESPONSIVE FIXES */
-        @media (max-width: 768px) {
-            .hero { flex-direction: column; text-align: center; gap: 30px; }
-            .hero-card { width: 100%; max-width: 350px; flex: auto; }
-            .nav-links { display: none; } 
-            section { padding: 30px 0; }
-            .market-grid { grid-template-columns: 1fr; padding: 0 10px; }
-            .proof-grid { grid-template-columns: 1fr; }
+        .group-item:active { background: rgba(255,255,255,0.08); transform: scale(0.98); }
+        
+        .g-icon { 
+            width: 42px; height: 42px; border-radius: 10px; 
+            display: flex; align-items: center; justify-content: center; font-size: 1.1rem; 
+            flex-shrink: 0; position: relative; overflow: hidden;
         }
+        .g-icon::after { content:''; position:absolute; inset:0; opacity:0.2; }
+        
+        .icon-admin { color: var(--gold); border: 1px solid rgba(255, 215, 0, 0.3); background: rgba(255, 215, 0, 0.1); }
+        .icon-mod { color: var(--primary); border: 1px solid rgba(0, 242, 255, 0.3); background: rgba(0, 242, 255, 0.1); }
+
+        .g-details h4 { font-size: 0.85rem; font-weight: 600; line-height: 1.3; }
+        .g-details p { font-size: 0.7rem; color: var(--text-muted); }
+        
+        .role-badge { margin-left: auto; font-size: 0.65rem; font-weight: 800; padding: 4px 8px; border-radius: 4px; letter-spacing: 0.5px; }
+        .bg-admin { background: var(--gold); color: #000; box-shadow: 0 0 10px rgba(255, 215, 0, 0.4); }
+        .bg-mod { background: rgba(0, 242, 255, 0.1); color: var(--primary); border: 1px solid var(--primary); }
+
+        /* === MODAL === */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 100; display: none;
+            backdrop-filter: blur(8px);
+        }
+        .modal-container {
+            width: 100%; height: 100%; max-width: 500px; margin: 0 auto;
+            display: flex; flex-direction: column; background: #050505;
+        }
+        .m-header {
+            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .m-close { font-size: 1.5rem; color: #fff; cursor: pointer; }
+
+        .m-carousel {
+            width: 100%; aspect-ratio: 16/9; background: #000;
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        .m-slide { min-width: 100%; scroll-snap-align: center; display: flex; align-items: center; justify-content: center; }
+        .m-img { width: 100%; height: 100%; object-fit: contain; } /* Full image */
+
+        .m-indicators { display: flex; justify-content: center; gap: 6px; padding: 10px; }
+        .ind-dot { width: 6px; height: 6px; background: #333; border-radius: 50%; transition: 0.3s; }
+        .ind-dot.active { background: var(--primary); width: 15px; border-radius: 3px; }
+
+        .m-body { padding: 20px; flex: 1; overflow-y: auto; }
+        .m-price { font-size: 1.8rem; font-weight: 800; color: var(--primary); text-shadow: 0 0 15px rgba(0, 242, 255, 0.4); margin-bottom: 5px; }
+        .m-title { font-size: 1.1rem; color: #fff; margin-bottom: 20px; }
+
+        .spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
+        .spec-item { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 10px; border-radius: 10px; text-align: center; }
+        .spec-val { display: block; color: var(--primary); font-weight: 700; }
+        .spec-lbl { font-size: 0.7rem; color: var(--text-muted); }
+
+        .m-desc { color: #ccc; font-size: 0.9rem; line-height: 1.6; padding-left: 20px; }
+        .m-desc li { margin-bottom: 5px; }
+
+        .m-footer { padding: 20px; border-top: 1px solid var(--glass-border); }
+        .btn-buy {
+            display: block; width: 100%; padding: 16px; 
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #fff; text-align: center; font-weight: 800; border-radius: 12px; 
+            text-decoration: none; text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+
+        /* === BOTTOM NAV === */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: rgba(3, 0, 20, 0.9); backdrop-filter: blur(15px);
+            border-top: 1px solid var(--glass-border); z-index: 50;
+            display: flex; justify-content: space-around; align-items: center;
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: var(--text-muted); width: 70px; height: 100%; cursor: pointer; transition: 0.3s;
+        }
+        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; transition: 0.3s; }
+        .nav-item span { font-size: 0.7rem; font-weight: 600; opacity: 0.7; }
+        
+        .nav-item.active { color: var(--primary); }
+        .nav-item.active i { transform: translateY(-3px); text-shadow: 0 0 15px var(--primary); }
+        .nav-item.active span { opacity: 1; }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <div class="header-inner">
-                <div class="logo">GAME <span>MARKET</span></div>
-                <nav class="nav-links">
-                    <a href="#proof">Баталгаа</a>
-                    <a href="#services">Үйлчилгээ</a>
-                    <a href="#market">Аккоунт</a>
-                    <a href="#contact">Холбогдох</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <div class="ambient-light"></div>
 
-    <section class="container">
-        <div class="hero">
-            <div class="hero-card">
-                <img src="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png" alt="Admin Profile" class="hero-img">
-                <h2>Game Market MN</h2>
-                <div class="badge"><i class="fas fa-check-circle"></i> VERIFIED ADMIN</div>
-                <p style="color: #bbb; font-size: 0.85rem; margin-bottom: 20px;">
-                    Найдвартай Midman үйлчилгээ & <br> Аккоунт худалдаа.
-                </p>
-                <div class="hero-btns">
-                    <a href="https://www.facebook.com/gamemarket.mn" target="_blank" class="btn-profile btn-page">
-                        <i class="fab fa-facebook-square"></i> PAGE LINK
+    <div class="app-frame" id="swipe-area">
+        
+        <header class="top-bar">
+            <div class="brand">GAME MARKET</div>
+        </header>
+
+        <div class="content-area">
+
+            <div id="tab-home" class="tab-content active">
+                <div class="glass-card profile-card">
+                    <div class="avatar-wrap">
+                        <img src="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png" class="avatar">
+                        <div class="verified-icon"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="profile-title">Game Market MN</div>
+                    <div class="profile-sub">Verified Midman</div>
+
+                    <div class="btn-row">
+                        <a href="https://www.facebook.com/gamemarket.mn" target="_blank" class="btn-glow btn-fb">
+                            <i class="fab fa-facebook"></i> Page
+                        </a>
+                        <a href="https://m.me/cm/AbadrhKBoffAja4U/?send_source=cm:copy_invite_link" target="_blank" class="btn-glow btn-group">
+                            <i class="fas fa-users"></i> Group
+                        </a>
+                    </div>
+                </div>
+
+                <div class="section-label"><i class="fas fa-crown" style="color:var(--gold)"></i>Admins</div>
+                <div class="admin-grid">
+                    <a href="https://www.facebook.com/jargalsaikhan.official" class="glass-card admin-card">
+                        <img src="https://i.ibb.co/FbRQByFq/557149993-2003046580431595-7428406203553023357-n.jpg" class="admin-img">
+                        <div style="font-weight:700; font-size:0.9rem;">Б.Жаргалсайхан</div>
+                        <div class="admin-role">Admin</div>
                     </a>
-                    <a href="https://www.facebook.com/jargalsaikhan.official" target="_blank" class="btn-profile btn-admin">
-                        <i class="fas fa-user-shield"></i> ADMIN FB
+                    <a href="https://www.facebook.com/you.good.like.man" target="_blank" class="glass-card admin-card">
+                        <img src="https://i.ibb.co/5gzqvTDX/590659809-3995390137383045-2979261091254702807-n.jpg" class="admin-img">
+                        <div style="font-weight:700; font-size:0.9rem;">А.Пүрэвдаваа</div>
+                        <div class="admin-role">Admin</div>
                     </a>
-                    <a href="https://m.me/cm/AbadrhKBoffAja4U/?send_source=cm:copy_invite_link" target="_blank" class="btn-profile btn-group">
-                        <i class="fas fa-users"></i> GROUP CHAT
-                    </a>
+                </div>
+
+                <div class="glass-card">
+                    <div class="service-row">
+                        <span>Midman (Low Tier)</span>
+                        <span class="price-hl">5,000₮</span>
+                    </div>
+                    <div class="service-row">
+                        <span>Midman (High Tier)</span>
+                        <span class="price-hl">1%</span>
+                    </div>
+                    <div class="service-row">
+                        <span>Account Sell Fee</span>
+                        <span class="price-hl">5%</span>
+                    </div>
+                    <div class="service-row">
+                        <span>Bind Check</span>
+                        <span class="price-hl" style="color:#00ff88">FREE</span>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <i class="fas fa-shield-virus" style="font-size: 1.5rem;"></i>
+                    <div>
+                        <strong>Аюулгүй байдал:</strong>
+                        <br>Пейж болон вебээс линк авч үйлчлүүлэнэ үү.
+                    </div>
                 </div>
             </div>
 
-            <div class="hero-text">
-                <h1>Найдвартай <br> <span>Midman Үйлчилгээ</span></h1>
-                <p>Монголын томоохон группүүдийн Админ, Модератор.<br> Таны цаг зав, мөнгийг эрсдэлээс хамгаална.</p>
-                <a href="#market" class="btn-main">Бэлэн Аккоунтууд</a>
+            <div id="tab-accounts" class="tab-content">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Pubg, skins, rank..." onkeyup="searchItems(this.value)">
+                </div>
+
+                <div class="filter-scroll">
+                    <div class="filter-chip active" onclick="filterItems('all', this)">All</div>
+                    <div class="filter-chip" onclick="filterItems('pubg', this)">PUBG</div>
+                    <div class="filter-chip" onclick="filterItems('mlbb', this)">MLBB</div>
+                    <div class="filter-chip" onclick="filterItems('standoff', this)">Standoff</div>
+                </div>
+
+                <div class="products-grid" id="products-container"></div>
+            </div>
+
+            <div id="tab-proofs" class="tab-content">
+                <div class="section-label">My Ecosystem</div>
+                
+                <a href="https://facebook.com/profile.php?id=61561712856021" target="_blank" class="group-item">
+                    <div class="g-icon icon-admin"><i class="fas fa-crown"></i></div>
+                    <div class="g-details"><h4>Game Market MN</h4><p>PAGE ADMIN</p></div>
+                    <span class="role-badge bg-admin">ADMIN</span>
+                </a>
+                <a href="https://facebook.com/groups/186310009926522" target="_blank" class="group-item">
+                    <div class="g-icon icon-admin"><i class="fas fa-shield-alt"></i></div>
+                    <div class="g-details"><h4>PUBG Аккоунт худалдаа 🇲🇳</h4><p>34K ADMIN</p></div>
+                    <span class="role-badge bg-admin">ADMIN</span>
+                </a>
+                <a href="https://facebook.com/groups/905083090111442" target="_blank" class="group-item">
+                    <div class="g-icon icon-admin"><i class="fas fa-shield-alt"></i></div>
+                    <div class="g-details"><h4>PUBG MOBILE & Mid 🇲🇳</h4><p>11K ADMIN</p></div>
+                    <span class="role-badge bg-admin">ADMIN</span>
+                </a>
+                <a href="https://facebook.com/groups/199627921906512" target="_blank" class="group-item">
+                    <div class="g-icon icon-admin"><i class="fas fa-shield-alt"></i></div>
+                    <div class="g-details"><h4>Standoff 2 Mongolia 🇲🇳</h4><p>30K ADMIN</p></div>
+                    <span class="role-badge bg-admin">ADMIN</span>
+                </a>
+
+                <div class="section-label">Moderator Roles</div>
+                
+                <a href="https://facebook.com/groups/2998606320453023" target="_blank" class="group-item">
+                    <div class="g-icon icon-mod"><i class="fas fa-shield-virus"></i></div>
+                    <div class="g-details"><h4>Mobile legends: mongolia✅</h4><p>140K MOD</p></div>
+                    <span class="role-badge bg-mod">MOD</span>
+                </a>
+                <a href="https://facebook.com/groups/1253738194719122" target="_blank" class="group-item">
+                    <div class="g-icon icon-mod"><i class="fas fa-shield-virus"></i></div>
+                    <div class="g-details"><h4>PUBG Mobile: Mongolia 🇲🇳</h4><p>85K MOD</p></div>
+                    <span class="role-badge bg-mod">MOD</span>
+                </a>
+                <a href="https://facebook.com/groups/806727429744887" target="_blank" class="group-item">
+                    <div class="g-icon icon-mod"><i class="fas fa-shield-virus"></i></div>
+                    <div class="g-details"><h4>Standoff 2: Mongolia🇲🇳</h4><p>48K MOD</p></div>
+                    <span class="role-badge bg-mod">MOD</span>
+                </a>
+                <a href="https://facebook.com/groups/5321202191332717" target="_blank" class="group-item">
+                    <div class="g-icon icon-mod"><i class="fas fa-shield-virus"></i></div>
+                    <div class="g-details"><h4>STALWART ESPORTS</h4><p>44K MOD</p></div>
+                    <span class="role-badge bg-mod">MOD</span>
+                </a>
+                <a href="https://facebook.com/groups/1851470735099237" target="_blank" class="group-item">
+                    <div class="g-icon icon-mod"><i class="fas fa-shield-virus"></i></div>
+                    <div class="g-details"><h4>PUBG MOBILE 🇲🇳 ХУДАЛДАА</h4><p>31K MOD</p></div>
+                    <span class="role-badge bg-mod">MOD</span>
+                </a>
+                <a href="https://facebook.com/groups/146728474305150" target="_blank" class="group-item">
+                    <div class="g-icon icon-mod"><i class="fas fa-shield-virus"></i></div>
+                    <div class="g-details"><h4>Pubg Mobile Mongolia 🇲🇳</h4><p>30K MOD</p></div>
+                    <span class="role-badge bg-mod">MOD</span>
+                </a>
+                <a href="https://facebook.com/groups/980953797128182" target="_blank" class="group-item">
+                    <div class="g-icon icon-mod"><i class="fas fa-shield-virus"></i></div>
+                    <div class="g-details"><h4>MLBB-Mongolia acc awn zarn</h4><p>16K MOD</p></div>
+                    <span class="role-badge bg-mod">MOD</span>
+                </a>
+                <a href="https://facebook.com/groups/793255685887110" target="_blank" class="group-item">
+                    <div class="g-icon icon-mod"><i class="fas fa-shield-virus"></i></div>
+                    <div class="g-details"><h4>Acc turees | PUBG ,ML |</h4><p>4K MOD</p></div>
+                    <span class="role-badge bg-mod">MOD</span>
+                </a>
+            </div>
+
+        </div>
+
+        <nav class="bottom-nav">
+            <div class="nav-item active" onclick="switchTab('home', this)">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('accounts', this)">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Shop</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('proofs', this)">
+                <i class="fas fa-users"></i>
+                <span>Groups</span>
+            </div>
+        </nav>
+
+    </div>
+
+    <div id="modal-view" class="modal-overlay">
+        <div class="modal-container">
+            <div class="m-header">
+                <div style="font-weight:800; color:var(--text-muted); letter-spacing:1px;">PRODUCT DETAIL</div>
+                <div class="m-close" onclick="closeModal()">&times;</div>
+            </div>
+
+            <div class="m-carousel" id="m-carousel"></div>
+            <div class="m-indicators" id="m-indicators"></div>
+
+            <div class="m-body">
+                <div class="m-price" id="m-price">0₮</div>
+                <div class="m-title" id="m-title">Title</div>
+                
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <span class="spec-val" id="m-lvl">-</span>
+                        <span class="spec-lbl">LEVEL</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-val" id="m-rank">-</span>
+                        <span class="spec-lbl">RANK</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-val" id="m-link">-</span>
+                        <span class="spec-lbl">LINK</span>
+                    </div>
+                </div>
+
+                <div style="color:var(--text-muted); font-size:0.8rem; margin-bottom:10px; font-weight:700;">DESCRIPTION</div>
+                <ul id="m-desc" class="m-desc"></ul>
+            </div>
+
+            <div class="m-footer">
+                <a href="https://m.me/61561712856021" class="btn-buy">
+                    BUY NOW <i class="fas fa-bolt"></i>
+                </a>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="proof" class="container">
-        <h2 class="section-title"><span>Миний Удирддаг Группүүд</span></h2>
-        <div class="proof-grid">
-            <a href="https://facebook.com/profile.php?id=61561712856021" target="_blank" class="proof-link admin">
-                <i class="fas fa-crown"></i><span class="proof-text">Game Market MN — PAGE ADMIN</span>
-            </a>
-            <a href="https://facebook.com/groups/186310009926522" target="_blank" class="proof-link admin">
-                <i class="fas fa-shield-alt"></i><span class="proof-text">PUBG Аккоунт худалдаа 🇲🇳 — 34K ADMIN</span>
-            </a>
-            <a href="https://facebook.com/groups/905083090111442" target="_blank" class="proof-link admin">
-                <i class="fas fa-shield-alt"></i><span class="proof-text">PUBG MOBILE & Mid 🇲🇳 — 11K ADMIN</span>
-            </a>
-            <a href="https://facebook.com/groups/199627921906512" target="_blank" class="proof-link admin">
-                <i class="fas fa-shield-alt"></i><span class="proof-text">Standoff 2 Mongolia 🇲🇳 — 30K ADMIN</span>
-            </a>
-            <a href="https://facebook.com/groups/2998606320453023" target="_blank" class="proof-link mod">
-                <i class="fas fa-user-check"></i><span class="proof-text">Mobile legends: mongolia✅ — 140K MOD</span>
-            </a>
-            <a href="https://facebook.com/groups/1253738194719122" target="_blank" class="proof-link mod">
-                <i class="fas fa-user-check"></i><span class="proof-text">PUBG Mobile: Mongolia 🇲🇳 — 85K MOD</span>
-            </a>
-            <a href="https://facebook.com/groups/806727429744887" target="_blank" class="proof-link mod">
-                <i class="fas fa-user-check"></i><span class="proof-text">Standoff 2: Mongolia🇲🇳 — 48K MOD</span>
-            </a>
-            <a href="https://facebook.com/groups/5321202191332717" target="_blank" class="proof-link mod">
-                <i class="fas fa-user-check"></i><span class="proof-text">STALWART ESPORTS — 44K MOD</span>
-            </a>
-            <a href="https://facebook.com/groups/1851470735099237" target="_blank" class="proof-link mod">
-                <i class="fas fa-user-check"></i><span class="proof-text">PUBG MOBILE 🇲🇳 ХУДАЛДАА — 31K MOD</span>
-            </a>
-            <a href="https://facebook.com/groups/146728474305150" target="_blank" class="proof-link mod">
-                <i class="fas fa-user-check"></i><span class="proof-text">Pubg Mobile Mongolia 🇲🇳 — 30K MOD</span>
-            </a>
-            <a href="https://facebook.com/groups/980953797128182" target="_blank" class="proof-link mod">
-                <i class="fas fa-user-check"></i><span class="proof-text">MLBB-Mongolia acc awn zarn — 16K MOD</span>
-            </a>
-            <a href="https://facebook.com/groups/793255685887110" target="_blank" class="proof-link mod">
-                <i class="fas fa-user-check"></i><span class="proof-text">Acc turees | PUBG ,ML | — 4K MOD</span>
-            </a>
-        </div>
-    </section>
+    <script>
+        const inventory = [
+            {
+                id: 1, cat: 'pubg',
+                title: "PUBG KR ",
+                price: "2,500,000₮",
+                lvl: "76", rank: "Conq", link: "Google",
+                images: ["https://i.ibb.co/bR2r2nr8/IMG-1143.png"],
+                desc: ["3x M416 Level Max", "Joker X-Suit Max ", "15x Super Cars", "Rare Items"]
+            },
+            {
+                id: 2, cat: 'pubg',
+                title: "PUBG Global",
+                price: "2,000,000₮",
+                lvl: "65", rank: "Ace", link: "Elink",
+                images: ["https://i.ibb.co/JW0Kbwpw/595865809-2060174601385459-6335660528261022994-n.jpg"],
+                desc: [" BAPE top ", "Inferno Helmet", "M416 Glacier Level 7", "M416 Lizard Level 7", "M416 Nether Level 7","Rare Items"]
+            },
+            // {
+            //     id: 3, cat: 'mlbb',
+            //     title: "MLBB Global",
+            //     price: "800,000₮",
+            //     lvl: "61", rank: "Mythic", link: "Moonton",
+            //     images: ["https://i.ibb.co/XrtgzRD5/595685785-2058484391554480-387863129341016037-n.jpg"],
+            //     desc: ["84 Total Skins", "Gusion K' Skin", "Chou Iori Yagami", "All Emblems Max"]
+            // },
+            //  {
+            //     id: 4, cat: 'standoff',
+            //     title: "Standoff 2 (Knife)",
+            //     price: "150,000₮",
+            //     lvl: "40", rank: "Gold", link: "FB",
+            //     images: ["https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=500"],
+            //     desc: ["Butterfly Legacy", "M4 Necromancer", "Gloves Retro", "Full Access"]
+            // }
+        ];
 
-    <section id="services" class="container">
-        <h2 class="section-title"><span>Үнэ Тариф</span></h2>
-        <div class="table-container">
-            <h3 style="text-align: center; color: var(--blue); margin-bottom: 15px; padding-top:10px; font-size: 1.2rem;">Midman & Бусад</h3>
-            <table>
-                <tr><th>Үйлчилгээ</th><th>Үнэ / Тариф</th></tr>
-                <tr><td>Midman: 0 - 1,000,000₮</td><td>5,000₮</td></tr>
-                <tr><td>Midman: 1,000,000₮ - Дээш</td><td>1%</td></tr>
-                <tr><td style="color:var(--text-white); border-top:1px solid rgba(255,255,255,0.1)">Аккаунт зарж өгөх</td><td style="color:var(--blue); border-top:1px solid rgba(255,255,255,0.1)">Аккаунтын 5%</td></tr>
-                <tr><td>Аккаунт үнэлгээ, Bind асуулт</td><td class="free-text">ҮНЭГҮЙ</td></tr>
-            </table>
-        </div>
-    </section>
+        const grid = document.getElementById('products-container');
 
-    <section id="market" class="container">
-        <h2 class="section-title"><span>Зарах Аккоунтууд</span></h2>
-        <div class="market-grid">
+        function renderProducts(items) {
+            grid.innerHTML = '';
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'glass-card product-card'; // Added glass-card class
+                card.style.padding = '0'; // Reset padding for image
+                card.onclick = () => openModal(item.id);
+                card.innerHTML = `
+                    <div class="p-img-box">
+                        <img src="${item.images[0]}" class="p-img">
+                    </div>
+                    <div class="p-content">
+                        <div class="p-title">${item.title}</div>
+                        <div class="p-price">${item.price}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterItems(cat, btn) {
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            if(cat === 'all') renderProducts(inventory);
+            else renderProducts(inventory.filter(i => i.cat === cat));
+        }
+
+        function searchItems(query) {
+            const lower = query.toLowerCase();
+            renderProducts(inventory.filter(i => 
+                i.title.toLowerCase().includes(lower) || 
+                i.cat.toLowerCase().includes(lower)
+            ));
+        }
+
+        /* --- MODAL LOGIC --- */
+        const modal = document.getElementById('modal-view');
+        const carousel = document.getElementById('m-carousel');
+        const indicators = document.getElementById('m-indicators');
+
+        function openModal(id) {
+            const item = inventory.find(i => i.id === id);
             
-            <div class="account-card">
-                <div class="acc-img-container">
-                    <img src="https://i.ibb.co/bR2r2nr8/IMG-1143.png" alt="PUBG Account">
-                </div>
-                <div class="acc-info">
-                    <div class="acc-title">PUBG - KOREA VERSION</div>
-                    <p class="acc-details">Collection Lv76, 75 Level, Rare Skins</p>
-                    <p class="acc-details">Bind: X, Google</p>
-                    <span class="price-tag">2,500,000₮</span>
-                    <a href="https://m.me/61561712856021" target="_blank" class="btn-buy">
-                        <i class="fab fa-facebook-messenger"></i> Авах (Chat)
-                    </a>
-                </div>
-            </div>
+            document.getElementById('m-title').innerText = item.title;
+            document.getElementById('m-price').innerText = item.price;
+            document.getElementById('m-lvl').innerText = item.lvl;
+            document.getElementById('m-rank').innerText = item.rank;
+            document.getElementById('m-link').innerText = item.link;
 
-            <div class="account-card">
-                <div class="acc-img-container">
-                    <img src="https://i.ibb.co/JW0Kbwpw/595865809-2060174601385459-6335660528261022994-n.jpg" alt="PUBG Account">
-                </div>
-                <div class="acc-info">
-                    <div class="acc-title">PUBG - GLOBAL VERSION</div>
-                    <p class="acc-details">Collection Lv65, 85 Level, Bape Skins</p>
-                    <p class="acc-details">Bind: Elink</p>
-                    <span class="price-tag">2,000,000₮</span>
-                    <a href="https://m.me/61561712856021" target="_blank" class="btn-buy">
-                        <i class="fab fa-facebook-messenger"></i> Авах (Chat)
-                    </a>
-                </div>
-            </div>
+            const descList = document.getElementById('m-desc');
+            descList.innerHTML = '';
+            item.desc.forEach(d => descList.innerHTML += `<li>${d}</li>`);
 
-            <!-- <div class="account-card">
-                <div class="acc-img-container">
-                    <img src="https://i.ibb.co/XrtgzRD5/595685785-2058484391554480-387863129341016037-n.jpg" alt="MLBB Account">
-                </div>
-                <div class="acc-info">
-                    <div class="acc-title">PUBG - GLOBAL VERSION</div>
-                    <p class="acc-details">Collection Lv61, 84 Level, Bape Skins</p>
-                    <p class="acc-details">Bind: Elink, Number</p>
-                    <span class="price-tag">800,000₮</span>
-                    <a href="https://m.me/61561712856021" target="_blank" class="btn-buy">
-                        <i class="fab fa-facebook-messenger"></i> Авах (Chat)
-                    </a>
-                </div>
-            </div> -->
+            carousel.innerHTML = '';
+            indicators.innerHTML = '';
+            
+            item.images.forEach((imgSrc, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'm-slide';
+                slide.innerHTML = `<img src="${imgSrc}" class="m-img">`;
+                carousel.appendChild(slide);
 
-        </div>
-    </section>
+                const dot = document.createElement('div');
+                dot.className = index === 0 ? 'ind-dot active' : 'ind-dot';
+                indicators.appendChild(dot);
+            });
 
-    <footer>
-        <div class="container">
-            <div class="logo" style="margin-bottom: 15px;">GAME <span>MARKET</span></div>
-            <div class="footer-social">
-                <a href="https://www.facebook.com/gamemarket.mn" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://m.me/61561712856021" target="_blank"><i class="fab fa-facebook-messenger"></i></a>
-            </div>
-            <p style="color: #555; margin-top:20px; font-size: 0.8rem;">&copy; 2025 Бүх эрх хуулиар хамгаалагдсан.</p>
-        </div>
-    </footer>
+            carousel.onscroll = () => {
+                const index = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+                document.querySelectorAll('.ind-dot').forEach((d, i) => {
+                    if (i === index) d.classList.add('active');
+                    else d.classList.remove('active');
+                });
+            };
 
+            modal.style.display = 'block';
+        }
+
+        function closeModal() { modal.style.display = 'none'; }
+
+        /* --- TABS & SWIPE --- */
+        let currentTabIndex = 0;
+        const tabOrder = ['home', 'accounts', 'proofs'];
+        
+        function switchTab(id, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + id).classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            btn.classList.add('active');
+            currentTabIndex = tabOrder.indexOf(id);
+        }
+
+        let startX = 0;
+        const swipeArea = document.getElementById('swipe-area');
+
+        swipeArea.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
+        swipeArea.addEventListener('touchend', (e) => {
+            const diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && currentTabIndex < 2) currentTabIndex++;
+                else if (diff < 0 && currentTabIndex > 0) currentTabIndex--;
+                
+                const targetId = tabOrder[currentTabIndex];
+                const btn = document.querySelectorAll('.nav-item')[currentTabIndex];
+                switchTab(targetId, btn);
+            }
+        });
+
+        renderProducts(inventory);
+    </script>
 </body>
 </html>
+
 
