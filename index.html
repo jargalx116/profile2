@@ -164,14 +164,32 @@
         }
 
         /* === ACCOUNTS === */
-        .search-bar { position: relative; margin-bottom: 15px; }
+        /* Search & Sort Container */
+        .shop-controls {
+            display: flex; gap: 10px; margin-bottom: 15px;
+        }
+        
+        .search-bar { position: relative; flex: 1; }
         .search-input {
             width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
-            padding: 14px 14px 14px 45px; border-radius: 12px; color: #fff; font-family: inherit;
+            padding: 12px 12px 12px 40px; border-radius: 12px; color: #fff; font-family: inherit;
             transition: 0.3s;
         }
         .search-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); outline: none; }
-        .search-icon { position: absolute; left: 15px; top: 15px; color: var(--text-muted); }
+        .search-icon { position: absolute; left: 12px; top: 13px; color: var(--text-muted); }
+
+        /* Sort Dropdown */
+        .sort-wrap {
+            position: relative; width: 110px;
+        }
+        .sort-select {
+            width: 100%; height: 100%; 
+            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+            border-radius: 12px; color: var(--text-muted); padding: 0 10px;
+            font-size: 0.8rem; outline: none; appearance: none; font-family: inherit;
+            cursor: pointer;
+        }
+        .sort-icon { position: absolute; right: 10px; top: 14px; color: var(--text-muted); pointer-events: none; font-size: 0.8rem; }
 
         .filter-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; -ms-overflow-style: none; scrollbar-width: none; }
         .filter-scroll::-webkit-scrollbar { display: none; }
@@ -325,12 +343,12 @@
                     </div>
                 </div>
 
-                <div class="section-label"><i class="fas fa-crown" style="color:var(--gold)"></i>Admins</div>
+                <div class="section-label"><i class="fas fa-crown" style="color:var(--gold)"></i> Founders & Admins</div>
                 <div class="admin-grid">
                     <a href="https://www.facebook.com/jargalsaikhan.official" class="glass-card admin-card">
                         <img src="https://i.ibb.co/FbRQByFq/557149993-2003046580431595-7428406203553023357-n.jpg" class="admin-img">
                         <div style="font-weight:700; font-size:0.9rem;">Б.Жаргалсайхан</div>
-                        <div class="admin-role">Admin</div>
+                        <div class="admin-role">Founder</div>
                     </a>
                     <a href="https://www.facebook.com/you.good.like.man" target="_blank" class="glass-card admin-card">
                         <img src="https://i.ibb.co/5gzqvTDX/590659809-3995390137383045-2979261091254702807-n.jpg" class="admin-img">
@@ -353,7 +371,7 @@
                         <span class="price-hl">5%</span>
                     </div>
                     <div class="service-row">
-                        <span>Зөвөлгөө,Aкк үнэлэх</span>
+                        <span>Bind Check</span>
                         <span class="price-hl" style="color:#00ff88">FREE</span>
                     </div>
                 </div>
@@ -362,15 +380,25 @@
                     <i class="fas fa-shield-virus" style="font-size: 1.5rem;"></i>
                     <div>
                         <strong>Аюулгүй байдал:</strong>
-                        <br>Пейж болон вебээс линк авч үйлчлүүлэнэ үү.
+                        <br>Гүйлгээ хийхээс өмнө заавал Админ руу чат бичиж баталгаажуулна уу.
                     </div>
                 </div>
             </div>
 
             <div id="tab-accounts" class="tab-content">
-                <div class="search-bar">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" placeholder="Pubg, skins, rank..." onkeyup="searchItems(this.value)">
+                <div class="shop-controls">
+                    <div class="search-bar">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Pubg, skins, rank..." onkeyup="searchItems(this.value)">
+                    </div>
+                    <div class="sort-wrap">
+                        <i class="fas fa-sort sort-icon"></i>
+                        <select class="sort-select" onchange="sortItems(this.value)">
+                            <option value="def">Sort</option>
+                            <option value="asc">Low $</option>
+                            <option value="desc">High $</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="filter-scroll">
@@ -517,9 +545,9 @@
                 id: 1, cat: 'pubg',
                 title: "PUBG KR ",
                 price: "2,500,000₮",
-                lvl: "76", rank: "Conq", link: "Google",
+                lvl: "76", rank: "Diamond", link: "Google,X",
                 images: ["https://i.ibb.co/bR2r2nr8/IMG-1143.png"],
-                desc: ["3x M416 Level Max", "Joker X-Suit Max ", "15x Super Cars", "Rare Items"]
+                desc: ["Rare M416 Glacier Max", "3 X-Suits (2 Max)", "Lamborghini Skin", "Full Access"]
             },
             {
                 id: 2, cat: 'pubg',
@@ -527,143 +555,199 @@
                 price: "2,000,000₮",
                 lvl: "65", rank: "Ace", link: "Elink",
                 images: ["https://i.ibb.co/JW0Kbwpw/595865809-2060174601385459-6335660528261022994-n.jpg"],
-                desc: [" BAPE top ", "Inferno Helmet", "M416 Glacier Level 7", "M416 Lizard Level 7", "M416 Nether Level 7","Rare Items"]
+                desc: ["Rare BAPE Set", "M416 Fool Lv5", "Clean Bind"]
             },
-            // {
-            //     id: 3, cat: 'mlbb',
-            //     title: "MLBB Global",
-            //     price: "800,000₮",
-            //     lvl: "61", rank: "Mythic", link: "Moonton",
-            //     images: ["https://i.ibb.co/XrtgzRD5/595685785-2058484391554480-387863129341016037-n.jpg"],
-            //     desc: ["84 Total Skins", "Gusion K' Skin", "Chou Iori Yagami", "All Emblems Max"]
-            // },
-            //  {
-            //     id: 4, cat: 'standoff',
-            //     title: "Standoff 2 (Knife)",
-            //     price: "150,000₮",
-            //     lvl: "40", rank: "Gold", link: "FB",
-            //     images: ["https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=500"],
-            //     desc: ["Butterfly Legacy", "M4 Necromancer", "Gloves Retro", "Full Access"]
-            // }
+            {
+                id: 3, cat: 'pubg',
+                title: "PUBG Global",
+                price: "2,200,000₮",
+                lvl: "75", rank: "Diamond", link: "X",
+                images: ["https://i.ibb.co/xSXw6H1F/f1c68e31-eeb0-4b5b-8a34-10873d6ea705.jpg"],
+                desc: ["6x Gun Max", "3x Super Cars", "Inferno Helmet", "Rare Skins"]
+            },
+            {
+                id: 4, cat: 'pubg',
+                title: "PUBG Global",
+                price: "900,000₮",
+                lvl: "65", rank: "Diamond", link: "Elink",
+                images: ["https://i.ibb.co/YBhMCfTk/df032392-008c-4de3-9232-799ef26157c4.jpg"],
+                desc: ["M416 Glacier Level 7", "MIssion B", "Bentley Super Car", "SSC Tautra"]
+            },
+            {
+                id: 5, cat: 'pubg',
+                title: "PUBG Global",
+                price: "800,000₮",
+                lvl: "70", rank: "Platinium", link: "X",
+                images: ["https://i.ibb.co/fdwmTj0N/94408316-f0dd-4760-80c6-a326997d3027.jpg"],
+                desc: ["M416 Glacier Level 7", "AUG Howl Level 5", "M426 Lizard Level 4"]
+            },
+            {
+                id: 6, cat: 'standoff',
+                title: "Standoff 2 ",
+                price: "500,000₮",
+                lvl: "70", rank: "Platinium", link: "X",
+                images: ["https://i.ibb.co/HphJ4F1R/2ce918fb-8697-41ee-8874-07fc5c2b7a34.jpg"],
+                desc: ["Mantis Genesis", "Fang Haunt", "713 Gold", "Many more skins"]
+            },
+            {
+                id: 7, cat: 'mlbb',
+                title: "Mobile Legends ",
+                price: "350,000₮",
+                lvl: "Mega 4", rank: "Legend", link: "Moonton",
+                images: [
+                    "https://i.ibb.co/3msNrbyB/att-Hcv-Ds-m-Sw-WNH7mc9hb6vv2-Tfi-Ns-YCYhj0-CREU6d9ic.jpg",
+                    "https://i.ibb.co/qFRrXLg7/att-Bx-X0a5b-GQZll-T5v-Hy157-VZLr-NK0c-Nt88s-Qqki-XKo-QOg.jpg",
+                    "https://i.ibb.co/zhRS9FwD/att-Jalx-Ft-E95-CTq-Gy-Pco-NKu-Dt-O7op-Ou-O6-QRHz-N2-Nagd-NQ.jpg",
+                    "https://i.ibb.co/Rkj6jGSk/att-zscnu5-AMo-YMYBEB-8ob4fq68zf-9-X-Bj-Rj-Mue-Jp-NOBA.jpg",
+                    "https://i.ibb.co/VWwyTpy9/att-vbvawt9-TIIgxbq-Hxgg-v-MO1-QZ-y-Ym-MJ6-v-PUN1-OGKBY.jpg"
+                ],
+                desc: ["440 Skins", "All Hero", "All Emblem Max"]
+            }
         ];
 
-        const grid = document.getElementById('products-container');
+        /* --- STATE --- */
+        let currentFilter = 'all';
+        let currentSearch = '';
+        let currentSort = 'def'; // def, asc, desc
 
+        /* --- RENDER --- */
+        const grid = document.getElementById('products-container');
+        
         function renderProducts(items) {
             grid.innerHTML = '';
-            items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'glass-card product-card'; // Added glass-card class
-                card.style.padding = '0'; // Reset padding for image
-                card.onclick = () => openModal(item.id);
-                card.innerHTML = `
-                    <div class="p-img-box">
-                        <img src="${item.images[0]}" class="p-img">
-                    </div>
+            items.forEach(i => {
+                let div = document.createElement('div');
+                div.className = 'glass-card product-card';
+                div.style.padding = '0';
+                div.onclick = () => openModal(i.id);
+                div.innerHTML = `
+                    <div class="p-img-box"><img src="${i.images[0]}" class="p-img"></div>
                     <div class="p-content">
-                        <div class="p-title">${item.title}</div>
-                        <div class="p-price">${item.price}</div>
-                    </div>
-                `;
-                grid.appendChild(card);
+                        <div class="p-title">${i.title}</div>
+                        <div class="p-price">${i.price}</div>
+                    </div>`;
+                grid.appendChild(div);
             });
+        }
+
+        /* --- LOGIC: FILTER + SEARCH + SORT --- */
+        function updateGrid() {
+            let result = inventory;
+
+            // 1. Filter Category
+            if(currentFilter !== 'all') {
+                result = result.filter(i => i.cat === currentFilter);
+            }
+
+            // 2. Search Text
+            if(currentSearch !== '') {
+                let l = currentSearch.toLowerCase();
+                result = result.filter(i => i.title.toLowerCase().includes(l) || i.cat.includes(l));
+            }
+
+            // 3. Sort Price
+            if(currentSort !== 'def') {
+                result = [...result].sort((a, b) => {
+                    // Remove comma and currency symbol to parse int
+                    let pA = parseInt(a.price.replace(/,/g, '').replace('₮',''));
+                    let pB = parseInt(b.price.replace(/,/g, '').replace('₮',''));
+                    return currentSort === 'asc' ? pA - pB : pB - pA;
+                });
+            }
+
+            renderProducts(result);
         }
 
         function filterItems(cat, btn) {
             document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
             btn.classList.add('active');
-            if(cat === 'all') renderProducts(inventory);
-            else renderProducts(inventory.filter(i => i.cat === cat));
+            currentFilter = cat;
+            updateGrid();
         }
 
-        function searchItems(query) {
-            const lower = query.toLowerCase();
-            renderProducts(inventory.filter(i => 
-                i.title.toLowerCase().includes(lower) || 
-                i.cat.toLowerCase().includes(lower)
-            ));
+        function searchItems(val) {
+            currentSearch = val;
+            updateGrid();
         }
 
-        /* --- MODAL LOGIC --- */
+        function sortItems(val) {
+            currentSort = val;
+            updateGrid();
+        }
+
+        /* --- MODAL --- */
         const modal = document.getElementById('modal-view');
         const carousel = document.getElementById('m-carousel');
         const indicators = document.getElementById('m-indicators');
 
         function openModal(id) {
-            const item = inventory.find(i => i.id === id);
-            
+            let item = inventory.find(i => i.id === id);
             document.getElementById('m-title').innerText = item.title;
             document.getElementById('m-price').innerText = item.price;
             document.getElementById('m-lvl').innerText = item.lvl;
             document.getElementById('m-rank').innerText = item.rank;
             document.getElementById('m-link').innerText = item.link;
-
-            const descList = document.getElementById('m-desc');
-            descList.innerHTML = '';
-            item.desc.forEach(d => descList.innerHTML += `<li>${d}</li>`);
-
-            carousel.innerHTML = '';
-            indicators.innerHTML = '';
             
-            item.images.forEach((imgSrc, index) => {
-                const slide = document.createElement('div');
-                slide.className = 'm-slide';
-                slide.innerHTML = `<img src="${imgSrc}" class="m-img">`;
-                carousel.appendChild(slide);
+            let ul = document.getElementById('m-desc'); ul.innerHTML = '';
+            item.desc.forEach(d => ul.innerHTML += `<li>${d}</li>`);
 
-                const dot = document.createElement('div');
-                dot.className = index === 0 ? 'ind-dot active' : 'ind-dot';
-                indicators.appendChild(dot);
+            carousel.innerHTML = ''; indicators.innerHTML = '';
+            item.images.forEach((src, idx) => {
+                let s = document.createElement('div'); s.className = 'm-slide';
+                s.innerHTML = `<img src="${src}" class="m-img">`;
+                carousel.appendChild(s);
+                
+                let d = document.createElement('div'); d.className = idx===0?'ind-dot active':'ind-dot';
+                indicators.appendChild(d);
             });
 
             carousel.onscroll = () => {
-                const index = Math.round(carousel.scrollLeft / carousel.offsetWidth);
-                document.querySelectorAll('.ind-dot').forEach((d, i) => {
-                    if (i === index) d.classList.add('active');
-                    else d.classList.remove('active');
-                });
+                let idx = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+                Array.from(indicators.children).forEach((d, i) => d.className = i===idx?'ind-dot active':'ind-dot');
             };
-
             modal.style.display = 'block';
         }
-
         function closeModal() { modal.style.display = 'none'; }
 
         /* --- TABS & SWIPE --- */
-        let currentTabIndex = 0;
-        const tabOrder = ['home', 'accounts', 'proofs'];
+        const tabs = ['home', 'accounts', 'proofs'];
+        let curTab = 0;
         
         function switchTab(id, btn) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById('tab-' + id).classList.add('active');
+            document.getElementById('tab-'+id).classList.add('active');
             
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            btn.classList.add('active');
-            currentTabIndex = tabOrder.indexOf(id);
+            if(btn) {
+                document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            } else {
+                let idx = tabs.indexOf(id);
+                document.querySelectorAll('.nav-item').forEach((b, i) => {
+                    if(i===idx) b.classList.add('active'); else b.classList.remove('active');
+                });
+            }
+            curTab = tabs.indexOf(id);
         }
 
-        let startX = 0;
-        const swipeArea = document.getElementById('swipe-area');
-
-        swipeArea.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
-        swipeArea.addEventListener('touchend', (e) => {
-            const diff = startX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0 && currentTabIndex < 2) currentTabIndex++;
-                else if (diff < 0 && currentTabIndex > 0) currentTabIndex--;
-                
-                const targetId = tabOrder[currentTabIndex];
-                const btn = document.querySelectorAll('.nav-item')[currentTabIndex];
-                switchTab(targetId, btn);
+        let sx = 0;
+        let zone = document.getElementById('swipe-area');
+        zone.addEventListener('touchstart', e => sx = e.touches[0].clientX);
+        zone.addEventListener('touchend', e => {
+            let diff = sx - e.changedTouches[0].clientX;
+            if(Math.abs(diff) > 50) {
+                if(diff > 0 && curTab < 2) curTab++;
+                else if(diff < 0 && curTab > 0) curTab--;
+                switchTab(tabs[curTab]);
             }
         });
 
+        /* --- INIT --- */
         renderProducts(inventory);
+        document.addEventListener('click', e => {
+            let t = e.target.closest('.product-card, .btn-glow, .admin-card, .group-item, .nav-item, .filter-chip, .btn-buy, .sort-select');
+            if(t) { t.classList.add('touch-active'); setTimeout(()=>t.classList.remove('touch-active'), 300); }
+        });
+
     </script>
 </body>
 </html>
-
-
-
-
-
