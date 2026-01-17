@@ -3,780 +3,714 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#F2F2F7">
     
     <meta property="og:title" content="Game Market MN" />
-    <meta property="og:description" content="PUBG, MLBB, Standoff 2 Account Shop" />
+    <meta property="og:description" content="Verified Gaming Store" />
     <meta property="og:image" content="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png" />
     
     <title>Game Market MN</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-deep: #050508;
-            --glass-bg: rgba(20, 20, 30, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --primary: #00f2ff; /* Cyber Blue */
-            --secondary: #bd00ff; /* Neon Purple */
-            --gold: #ffd700;
-            --hot-color: #ff2a4d;
-            --text-main: #ffffff;
-            --text-muted: #9494a8;
-            --nav-height: 75px;
-            --card-radius: 16px;
+            /* Vibrant Light Palette */
+            --bg-body: #F5F5F7;
+            --bg-card: #FFFFFF;
+            
+            /* Gradient Brand Colors */
+            --primary: #007AFF;
+            --gradient-main: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+            --gradient-accent: linear-gradient(135deg, #FF2D55 0%, #FF9500 100%);
+            
+            --text-main: #1C1C1E;
+            --text-sec: #8E8E93;
+            --border: #E5E5EA;
+            
+            --shadow-card: 0 4px 20px rgba(0,0,0,0.06);
+            --shadow-float: 0 10px 30px rgba(0,122,255,0.25);
+            
+            --radius-card: 20px;
+            --radius-btn: 14px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--bg-body);
             color: var(--text-main);
-            font-family: 'Outfit', sans-serif;
-            overflow: hidden;
-        }
-
-        ::-webkit-scrollbar { display: none; width: 0 !important; }
-        * { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .ambient-light {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(189, 0, 255, 0.08), transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 242, 255, 0.08), transparent 40%);
-            z-index: -1;
-        }
-
-        .app-frame {
+            font-family: 'Inter', sans-serif;
             height: 100vh;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* --- APP SHELL --- */
+        .app-shell {
+            width: 100%; max-width: 500px; height: 100%;
+            background: var(--bg-body);
             display: flex; flex-direction: column;
-            max-width: 500px; 
-            margin: 0 auto;
-            background: rgba(5, 5, 8, 0.85);
-            backdrop-filter: blur(20px);
             position: relative;
-            border-left: 1px solid var(--glass-border);
-            border-right: 1px solid var(--glass-border);
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
         }
 
-        .top-bar {
-            padding: 15px 20px;
-            display: flex; justify-content: center; align-items: center;
-            background: rgba(5, 5, 8, 0.9);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 20;
+        /* --- HEADER --- */
+        .header {
+            padding: 0 20px; height: 60px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: sticky; top: 0; z-index: 50;
         }
-        .brand { 
-            font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 800; 
-            background: linear-gradient(90deg, #fff, var(--primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase; letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+        .brand-wrap { display: flex; align-items: center; gap: 10px; }
+        .brand-logo { 
+            width: 34px; height: 34px; border-radius: 10px; 
+            overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .header-title { font-size: 1.1rem; font-weight: 800; color: #000; letter-spacing: -0.5px; }
+        
+        .header-actions { display: flex; gap: 8px; }
+        .icon-btn { 
+            width: 40px; height: 40px; border-radius: 50%; border: none; background: #fff;
+            font-size: 1.2rem; color: #333; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex; align-items: center; justify-content: center; transition: 0.2s;
+        }
+        .icon-btn:active { transform: scale(0.95); }
 
-        .content-area {
-            flex: 1; overflow-y: auto; padding: 15px;
-            padding-bottom: calc(var(--nav-height) + 20px);
+        /* --- CONTENT --- */
+        .main-view {
+            flex: 1; overflow-y: auto; overflow-x: hidden;
+            padding-bottom: 90px;
         }
+        .main-view::-webkit-scrollbar { display: none; }
 
-        /* --- UI ELEMENTS --- */
-        .glass-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-            border: 1px solid var(--glass-border);
-            border-radius: var(--card-radius);
-            padding: 20px;
-            margin-bottom: 20px;
+        .container { padding: 20px; }
+
+        /* --- HERO BANNER (REPLACES PROFILE) --- */
+        .store-hero {
+            background: #fff; border-radius: var(--radius-card);
+            overflow: hidden; margin-bottom: 24px;
+            box-shadow: var(--shadow-card); position: relative;
+        }
+        .hero-bg {
+            height: 140px; width: 100%;
+            background: url('https://i.ibb.co/TqWSLsxZ/GAME-MARKET-MN-Facebook-Cover.png') center/cover;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-
-        .avatar-wrap { 
-            position: relative; width: 80px; height: 80px; margin: 0 auto 15px; 
-            border-radius: 50%; padding: 2px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-        }
-        .avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid #000; }
-        .verified-icon { 
-            position: absolute; bottom: 0; right: 0; 
-            background: var(--primary); color: #000; 
-            width: 22px; height: 22px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; font-size: 0.7rem; border: 2px solid #000;
-        }
-        
-        .btn-row { display: flex; gap: 10px; margin-top: 20px; }
-        .btn-glow {
-            flex: 1; padding: 12px; border-radius: 12px; 
-            text-align: center; text-decoration: none; font-weight: 600; font-size: 0.85rem;
-            transition: 0.3s; border: 1px solid transparent;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .btn-fb { background: rgba(24, 119, 242, 0.1); color: #4db5ff; border-color: rgba(24, 119, 242, 0.2); }
-        .btn-group { background: rgba(255, 255, 255, 0.05); color: #fff; border-color: rgba(255, 255, 255, 0.1); }
-
-        .tutorial-trigger {
-            background: linear-gradient(90deg, rgba(0, 242, 255, 0.05), transparent); 
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            color: var(--primary); text-align: center; padding: 14px;
-            border-radius: 12px; margin-bottom: 25px; cursor: pointer;
-            font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.05);
-        }
-
-        .section-label { 
-            font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; 
-            margin: 25px 0 10px 5px; font-weight: 700; display: flex; align-items: center; gap: 10px;
-        }
-        .section-label::after { content:''; flex:1; height:1px; background: linear-gradient(90deg, var(--glass-border), transparent); }
-
-        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .admin-card {
-            text-align: center; text-decoration: none; color: inherit;
-            display: flex; flex-direction: column; align-items: center;
-            padding: 15px; margin-bottom: 0;
-        }
-        .admin-img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; margin-bottom: 8px; box-shadow: 0 0 15px rgba(255, 215, 0, 0.15); }
-        .admin-role { font-size: 0.65rem; color: var(--gold); text-transform: uppercase; margin-top: 3px; letter-spacing: 1px; }
-
-        .service-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--glass-border); font-size: 0.85rem; color: #ccc; }
-        .service-row:last-child { border-bottom: none; }
-        .price-hl { color: var(--primary); font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; }
-
-        /* --- SHOP STYLES IMPROVED --- */
-        .shop-controls { 
-            display: flex; gap: 10px; margin-bottom: 15px; 
-            position: sticky; top: 0; z-index: 10;
-            background: rgba(5,5,8,0.95); padding-bottom: 10px; padding-top: 5px;
-        }
-        
-        .search-bar { position: relative; flex: 1; }
-        .search-input {
-            width: 100%; background: #0f0f16; border: 1px solid var(--glass-border);
-            padding: 12px 12px 12px 42px; border-radius: 12px; color: #fff; transition: 0.3s;
-            font-family: 'Outfit', sans-serif; font-size: 0.9rem;
-        }
-        .search-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 242, 255, 0.15); outline: none; background: #161621; }
-        .search-icon { position: absolute; left: 14px; top: 14px; color: var(--text-muted); font-size: 0.9rem; }
-        
-        .sort-select {
-            height: 100%; background: #0f0f16; border: 1px solid var(--glass-border);
-            border-radius: 12px; color: var(--text-muted); padding: 0 12px; outline: none;
-            font-family: 'Outfit', sans-serif; font-size: 0.85rem;
-        }
-
-        .filter-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 5px; }
-        .filter-chip {
-            padding: 8px 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 8px;
-            font-size: 0.75rem; white-space: nowrap; color: var(--text-muted); cursor: pointer; transition: 0.3s;
-            text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;
-        }
-        .filter-chip.active { 
-            background: var(--primary); color: #000; border-color: var(--primary); 
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
-        }
-
-        .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 20px; }
-
-        .product-card {
-            background: #101018;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            position: relative; 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            cursor: pointer;
-            animation: fadeInItem 0.5s ease forwards;
-            opacity: 0; transform: translateY(10px);
-        }
-        @keyframes fadeInItem { to { opacity: 1; transform: translateY(0); } }
-
-        .product-card:hover, .product-card:active {
-            transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
-        }
-        .product-card.is-hot { border: 1px solid rgba(255, 42, 77, 0.3); }
-        .product-card.is-hot:hover { border-color: var(--hot-color); box-shadow: 0 0 20px rgba(255, 42, 77, 0.2); }
-
-        .p-img-box {
-            width: 100%; aspect-ratio: 16/10; 
-            background: #000; position: relative; overflow: hidden;
-        }
-        .p-img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
-        .product-card:hover .p-img { transform: scale(1.08); }
-
-        .p-overlay {
+        .hero-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to top, #101018 10%, rgba(16,16,24,0.6) 40%, transparent 80%);
-            z-index: 1;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+        .hero-content {
+            padding: 20px; position: relative; margin-top: -60px;
+        }
+        .store-avatar {
+            width: 80px; height: 80px; border-radius: 20px; border: 4px solid #fff;
+            background: #fff; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+        .store-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            background: var(--primary); color: #fff; padding: 4px 10px;
+            border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .store-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 5px; line-height: 1.1; }
+        .store-meta { font-size: 0.9rem; color: var(--text-sec); margin-bottom: 15px; }
+
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-brand {
+            background: var(--gradient-main); color: #fff; border: none;
+            height: 44px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            text-decoration: none; box-shadow: 0 4px 15px rgba(0,122,255,0.3);
+        }
+        .btn-sec {
+            background: #F2F2F7; color: #000; border: none;
+            height: 44px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            text-decoration: none;
         }
 
-        .cat-badge {
-            position: absolute; top: 8px; left: 8px; z-index: 5;
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-            padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.65rem; color: #fff; display: flex; align-items: center; gap: 5px; font-weight: 600;
+        /* --- TUTORIAL CARD --- */
+        .tutorial-card {
+            background: #fff; border-radius: var(--radius-card);
+            padding: 15px 20px; margin-bottom: 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: var(--shadow-card); cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.05);
         }
-        .cat-badge i { color: var(--primary); }
+        .tut-icon {
+            width: 40px; height: 40px; border-radius: 12px; background: #FFF4F6; color: #FF2D55;
+            display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+        }
+        .tut-text h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
+        .tut-text p { font-size: 0.75rem; color: var(--text-sec); }
+        .tut-arrow { color: #C7C7CC; }
 
-        .hot-badge {
-            position: absolute; top: 8px; right: 8px;
-            background: var(--hot-color); color: white; 
-            padding: 3px 8px; border-radius: 4px;
-            font-size: 0.65rem; font-weight: 800; z-index: 6;
-            box-shadow: 0 0 10px rgba(255, 42, 77, 0.5);
-            letter-spacing: 0.5px;
+        /* --- LISTS --- */
+        .section-head { 
+            display: flex; justify-content: space-between; align-items: center;
+            margin: 0 5px 15px 5px;
         }
-        .hot-icon-pulse { animation: flamePulse 1.5s infinite alternate; }
+        .sec-title { font-size: 1.1rem; font-weight: 700; }
+        .sec-link { font-size: 0.85rem; color: var(--primary); text-decoration: none; font-weight: 500; }
 
-        .sold-badge {
-            position: absolute; inset: 0;
-            background: rgba(5, 5, 8, 0.75); 
-            display: flex; align-items: center; justify-content: center; z-index: 10;
-            backdrop-filter: blur(2px);
-        }
-        .sold-text {
-            border: 2px solid #ff2a4d; color: #fff; background: #ff2a4d;
-            padding: 4px 20px; font-weight: 900; transform: rotate(-10deg); font-size: 0.9rem;
-            box-shadow: 0 0 20px rgba(255, 42, 77, 0.6); letter-spacing: 2px;
-        }
+        .admin-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; padding-left: 5px; scrollbar-width: none;}
+        .admin-scroll::-webkit-scrollbar { display: none; }
 
-        .p-content {
-            padding: 12px; position: relative; z-index: 2;
-            background: #101018;
-            border-top: 1px solid rgba(255,255,255,0.03);
+        .admin-pill {
+            background: #fff; padding: 8px 16px 8px 8px; border-radius: 50px;
+            display: flex; align-items: center; gap: 10px; min-width: max-content;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-decoration: none; color: inherit;
         }
-        .p-title {
-            font-size: 0.85rem; font-weight: 500; color: #e0e0e0; margin-bottom: 6px;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            line-height: 1.2;
-        }
-        .p-price-row {
-            display: flex; justify-content: space-between; align-items: flex-end;
-        }
-        .p-price {
-            color: var(--primary); font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.15rem;
-            text-shadow: 0 0 15px rgba(0, 242, 255, 0.25); line-height: 1;
-        }
-        .p-rank {
-            font-size: 0.65rem; color: var(--text-muted); background: rgba(255,255,255,0.05);
-            padding: 2px 6px; border-radius: 4px; text-transform: uppercase;
-        }
+        .adm-av { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+        .adm-info div:first-child { font-weight: 600; font-size: 0.85rem; }
+        .adm-info div:last-child { font-size: 0.7rem; color: var(--text-sec); text-transform: uppercase;}
 
-        /* --- GROUPS LIST --- */
-        .group-item {
-            display: flex; align-items: center; gap: 15px; 
-            background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
-            padding: 12px 15px; border-radius: 12px; margin-bottom: 10px; 
-            border: 1px solid var(--glass-border); text-decoration: none; color: inherit; 
-            transition: 0.3s ease;
+        .price-table {
+            background: #fff; border-radius: var(--radius-card); padding: 5px 20px;
+            box-shadow: var(--shadow-card);
         }
-        .group-item:active { background: rgba(255,255,255,0.05); transform: scale(0.98); }
+        .price-row {
+            display: flex; justify-content: space-between; padding: 15px 0;
+            border-bottom: 1px solid var(--border); font-size: 0.9rem;
+        }
+        .price-row:last-child { border-bottom: none; }
+        .price-val { font-weight: 700; color: var(--primary); }
+
+        /* --- SHOP --- */
+        .search-sticky {
+            position: sticky; top: 0; z-index: 40;
+            background: rgba(245, 245, 247, 0.95);
+            backdrop-filter: blur(10px); padding: 10px 20px;
+        }
+        .search-box { position: relative; }
+        .search-inp {
+            width: 100%; height: 46px; background: #fff; border: none;
+            border-radius: 14px; padding: 0 45px; font-size: 1rem; color: #000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .search-icon { position: absolute; left: 15px; top: 14px; color: #8E8E93; font-size: 1.1rem; }
+
+        .tag-scroll { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none;}
+        .tag-scroll::-webkit-scrollbar { display: none; }
+        .tag {
+            padding: 8px 18px; background: #fff; border-radius: 20px;
+            font-size: 0.85rem; font-weight: 600; color: var(--text-sec);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03); cursor: pointer; white-space: nowrap; transition: 0.2s;
+        }
+        .tag.active { background: #000; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+        .prod-card {
+            background: #fff; border-radius: 18px; overflow: hidden;
+            box-shadow: var(--shadow-card); transition: 0.2s; position: relative;
+        }
+        .prod-card:active { transform: scale(0.97); }
         
-        .g-icon { 
-            width: 42px; height: 42px; border-radius: 10px; 
-            display: flex; align-items: center; justify-content: center; font-size: 1.1rem; 
-            flex-shrink: 0; position: relative; overflow: hidden;
-        }
-        .icon-admin { color: var(--gold); border: 1px solid rgba(255, 215, 0, 0.2); background: rgba(255, 215, 0, 0.05); }
-        .icon-mod { color: var(--primary); border: 1px solid rgba(0, 242, 255, 0.2); background: rgba(0, 242, 255, 0.05); }
-
-        .g-details h4 { font-size: 0.85rem; font-weight: 600; line-height: 1.3; }
-        .g-details p { font-size: 0.7rem; color: var(--text-muted); }
-        .role-badge { margin-left: auto; font-size: 0.65rem; font-weight: 800; padding: 4px 8px; border-radius: 4px; letter-spacing: 0.5px; }
-        .bg-admin { background: var(--gold); color: #000; }
-        .bg-mod { background: rgba(0, 242, 255, 0.1); color: var(--primary); border: 1px solid var(--primary); }
-
-        /* --- NAV --- */
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height);
-            background: rgba(5, 5, 8, 0.95); backdrop-filter: blur(15px);
-            border-top: 1px solid var(--glass-border); z-index: 50;
-            display: flex; justify-content: space-around; align-items: center;
-        }
-        .nav-item {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: #666; width: 70px; height: 100%; cursor: pointer; transition: 0.3s;
-        }
-        .nav-item i { font-size: 1.3rem; margin-bottom: 5px; transition: 0.3s; }
-        .nav-item span { font-size: 0.65rem; font-weight: 600; opacity: 0; transform: translateY(5px); transition: 0.3s; }
+        .p-img-con { width: 100%; padding-top: 100%; position: relative; background: #f0f0f0; }
+        .p-img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; }
         
-        .nav-item.active { color: var(--primary); }
-        .nav-item.active i { transform: translateY(-3px); text-shadow: 0 0 15px var(--primary); }
-        .nav-item.active span { opacity: 1; transform: translateY(0); }
+        .badge-hot {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(4px);
+            padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 800;
+            color: #FF2D55; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
 
-        /* --- MODAL --- */
+        .p-info { padding: 12px; }
+        .p-title { font-size: 0.9rem; font-weight: 600; color: #1C1C1E; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .p-price { font-size: 1.05rem; font-weight: 700; color: var(--primary); }
+
+        /* --- BOTTOM NAV --- */
+        .nav-float {
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 8px 30px; border-radius: 50px;
+            display: flex; gap: 40px; align-items: center;
+            box-shadow: var(--shadow-float); z-index: 100;
+        }
+        .nav-btn {
+            font-size: 1.5rem; color: #C7C7CC; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nav-btn.active { color: var(--primary); transform: translateY(-3px); }
+
+        /* --- MODALS --- */
         .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 100; display: none; 
-            /* animation: fadeIn 0.3s; No animation on background to avoid flashing */
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200;
+            display: none; align-items: flex-end; backdrop-filter: blur(3px);
         }
-        .modal-container {
-            width: 100%; height: 100%; max-width: 500px; margin: 0 auto;
-            display: flex; flex-direction: column; background: #08080c;
-            animation: zoomIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); /* Nice Pop Effect */
-        }
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .m-header {
-            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
-            background: #08080c; border-bottom: 1px solid var(--glass-border);
-        }
-        .m-close { font-size: 1.5rem; color: #fff; cursor: pointer; padding: 5px; }
+        .modal-overlay.active { display: flex; animation: fade 0.3s; }
         
-        .m-carousel {
-            width: 100%; aspect-ratio: 16/9; background: #000;
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+        .sheet {
+            width: 100%; max-width: 500px; height: 85vh;
+            background: #fff; border-radius: 24px 24px 0 0;
+            display: flex; flex-direction: column;
+            animation: slide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            margin: 0 auto; overflow: hidden;
         }
-        .m-slide { min-width: 100%; scroll-snap-align: center; display: flex; align-items: center; justify-content: center; position: relative;}
-        .m-img { width: 100%; height: 100%; object-fit: contain; }
+        @keyframes slide { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-        .m-body { padding: 20px; flex: 1; overflow-y: auto; }
-        .m-price { font-family: 'Rajdhani', sans-serif; }
+        .sheet-scroll { flex: 1; overflow-y: auto; padding: 24px; }
         
-        .spec-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .spec-item { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; text-align: center; border: 1px solid var(--glass-border); }
-        .spec-val { color: var(--primary); font-weight: 700; display: block; font-size: 0.9rem; margin-bottom: 2px;}
-        .spec-lbl { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 1px;}
+        /* Product Modal Specifics */
+        .m-img-box {
+            width: 100%; height: 260px; background: #F2F2F7; border-radius: 20px; 
+            margin-bottom: 24px; display: flex; align-items: center; justify-content: center;
+        }
+        .m-img { width: 100%; height: 100%; object-fit: contain; border-radius: 20px; }
+        .m-title { font-size: 1.4rem; font-weight: 800; line-height: 1.3; margin-bottom: 5px; }
+        .m-price { font-size: 1.6rem; font-weight: 700; color: var(--primary); margin-bottom: 20px; }
 
-        .m-footer { padding: 20px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px; background: #08080c; }
-        
+        .m-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+        .spec-box { background: #F9F9FB; padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #F2F2F7; }
+        .spec-lbl { font-size: 0.75rem; color: #8E8E93; text-transform: uppercase; margin-bottom: 2px; }
+        .spec-val { font-size: 0.95rem; font-weight: 700; color: #000; }
+
+        .sheet-act {
+            padding: 16px 24px; border-top: 1px solid var(--border);
+            display: flex; gap: 12px; padding-bottom: 30px; background: #fff;
+        }
         .btn-buy {
-            flex: 2; padding: 16px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: #fff; text-align: center; font-weight: 800; text-decoration: none; border-radius: 12px;
-            box-shadow: 0 0 25px rgba(0, 242, 255, 0.25); text-transform: uppercase; letter-spacing: 1px;
-        }
-        .btn-share {
-            flex: 1; padding: 16px;
-            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
-            color: #fff; text-align: center; font-weight: 600; border-radius: 12px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+            flex: 1; background: var(--gradient-main); color: #fff; height: 50px;
+            border-radius: 14px; font-weight: 600; font-size: 1rem;
+            display: flex; align-items: center; justify-content: center; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,122,255,0.3);
         }
 
-        /* --- EXTRAS --- */
-        .loading-text { text-align: center; padding: 40px 20px; color: var(--text-muted); grid-column: span 2; font-size: 0.9rem;}
-        
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes flamePulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.2); opacity: 1; } }
+        /* Tutorial Specifics */
+        .step-row { display: flex; gap: 15px; margin-bottom: 25px; align-items: flex-start; }
+        .step-num { 
+            width: 32px; height: 32px; background: var(--primary); color: #fff; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; flex-shrink: 0; margin-top: 2px;
+        }
+        .step-txt h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+        .step-txt p { font-size: 0.9rem; color: #555; line-height: 1.5; }
 
-        /* Tutorial Modal */
-        .tutorial-modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 150;
-            display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px);
-        }
-        .step-row { display: flex; gap: 15px; margin-bottom: 20px; }
-        .step-circle { 
-            width: 28px; height: 28px; background: var(--primary); border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; flex-shrink: 0; 
-        }
+        /* Views & States */
+        .view { display: none; }
+        .view.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
 
-        /* Toast */
-        #toast {
-            visibility: hidden; min-width: 200px; margin-left: -100px;
-            background-color: #fff; color: #000; font-weight: 700;
-            text-align: center; border-radius: 50px; padding: 12px;
-            position: fixed; z-index: 200; left: 50%; bottom: 100px;
-            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+        .skeleton { background: #E5E5EA; border-radius: 18px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% {opacity: 0.6;} 50% {opacity: 1;} 100% {opacity: 0.6;} }
+
+        .toast {
+            position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); color: #fff; padding: 10px 20px; border-radius: 30px;
+            font-weight: 600; font-size: 0.9rem; opacity: 0; pointer-events: none; transition: 0.3s;
+            display: flex; align-items: center; gap: 6px;
         }
-        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 100px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 100px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(10px); }
 
     </style>
 </head>
 <body>
 
-    <div class="ambient-light"></div>
-
-    <div class="app-frame">
+    <div class="app-shell">
         
-        <header class="top-bar">
-            <div class="brand">GAME MARKET</div>
+        <!-- HEADER -->
+        <header class="header">
+            <div class="brand-wrap">
+                <div class="brand-logo">
+                    <img src="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png">
+                </div>
+                <div class="header-title">GameMarket</div>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" onclick="shareStore()"><i class="ri-share-forward-line"></i></button>
+                <button class="icon-btn" onclick="openTutorial()"><i class="ri-question-mark"></i></button>
+            </div>
         </header>
 
-        <div class="content-area">
-
-            <!-- HOME TAB -->
-            <div id="tab-home" class="tab-content active">
-                <div class="glass-card" style="text-align: center; padding-top:30px;">
-                    <div class="avatar-wrap">
-                        <img src="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png" class="avatar">
-                        <div class="verified-icon"><i class="fas fa-check"></i></div>
-                    </div>
-                    <h2 style="font-size: 1.4rem; font-weight:800; color:#fff; margin-bottom:5px;">Game Market MN</h2>
-                    <p style="color: var(--primary); font-size: 0.75rem; letter-spacing:2px; font-weight:600;">VERIFIED MIDMAN & SELLER</p>
+        <div class="main-view">
+            
+            <!-- HOME VIEW -->
+            <div id="view-home" class="view active">
+                <div class="container">
                     
-                    <div class="btn-row">
-                        <a href="https://www.facebook.com/gamemarket.mn" target="_blank" class="btn-glow btn-fb">
-                            <i class="fab fa-facebook"></i> Page
+                    <!-- Store Hero Banner -->
+                    <div class="store-hero">
+                        <div class="hero-bg">
+                            <div class="hero-overlay"></div>
+                        </div>
+                        <div class="hero-content">
+                            <img src="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png" class="store-avatar">
+                            <div>
+                                <div class="store-badge"><i class="ri-verified-badge-fill"></i> Verified</div>
+                            </div>
+                            <h1 class="store-title">Game Market MN</h1>
+                            <div class="store-meta">Дижитал тоглоомын аккоунт худалдаа</div>
+                            
+                            <div class="action-grid">
+                                <a href="https://www.facebook.com/gamemarket.mn" target="_blank" class="btn-brand">
+                                    <i class="ri-facebook-fill"></i> Page
+                                </a>
+                                <a href="https://m.me/cm/AbadrhKBoffAja4U" target="_blank" class="btn-sec">
+                                    <i class="ri-messenger-line"></i> Group
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tutorial Trigger -->
+                    <div class="tutorial-card" onclick="openTutorial()">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <div class="tut-icon"><i class="ri-book-read-line"></i></div>
+                            <div class="tut-text">
+                                <h4>Заавар үзэх</h4>
+                                <p>Худалдан авалт хийх алхамууд</p>
+                            </div>
+                        </div>
+                        <div class="tut-arrow"><i class="ri-arrow-right-s-line"></i></div>
+                    </div>
+
+                    <!-- Admins -->
+                    <div class="section-head">
+                        <div class="sec-title">Админууд</div>
+                        <a href="#" class="sec-link">Бүгд</a>
+                    </div>
+                    <div class="admin-scroll">
+                        <a href="https://www.facebook.com/jargalsaikhan.official" class="admin-pill">
+                            <img src="https://i.ibb.co/FbRQByFq/557149993-2003046580431595-7428406203553023357-n.jpg" class="adm-av">
+                            <div class="adm-info">
+                                <div>Жаргалсайхан</div>
+                                <div>Founder</div>
+                            </div>
                         </a>
-                        <a href="https://m.me/cm/AbadrhKBoffAja4U" target="_blank" class="btn-glow btn-group">
-                            <i class="fas fa-users"></i> Chat
+                        <a href="https://www.facebook.com/you.good.like.man" class="admin-pill">
+                            <img src="https://i.ibb.co/5gzqvTDX/590659809-3995390137383045-2979261091254702807-n.jpg" class="adm-av">
+                            <div class="adm-info">
+                                <div>Пүрэвдаваа</div>
+                                <div>Admin</div>
+                            </div>
                         </a>
                     </div>
-                </div>
 
-                <div class="tutorial-trigger" onclick="openTutorial()">
-                    <i class="fas fa-book-reader"></i> Худалдан авах заавар
-                </div>
+                    <!-- Pricing -->
+                    <div class="section-head" style="margin-top:25px;">
+                        <div class="sec-title">Үнийн мэдээлэл</div>
+                    </div>
+                    <div class="price-table">
+                        <div class="price-row">
+                            <span>Мидман үйлчилгээ</span>
+                            <span class="price-val">1 бинд 5,000₮</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Заавар Зөвөлгөө</span>
+                            <span class="price-val">ҮНЭГҮЙ</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Акк заруулах</span>
+                            <span class="price-val">Зарагдсан үнэний 5%</span>
+                        </div>
+                    </div>
 
-                <div class="section-label"><i class="fas fa-crown" style="color:var(--gold)"></i> Admins</div>
-                
-                <div class="admin-grid">
-                    <a href="https://www.facebook.com/jargalsaikhan.official" class="glass-card admin-card">
-                        <img src="https://i.ibb.co/FbRQByFq/557149993-2003046580431595-7428406203553023357-n.jpg" class="admin-img">
-                        <div style="font-weight:700; font-size:0.85rem;">Б.Жаргалсайхан</div>
-                        <div class="admin-role">Founder</div>
-                    </a>
-                    <a href="https://www.facebook.com/you.good.like.man" target="_blank" class="glass-card admin-card">
-                        <img src="https://i.ibb.co/5gzqvTDX/590659809-3995390137383045-2979261091254702807-n.jpg" class="admin-img">
-                        <div style="font-weight:700; font-size:0.85rem;">А.Пүрэвдаваа</div>
-                        <div class="admin-role">Admin</div>
-                    </a>
-                </div>
+                    <!-- Footer Contact -->
+                    <div style="text-align:center; margin-top:30px; margin-bottom:10px;">
+                        <p style="font-size:0.8rem; color:#8E8E93;">Асуух зүйл байна уу?</p>
+                        <a href="https://www.facebook.com/gamemarket.mn" style="color:var(--primary); font-weight:600; font-size:0.9rem; text-decoration:none;">Бидэнтэй холбогдох</a>
+                    </div>
 
-                <div class="glass-card">
-                    <div class="service-row">
-                        <span>Midman (Low Tier)</span>
-                        <span class="price-hl">5,000₮</span>
-                    </div>
-                    <div class="service-row">
-                        <span>Midman (High Tier)</span>
-                        <span class="price-hl">1%</span>
-                    </div>
-                    <div class="service-row">
-                        <span>Account Sell Fee</span>
-                        <span class="price-hl">5%</span>
-                    </div>
-                    <div class="service-row">
-                        <span>Үнэлгээ & Зөвлөгөө</span>
-                        <span class="price-hl" style="color:#00ff88">FREE</span>
-                    </div>
                 </div>
             </div>
 
-            <!-- ACCOUNTS SHOP TAB -->
-            <div id="tab-accounts" class="tab-content">
-                <div class="shop-controls">
-                    <div class="search-bar">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" placeholder="Pubg, Skin, ID..." onkeyup="searchItems(this.value)">
+            <!-- SHOP VIEW -->
+            <div id="view-shop" class="view">
+                <div class="search-sticky">
+                    <div class="search-box">
+                        <i class="ri-search-2-line search-icon"></i>
+                        <input type="text" class="search-inp" placeholder="Хайх (ID, Skin...)" onkeyup="searchItems(this.value)">
                     </div>
-                    <div class="sort-wrap">
-                        <select class="sort-select" onchange="sortItems(this.value)">
-                            <option value="def">Шинэ</option>
-                            <option value="asc">Үнэ ↑</option>
-                            <option value="desc">Үнэ ↓</option>
-                        </select>
+                    <div class="tag-scroll">
+                        <div class="tag active" onclick="filterItems('all', this)">Бүгд</div>
+                        <div class="tag" onclick="filterItems('pubg', this)">PUBG</div>
+                        <div class="tag" onclick="filterItems('mlbb', this)">MLBB</div>
+                        <div class="tag" onclick="filterItems('standoff', this)">Standoff 2</div>
                     </div>
                 </div>
 
-                <div class="filter-scroll">
-                    <div class="filter-chip active" onclick="filterItems('all', this)">All</div>
-                    <div class="filter-chip" onclick="filterItems('pubg', this)">PUBG</div>
-                    <div class="filter-chip" onclick="filterItems('mlbb', this)">MLBB</div>
-                    <div class="filter-chip" onclick="filterItems('standoff', this)">Standoff</div>
-                </div>
-
-                <div class="products-grid" id="products-container">
-                    <div class="loading-text">
-                        <i class="fas fa-circle-notch fa-spin"></i> Уншиж байна...
-                    </div>
+                <div class="grid" id="product-grid">
+                    <div class="skeleton" style="height: 220px;"></div>
+                    <div class="skeleton" style="height: 220px;"></div>
+                    <div class="skeleton" style="height: 220px;"></div>
+                    <div class="skeleton" style="height: 220px;"></div>
                 </div>
             </div>
 
         </div>
 
-        <nav class="bottom-nav">
-            <div class="nav-item active" onclick="switchTab('home', this)">
-                <i class="fas fa-home"></i><span>Home</span>
+        <!-- FLOATING NAV -->
+        <nav class="nav-float">
+            <div class="nav-btn active" onclick="switchView('home', this)">
+                <i class="ri-home-5-fill"></i>
             </div>
-            <div class="nav-item" onclick="switchTab('accounts', this)">
-                <i class="fas fa-gamepad"></i><span>Shop</span>
+            <div class="nav-btn" onclick="switchView('shop', this)">
+                <i class="ri-store-2-fill"></i>
             </div>
         </nav>
 
     </div>
 
-    <!-- PRODUCT DETAIL MODAL -->
-    <div id="modal-view" class="modal-overlay">
-        <div class="modal-container">
-            <div class="m-header">
-                <div style="font-weight:800; color:var(--text-muted); letter-spacing:1px; font-size:0.9rem;">PRODUCT DETAIL</div>
-                <div class="m-close" onclick="closeModal()">&times;</div>
-            </div>
-            <div class="m-carousel" id="m-carousel"></div>
-            <div class="m-body">
-                <div class="m-price" id="m-price" style="font-size:2rem; color:var(--primary); font-weight:800; margin-bottom:5px; text-shadow:0 0 20px rgba(0,242,255,0.3);"></div>
-                <div id="m-title" style="color:#fff; font-size:1.1rem; margin-bottom:20px; line-height:1.4;"></div>
+    <!-- PRODUCT MODAL -->
+    <div id="product-modal" class="modal-overlay">
+        <div class="sheet">
+            <div class="sheet-scroll">
+                <div class="m-img-box" id="m-gallery"></div>
                 
-                <div class="spec-grid">
-                    <div class="spec-item"><span class="spec-val" id="m-lvl"></span><span class="spec-lbl">LEVEL</span></div>
-                    <div class="spec-item"><span class="spec-val" id="m-rank"></span><span class="spec-lbl">RANK</span></div>
-                    <div class="spec-item"><span class="spec-val" id="m-link"></span><span class="spec-lbl">LINK</span></div>
+                <h2 class="m-title" id="m-title">Loading...</h2>
+                <div class="m-price" id="m-price">0₮</div>
+
+                <div class="m-specs">
+                    <div class="spec-box">
+                        <div class="spec-lbl">Level</div>
+                        <div class="spec-val" id="m-lvl">-</div>
+                    </div>
+                    <div class="spec-box">
+                        <div class="spec-lbl">Rank</div>
+                        <div class="spec-val" id="m-rank">-</div>
+                    </div>
+                    <div class="spec-box" style="grid-column: span 2">
+                        <div class="spec-lbl">Login</div>
+                        <div class="spec-val" id="m-link">-</div>
+                    </div>
                 </div>
 
-                <div style="color:#666; font-size:0.75rem; margin-bottom:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Дэлгэрэнгүй</div>
-                <ul id="m-desc" style="color:#ccc; padding-left:20px; line-height:1.8; font-size:0.9rem;"></ul>
+                <div style="font-weight:700; margin-bottom:10px;">Дэлгэрэнгүй</div>
+                <ul id="m-desc" style="list-style:none; color:#555; line-height:1.6; font-size:0.95rem;"></ul>
             </div>
             
-            <div class="m-footer">
-                <div class="btn-share" onclick="copyLink()">
-                    <i class="fas fa-link"></i>
+            <div class="sheet-act">
+                <div class="btn-sec" style="width: 50px;" onclick="copyLink()">
+                    <i class="ri-share-forward-fill" style="font-size:1.2rem;"></i>
                 </div>
                 <a href="https://m.me/61561712856021" class="btn-buy">
-                    BUY NOW
+                    Худалдаж авах
                 </a>
+                <div class="btn-sec" style="width: 50px;" onclick="closeModal('product-modal')">
+                    <i class="ri-close-fill" style="font-size:1.4rem;"></i>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- TUTORIAL MODAL -->
-    <div id="modal-tutorial" class="tutorial-modal">
-        <div class="glass-card" style="margin:20px; width:100%; max-width:350px; background:#0f0f16; border-color:var(--primary);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                <h3 style="color:#fff; font-size:1.1rem;">Заавар</h3>
-                <div onclick="closeTutorial()" style="color:#fff; font-size:1.5rem; cursor:pointer;">&times;</div>
+    <div id="tutorial-modal" class="modal-overlay">
+        <div class="sheet" style="height:auto; max-height:80vh;">
+            <div style="padding:24px 24px 0 24px; display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="font-size:1.3rem; font-weight:800;">Заавар</h2>
+                <div onclick="closeModal('tutorial-modal')" style="background:#F2F2F7; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;"><i class="ri-close-fill"></i></div>
             </div>
-            
-            <div class="step-row">
-                <div class="step-circle">1</div>
-                <div>
-                    <h4 style="color:#fff; font-size:0.9rem;">Бараагаа сонгох</h4>
-                    <p style="color:var(--text-muted); font-size:0.8rem; margin-top:2px;">Shop хэсгээс таалагдсан аккаунтаа сонгоно.</p>
+            <div class="sheet-scroll">
+                <div class="step-row">
+                    <div class="step-num">1</div>
+                    <div class="step-txt">
+                        <h4>Бараагаа сонгох</h4>
+                        <p>Shop цэснээс өөрт таалагдсан аккаунтаа сонгоод дэлгэрэнгүй мэдээллийг харна уу.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-num">2</div>
+                    <div class="step-txt">
+                        <h4>Холбогдох</h4>
+                        <p>"Худалдаж авах" товч дээр дарснаар манай албан ёсны чат руу шилжинэ.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-num">3</div>
+                    <div class="step-txt">
+                        <h4>Төлбөр & Шилжүүлэг</h4>
+                        <p>Админтай холбогдон төлбөрөө шилжүүлж, аккаунтын мэдээллээ бүрэн авна.</p>
+                    </div>
+                </div>
+                <div style="background:#FFF4F6; color:#FF2D55; padding:15px; border-radius:12px; font-size:0.85rem; line-height:1.5;">
+                    <i class="ri-alert-fill" style="margin-right:5px;"></i> <b>Анхааруулга:</b> Зөвхөн манай албан ёсны Page болон Админуудаар дамжуулан гүйлгээ хийнэ үү.
                 </div>
             </div>
-            <div class="step-row">
-                <div class="step-circle">2</div>
-                <div>
-                    <h4 style="color:#fff; font-size:0.9rem;">Админ руу илгээх</h4>
-                    <p style="color:var(--text-muted); font-size:0.8rem; margin-top:2px;">"BUY NOW" дээр дарж Админ руу чат бичнэ.</p>
-                </div>
+            <div class="sheet-act">
+                <div class="btn-buy" onclick="closeModal('tutorial-modal')">Ойлголоо</div>
             </div>
-            <div class="step-row">
-                <div class="step-circle">3</div>
-                <div>
-                    <h4 style="color:#fff; font-size:0.9rem;">Аюулгүй байдал</h4>
-                    <p style="color:var(--text-muted); font-size:0.8rem; margin-top:2px;">Зөвхөн манай пейж болон админуудаар дамжуулна уу.</p>
-                </div>
-            </div>
-
-            <div onclick="closeTutorial()" style="background:rgba(255,255,255,0.1); text-align:center; padding:12px; border-radius:10px; color:#fff; cursor:pointer; font-weight:700; margin-top:10px;">Ойлголоо</div>
         </div>
     </div>
 
-    <div id="toast"><i class="fas fa-check-circle"></i> Линк хуулагдлаа!</div>
+    <div class="toast" id="toast"><i class="ri-checkbox-circle-fill" style="color:#4ade80"></i> Линк хуулагдлаа!</div>
 
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyVP6BCO_rf2Gr2ZvAeTREK4_ipBWEkvsydCCU4XDZu7PCS5DbL9BqleyV2G5j37-Wa/exec'; 
-
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyVP6BCO_rf2Gr2ZvAeTREK4_ipBWEkvsydCCU4XDZu7PCS5DbL9BqleyV2G5j37-Wa/exec'; 
         let inventory = [];
-        const grid = document.getElementById('products-container');
 
-        async function loadInventory() {
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            if(id) {
+                switchView('shop');
+                setTimeout(() => { if(inventory.length > 0) openProduct(id); }, 1500);
+            }
+        });
+
+        async function loadData() {
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL);
-                const data = await response.json();
+                const res = await fetch(API_URL);
+                const data = await res.json();
                 inventory = data;
-                sortItems('def');
-
-                const urlParams = new URLSearchParams(window.location.search);
-                const productId = urlParams.get('id');
-                if (productId) {
-                    switchTab('accounts');
-                    openModal(parseInt(productId) || productId); 
-                }
-
-            } catch (error) {
-                console.error(error);
-                grid.innerHTML = '<div class="loading-text" style="color:#ff2a4d">Алдаа гарлаа. Дахин ачаална уу.</div>';
+                renderItems(inventory);
+            } catch (err) {
+                document.getElementById('product-grid').innerHTML = '<div style="grid-column: span 2; text-align: center; color: #888; padding: 40px;">Холболт амжилтгүй боллоо.</div>';
             }
         }
 
-        function getCategoryIcon(cat) {
-            if(!cat) return '<i class="fas fa-gamepad"></i> GAME';
-            let c = cat.toLowerCase();
-            if(c.includes('pubg')) return '<i class="fas fa-crosshairs"></i> PUBG';
-            if(c.includes('mlbb')) return '<i class="fas fa-dragon"></i> MLBB';
-            if(c.includes('standoff')) return '<i class="fas fa-bomb"></i> SO2';
-            return '<i class="fas fa-gamepad"></i> ' + cat.toUpperCase();
-        }
-
-        function renderProducts(items) {
+        function renderItems(items) {
+            const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
-            if(!items || items.length === 0) {
-                grid.innerHTML = '<div class="loading-text">Хайлт илэрцгүй байна.</div>';
+
+            if(items.length === 0) {
+                grid.innerHTML = '<div style="grid-column: span 2; text-align: center; color: #888; padding: 40px;">Илэрц олдсонгүй.</div>';
                 return;
             }
 
-            items.forEach((i, index) => {
-                let div = document.createElement('div');
-                let isHot = i.is_hot && String(i.is_hot).trim() !== '';
-                let hotClass = isHot ? 'is-hot' : '';
-                
-                div.className = `product-card ${hotClass}`;
-                div.style.animationDelay = `${index * 0.05}s`; // Stagger animation
-                div.onclick = () => openModal(i.id);
-                
-                let soldBadge = (i.status && i.status.toLowerCase() === 'sold') ? 
-                    `<div class="sold-badge"><div class="sold-text">SOLD</div></div>` : '';
+            items.forEach(item => {
+                const isHot = item.is_hot && String(item.is_hot).trim() !== '';
+                const isSold = item.status && item.status.toLowerCase() === 'sold';
+                const rawPrice = String(item.price).replace(/[^0-9]/g, '');
+                const price = rawPrice ? parseInt(rawPrice).toLocaleString() + '₮' : '0₮';
+                const img = Array.isArray(item.images) ? item.images[0] : item.images;
 
-                let hotBadgeHtml = isHot ? 
-                    `<div class="hot-badge"><i class="fas fa-fire hot-icon-pulse"></i> HOT</div>` : '';
-                
-                let catBadge = `<div class="cat-badge">${getCategoryIcon(i.cat)}</div>`;
+                const card = document.createElement('div');
+                card.className = 'prod-card';
+                card.onclick = () => openProduct(item.id);
 
-                let imgUrl = Array.isArray(i.images) ? i.images[0] : i.images;
-                let rawPrice = String(i.price).replace(/[^0-9]/g, ''); 
-                let formattedPrice = rawPrice ? parseInt(rawPrice).toLocaleString() + '₮' : '0₮';
+                let badge = isHot ? `<div class="badge-hot">HOT</div>` : '';
+                let soldOverlay = isSold ? `<div style="position:absolute; inset:0; background:rgba(255,255,255,0.8); z-index:10; display:flex; align-items:center; justify-content:center;"><span style="color:#FF2D55; font-weight:800; border:3px solid #FF2D55; padding:6px 16px; transform:rotate(-10deg); border-radius:8px;">ЗАРАГДСАН</span></div>` : '';
 
-                div.innerHTML = `
-                    ${soldBadge}
-                    ${hotBadgeHtml}
-                    ${catBadge}
-                    <div class="p-img-box">
-                        <img src="${imgUrl}" class="p-img" loading="lazy">
-                        <div class="p-overlay"></div>
+                card.innerHTML = `
+                    ${soldOverlay}
+                    <div class="p-img-con">
+                        <img src="${img}" class="p-img" loading="lazy">
+                        ${badge}
                     </div>
-                    <div class="p-content">
-                        <div class="p-title">${i.title}</div>
-                        <div class="p-price-row">
-                            <div class="p-price">${formattedPrice}</div>
-                            ${i.rank ? `<div class="p-rank">${i.rank}</div>` : ''}
-                        </div>
+                    <div class="p-info">
+                        <div class="p-title">${item.title}</div>
+                        <div style="font-size:0.75rem; color:#8E8E93; margin-bottom:6px;">${item.cat || 'Game'}</div>
+                        <div class="p-price">${price}</div>
                     </div>
                 `;
-                grid.appendChild(div);
+                grid.appendChild(card);
             });
         }
 
-        /* --- LOGIC --- */
-        let currentFilter = 'all';
+        function switchView(viewId, btn) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById('view-' + viewId).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            else {
+                const t = document.querySelector(`.nav-btn[onclick="switchView('${viewId}', this)"]`);
+                if(t) t.classList.add('active');
+            }
+        }
+
         function filterItems(cat, btn) {
-            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
-            currentFilter = cat;
             
-            let res = inventory;
-            if(cat !== 'all') res = res.filter(i => String(i.cat).toLowerCase().includes(cat));
-            
-            let sortVal = document.querySelector('.sort-select').value;
-            sortItems(sortVal, res); 
+            let filtered = inventory;
+            if(cat !== 'all') filtered = inventory.filter(i => String(i.cat).toLowerCase().includes(cat));
+            renderItems(filtered);
         }
 
         function searchItems(val) {
-            let l = val.toLowerCase();
-            let res = inventory.filter(i => String(i.title).toLowerCase().includes(l) || String(i.id).includes(l));
-            renderProducts(res);
-        }
-        
-        function sortItems(val, dataToSort = inventory) {
-            let res = [...dataToSort];
-            
-            if(val === 'asc') {
-                res.sort((a,b) => parseInt(String(a.price).replace(/\D/g,'')) - parseInt(String(b.price).replace(/\D/g,'')));
-            } else if(val === 'desc') {
-                res.sort((a,b) => parseInt(String(b.price).replace(/\D/g,'')) - parseInt(String(a.price).replace(/\D/g,'')));
-            } else {
-                // Default: Hot first, then by ID (assuming newer IDs are higher)
-                res.sort((a, b) => {
-                    let hotA = a.is_hot ? 1 : 0;
-                    let hotB = b.is_hot ? 1 : 0;
-                    if (hotA !== hotB) return hotB - hotA;
-                    return b.id - a.id; 
-                });
-            }
-            renderProducts(res);
+            const v = val.toLowerCase();
+            const filtered = inventory.filter(i => 
+                String(i.title).toLowerCase().includes(v) || 
+                String(i.id).includes(v)
+            );
+            renderItems(filtered);
         }
 
-        /* --- MODAL LOGIC --- */
-        const modal = document.getElementById('modal-view');
-        const tutorialModal = document.getElementById('modal-tutorial');
-        let currentOpenId = null;
-
-        function openModal(id) {
-            let item = inventory.find(i => i.id == id);
+        let currentId = null;
+        function openProduct(id) {
+            const item = inventory.find(i => i.id == id);
             if(!item) return;
-
-            currentOpenId = id;
-            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?id=' + id;
-            window.history.pushState({modal: true, id: id}, '', newUrl);
-
-            let rawPrice = String(item.price).replace(/[^0-9]/g, '');
-            let fmtPrice = rawPrice ? parseInt(rawPrice).toLocaleString() + '₮' : '0₮';
+            currentId = id;
 
             document.getElementById('m-title').innerText = item.title;
-            document.getElementById('m-price').innerText = fmtPrice;
+            const rawPrice = String(item.price).replace(/[^0-9]/g, '');
+            document.getElementById('m-price').innerText = rawPrice ? parseInt(rawPrice).toLocaleString() + '₮' : '0₮';
+            
             document.getElementById('m-lvl').innerText = item.lvl || '-';
             document.getElementById('m-rank').innerText = item.rank || '-';
             document.getElementById('m-link').innerText = item.link || '-';
-            
-            let ul = document.getElementById('m-desc'); ul.innerHTML = '';
-            let dArr = Array.isArray(item.desc) ? item.desc : String(item.desc).split(',');
-            dArr.forEach(d => {
-                if(d.trim()) ul.innerHTML += `<li>${d}</li>`;
-            });
 
-            let car = document.getElementById('m-carousel'); car.innerHTML = '';
+            const gal = document.getElementById('m-gallery');
             let imgs = Array.isArray(item.images) ? item.images : String(item.images).split(',');
-            imgs.forEach(src => {
-                car.innerHTML += `<div class="m-slide"><img src="${src}" class="m-img"></div>`;
-            });
-            
-            modal.style.display = 'block';
+            gal.innerHTML = `<img src="${imgs[0]}" class="m-img">`;
+
+            const list = document.getElementById('m-desc');
+            list.innerHTML = '';
+            let descs = Array.isArray(item.desc) ? item.desc : String(item.desc).split(',');
+            descs.forEach(d => { if(d.trim()) list.innerHTML += `<li>${d}</li>`; });
+
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?id=' + id;
+            window.history.pushState({modal: true, id: id}, '', newUrl);
+
+            document.getElementById('product-modal').classList.add('active');
         }
 
-        function closeModal() { 
-            modal.style.display = 'none'; 
-            if(window.history.state && window.history.state.modal) {
-                window.history.back();
+        function openTutorial() {
+            document.getElementById('tutorial-modal').classList.add('active');
+        }
+        
+        function shareStore() {
+            const url = window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Game Market MN',
+                    text: 'Мэргэжлийн Тоглоомын Худалдаа',
+                    url: url
+                });
             } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    const t = document.getElementById('toast');
+                    t.classList.add('show');
+                    setTimeout(() => t.classList.remove('show'), 2000);
+                });
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            if(modalId === 'product-modal') {
                 const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
                 window.history.replaceState({}, '', cleanUrl);
             }
         }
 
-        function openTutorial() { tutorialModal.style.display = 'flex'; }
-        function closeTutorial() { tutorialModal.style.display = 'none'; }
-        
-        window.onpopstate = (event) => {
-            if (modal.style.display === 'block') modal.style.display = 'none';
-            if (tutorialModal.style.display === 'flex') tutorialModal.style.display = 'none';
+        window.onpopstate = () => {
+            closeModal('product-modal');
+            closeModal('tutorial-modal');
         };
 
         function copyLink() {
-            if(!currentOpenId) return;
-            const url = window.location.protocol + "//" + window.location.host + window.location.pathname + '?id=' + currentOpenId;
-            navigator.clipboard.writeText(url).then(() => { showToast(); }).catch(err => { console.error(err); });
+            if(!currentId) return;
+            const url = window.location.protocol + "//" + window.location.host + window.location.pathname + '?id=' + currentId;
+            navigator.clipboard.writeText(url).then(() => {
+                const t = document.getElementById('toast');
+                t.classList.add('show');
+                setTimeout(() => t.classList.remove('show'), 2000);
+            });
         }
-
-        function showToast() {
-            var x = document.getElementById("toast");
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-        }
-
-        function switchTab(id, btn) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById('tab-'+id).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            if(!btn) {
-                const navBtn = document.querySelector(`.nav-item[onclick="switchTab('${id}', this)"]`);
-                if(navBtn) navBtn.classList.add('active');
-            }
-        }
-
-        loadInventory();
     </script>
 </body>
 </html>
