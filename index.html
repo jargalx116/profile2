@@ -264,10 +264,14 @@
         
         /* Product Modal Specifics */
         .m-img-box {
-            width: 100%; height: 260px; background: #F2F2F7; border-radius: 20px; 
-            margin-bottom: 24px; display: flex; align-items: center; justify-content: center;
+            width: 100%; 
+            background: transparent; /* No dark background */
+            border-radius: 16px; 
+            margin-bottom: 24px; 
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .m-img { width: 100%; height: 100%; object-fit: contain; border-radius: 20px; }
+        .m-img { width: 100%; height: auto; display: block; }
         .m-title { font-size: 1.4rem; font-weight: 800; line-height: 1.3; margin-bottom: 5px; }
         .m-price { font-size: 1.6rem; font-weight: 700; color: var(--primary); margin-bottom: 20px; }
 
@@ -328,7 +332,6 @@
                 <div class="header-title">GameMarket</div>
             </div>
             <div class="header-actions">
-                <button class="icon-btn" onclick="shareStore()"><i class="ri-share-forward-line"></i></button>
                 <button class="icon-btn" onclick="openTutorial()"><i class="ri-question-mark"></i></button>
             </div>
         </header>
@@ -491,13 +494,10 @@
             </div>
             
             <div class="sheet-act">
-                <div class="btn-sec" style="width: 50px;" onclick="copyLink()">
-                    <i class="ri-share-forward-fill" style="font-size:1.2rem;"></i>
-                </div>
                 <a href="https://m.me/61561712856021" class="btn-buy">
                     Худалдаж авах
                 </a>
-                <div class="btn-sec" style="width: 50px;" onclick="closeModal('product-modal')">
+                <div class="btn-sec" style="width: 50px; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="closeModal('product-modal')">
                     <i class="ri-close-fill" style="font-size:1.4rem;"></i>
                 </div>
             </div>
@@ -671,23 +671,6 @@
         function openTutorial() {
             document.getElementById('tutorial-modal').classList.add('active');
         }
-        
-        function shareStore() {
-            const url = window.location.href;
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Game Market MN',
-                    text: 'Мэргэжлийн Тоглоомын Худалдаа',
-                    url: url
-                });
-            } else {
-                navigator.clipboard.writeText(url).then(() => {
-                    const t = document.getElementById('toast');
-                    t.classList.add('show');
-                    setTimeout(() => t.classList.remove('show'), 2000);
-                });
-            }
-        }
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
@@ -714,4 +697,3 @@
     </script>
 </body>
 </html>
-
