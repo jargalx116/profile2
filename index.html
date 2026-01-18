@@ -191,13 +191,25 @@
             background: rgba(245, 245, 247, 0.95);
             backdrop-filter: blur(10px); padding: 10px 20px;
         }
-        .search-box { position: relative; }
+        .search-box { 
+            position: relative; 
+            display: flex; gap: 10px; align-items: center;
+        }
         .search-inp {
-            width: 100%; height: 46px; background: #fff; border: none;
+            flex: 1; height: 46px; background: #fff; border: none;
             border-radius: 14px; padding: 0 45px; font-size: 1rem; color: #000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .search-icon { position: absolute; left: 15px; top: 14px; color: #8E8E93; font-size: 1.1rem; }
+        
+        .sort-btn {
+            width: 46px; height: 46px; border-radius: 14px; border: none;
+            background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            color: #1C1C1E; font-size: 1.2rem; cursor: pointer; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.2s;
+        }
+        .sort-btn.active { color: var(--primary); background: #E5F1FF; }
 
         .tag-scroll { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none;}
         .tag-scroll::-webkit-scrollbar { display: none; }
@@ -262,16 +274,41 @@
 
         .sheet-scroll { flex: 1; overflow-y: auto; padding: 24px; }
         
-        /* Product Modal Specifics */
+        /* Product Modal Specifics - CAROUSEL UPDATE */
         .m-img-box {
             width: 100%; 
-            background: transparent; /* No dark background */
+            height: 320px;
+            background: transparent;
             border-radius: 16px; 
             margin-bottom: 24px; 
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
         }
-        .m-img { width: 100%; height: auto; display: block; }
+        .carousel-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            height: 100%;
+            width: 100%;
+            -webkit-overflow-scrolling: touch; /* smooth scroll iOS */
+        }
+        .carousel-track::-webkit-scrollbar { display: none; }
+        .carousel-slide {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
         .m-title { font-size: 1.4rem; font-weight: 800; line-height: 1.3; margin-bottom: 5px; }
         .m-price { font-size: 1.6rem; font-weight: 700; color: var(--primary); margin-bottom: 20px; }
 
@@ -316,6 +353,26 @@
             display: flex; align-items: center; gap: 6px;
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(10px); }
+
+        /* ZOOM MODAL STYLES */
+        .zoom-modal {
+            position: fixed; inset: 0; background: #000; z-index: 300;
+            display: none; align-items: center; justify-content: center;
+            animation: zoomFade 0.2s ease-out;
+        }
+        .zoom-modal.active { display: flex; }
+        @keyframes zoomFade { from { opacity: 0; } to { opacity: 1; } }
+        
+        .zoom-img {
+            max-width: 100%; max-height: 100%; object-fit: contain;
+            transition: transform 0.2s;
+        }
+        .zoom-close {
+            position: absolute; top: 20px; right: 20px;
+            width: 40px; height: 40px; background: rgba(255,255,255,0.2);
+            border-radius: 50%; color: #fff; display: flex; align-items: center;
+            justify-content: center; font-size: 1.5rem; cursor: pointer; z-index: 301;
+        }
 
     </style>
 </head>
@@ -419,10 +476,16 @@
                         </div>
                     </div>
 
-                    <!-- Footer Contact -->
-                    <div style="text-align:center; margin-top:30px; margin-bottom:10px;">
-                        <p style="font-size:0.8rem; color:#8E8E93;">Асуух зүйл байна уу?</p>
-                        <a href="https://www.facebook.com/gamemarket.mn" style="color:var(--primary); font-weight:600; font-size:0.9rem; text-decoration:none;">Бидэнтэй холбогдох</a>
+                    <!-- Footer Contact Icon -->
+                    <div style="display:flex; justify-content:center; margin: 40px 0 20px 0;">
+                        <a href="https://m.me/61561712856021" target="_blank" style="width:56px; height:56px; background:linear-gradient(135deg, #00C6FF 0%, #0072FF 100%); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.8rem; box-shadow: 0 4px 15px rgba(0,114,255,0.4); text-decoration:none;">
+                            <i class="ri-messenger-fill"></i>
+                        </a>
+                    </div>
+
+                    <!-- Copyright Footer -->
+                    <div style="text-align:center; padding: 20px; color: #8E8E93; font-size: 0.75rem; margin-bottom: 20px;">
+                        © 2025. All rights reserved.
                     </div>
 
                 </div>
@@ -433,7 +496,10 @@
                 <div class="search-sticky">
                     <div class="search-box">
                         <i class="ri-search-2-line search-icon"></i>
-                        <input type="text" class="search-inp" placeholder="Хайх (ID, Skin...)" onkeyup="searchItems(this.value)">
+                        <input type="text" class="search-inp" placeholder="Хайх (ID, Skin...)" onkeyup="setSearch(this.value)">
+                        <button class="sort-btn" id="sort-btn" onclick="toggleSort()">
+                            <i class="ri-arrow-up-down-line"></i>
+                        </button>
                     </div>
                     <div class="tag-scroll">
                         <div class="tag active" onclick="filterItems('all', this)">Бүгд</div>
@@ -469,14 +535,16 @@
     <div id="product-modal" class="modal-overlay">
         <div class="sheet">
             <div class="sheet-scroll">
-                <div class="m-img-box" id="m-gallery"></div>
+                <div class="m-img-box" id="m-gallery">
+                    <!-- Carousel will be inserted here -->
+                </div>
                 
                 <h2 class="m-title" id="m-title">Loading...</h2>
                 <div class="m-price" id="m-price">0₮</div>
 
                 <div class="m-specs">
                     <div class="spec-box">
-                        <div class="spec-lbl">Level</div>
+                        <div class="spec-lbl">Collection</div>
                         <div class="spec-val" id="m-lvl">-</div>
                     </div>
                     <div class="spec-box">
@@ -502,6 +570,14 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- ZOOM MODAL -->
+    <div id="zoom-modal" class="zoom-modal">
+        <div class="zoom-close" onclick="closeZoom()">
+            <i class="ri-close-line"></i>
+        </div>
+        <img id="zoom-img" src="" class="zoom-img">
     </div>
 
     <!-- TUTORIAL MODAL -->
@@ -547,7 +623,13 @@
 
     <script>
         const API_URL = 'https://script.google.com/macros/s/AKfycbyVP6BCO_rf2Gr2ZvAeTREK4_ipBWEkvsydCCU4XDZu7PCS5DbL9BqleyV2G5j37-Wa/exec'; 
+        const CACHE_KEY = 'gamemarket_data_v2'; // Versioned cache key
         let inventory = [];
+        
+        // State variables
+        let currentFilter = 'all';
+        let searchQuery = '';
+        let sortOrder = 'default'; // default, asc, desc
 
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
@@ -555,22 +637,110 @@
             const id = urlParams.get('id');
             if(id) {
                 switchView('shop');
-                setTimeout(() => { if(inventory.length > 0) openProduct(id); }, 1500);
+                // Wait slightly for data to load from cache/api before opening
+                setTimeout(() => { 
+                    if(inventory.length > 0) openProduct(id); 
+                }, 1000);
             }
         });
 
-        async function loadData() {
+        async function loadData(retryCount = 0) {
+            // 1. Instant Load from Cache
+            if (inventory.length === 0) {
+                const cachedData = localStorage.getItem(CACHE_KEY);
+                if (cachedData) {
+                    try {
+                        inventory = JSON.parse(cachedData);
+                        renderList(); // Show cached content immediately
+                        console.log("Loaded from cache");
+                    } catch (e) {
+                        console.error("Cache parse error", e);
+                    }
+                }
+            }
+
+            // 2. Fetch Fresh Data in Background
             try {
                 const res = await fetch(API_URL);
+                if (!res.ok) throw new Error("Network response was not ok");
+                
                 const data = await res.json();
-                inventory = data;
-                renderItems(inventory);
+                
+                if (Array.isArray(data) && data.length > 0) {
+                    inventory = data;
+                    localStorage.setItem(CACHE_KEY, JSON.stringify(data)); // Update cache
+                    renderList(); // Refresh UI with new data
+                } else {
+                    // If API returns empty (and we have no cache), retry a few times
+                    if (inventory.length === 0 && retryCount < 2) {
+                        console.log(`Retrying fetch... (${retryCount + 1})`);
+                        setTimeout(() => loadData(retryCount + 1), 1500);
+                    } else if (inventory.length === 0) {
+                        document.getElementById('product-grid').innerHTML = '<div style="grid-column: span 2; text-align: center; color: #888; padding: 40px;">Илэрц олдсонгүй.</div>';
+                    }
+                }
             } catch (err) {
-                document.getElementById('product-grid').innerHTML = '<div style="grid-column: span 2; text-align: center; color: #888; padding: 40px;">Холболт амжилтгүй боллоо.</div>';
+                console.error("Fetch error:", err);
+                // Retry on error if we have no data
+                if (inventory.length === 0 && retryCount < 2) {
+                    setTimeout(() => loadData(retryCount + 1), 2000);
+                } else if (inventory.length === 0) {
+                    document.getElementById('product-grid').innerHTML = '<div style="grid-column: span 2; text-align: center; color: #888; padding: 40px;">Холболт амжилтгүй. <br><span onclick="loadData()" style="color:var(--primary); cursor:pointer; font-weight:600; margin-top:10px; display:inline-block;">Дахин оролдох</span></div>';
+                }
             }
         }
 
-        function renderItems(items) {
+        // Logic for filtering and sorting
+        function renderList() {
+            let filtered = inventory;
+
+            // 1. Filter by Category
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(i => String(i.cat).toLowerCase().includes(currentFilter));
+            }
+
+            // 2. Filter by Search (Title, ID, Description)
+            if (searchQuery) {
+                let q = searchQuery.toLowerCase();
+                filtered = filtered.filter(i => {
+                    let inTitle = String(i.title).toLowerCase().includes(q);
+                    let inId = String(i.id).includes(q);
+                    
+                    // Search in Description
+                    let inDesc = false;
+                    if (i.desc) {
+                        if (Array.isArray(i.desc)) {
+                            inDesc = i.desc.join(' ').toLowerCase().includes(q);
+                        } else {
+                            inDesc = String(i.desc).toLowerCase().includes(q);
+                        }
+                    }
+                    
+                    return inTitle || inId || inDesc;
+                });
+            }
+
+            // 3. Sort by Price
+            if (sortOrder !== 'default') {
+                filtered.sort((a, b) => {
+                    let priceA = parseInt(String(a.price).replace(/[^0-9]/g, '')) || 0;
+                    let priceB = parseInt(String(b.price).replace(/[^0-9]/g, '')) || 0;
+                    return sortOrder === 'asc' ? priceA - priceB : priceB - priceA;
+                });
+            } else {
+                // Default sort: Hot first, then Newest (ID desc)
+                filtered.sort((a, b) => {
+                    const isHotA = (a.is_hot && String(a.is_hot).trim() !== '') ? 1 : 0;
+                    const isHotB = (b.is_hot && String(b.is_hot).trim() !== '') ? 1 : 0;
+                    if (isHotA !== isHotB) return isHotB - isHotA;
+                    return b.id - a.id;
+                });
+            }
+
+            renderGrid(filtered);
+        }
+
+        function renderGrid(items) {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
 
@@ -601,7 +771,7 @@
                     </div>
                     <div class="p-info">
                         <div class="p-title">${item.title}</div>
-                        <div style="font-size:0.75rem; color:#8E8E93; margin-bottom:6px;">${item.cat || 'Game'}</div>
+                        <!-- Category removed from view -->
                         <div class="p-price">${price}</div>
                     </div>
                 `;
@@ -624,19 +794,31 @@
         function filterItems(cat, btn) {
             document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
-            
-            let filtered = inventory;
-            if(cat !== 'all') filtered = inventory.filter(i => String(i.cat).toLowerCase().includes(cat));
-            renderItems(filtered);
+            currentFilter = cat;
+            renderList();
         }
 
-        function searchItems(val) {
-            const v = val.toLowerCase();
-            const filtered = inventory.filter(i => 
-                String(i.title).toLowerCase().includes(v) || 
-                String(i.id).includes(v)
-            );
-            renderItems(filtered);
+        function setSearch(val) {
+            searchQuery = val;
+            renderList();
+        }
+
+        function toggleSort() {
+            const btn = document.getElementById('sort-btn');
+            if (sortOrder === 'default') {
+                sortOrder = 'asc';
+                btn.innerHTML = '<i class="ri-arrow-up-line"></i>';
+                btn.classList.add('active');
+            } else if (sortOrder === 'asc') {
+                sortOrder = 'desc';
+                btn.innerHTML = '<i class="ri-arrow-down-line"></i>';
+                btn.classList.add('active');
+            } else {
+                sortOrder = 'default';
+                btn.innerHTML = '<i class="ri-arrow-up-down-line"></i>';
+                btn.classList.remove('active');
+            }
+            renderList();
         }
 
         let currentId = null;
@@ -654,8 +836,21 @@
             document.getElementById('m-link').innerText = item.link || '-';
 
             const gal = document.getElementById('m-gallery');
+            // Setup Carousel Logic
+            gal.innerHTML = '<div class="carousel-track"></div>';
+            const track = gal.querySelector('.carousel-track');
+            
             let imgs = Array.isArray(item.images) ? item.images : String(item.images).split(',');
-            gal.innerHTML = `<img src="${imgs[0]}" class="m-img">`;
+            imgs.forEach(src => {
+                let cleanSrc = src.trim();
+                if(cleanSrc) {
+                    track.innerHTML += `
+                        <div class="carousel-slide">
+                            <img src="${cleanSrc}" onclick="openZoom('${cleanSrc}')">
+                        </div>
+                    `;
+                }
+            });
 
             const list = document.getElementById('m-desc');
             list.innerHTML = '';
@@ -680,9 +875,21 @@
             }
         }
 
+        // ZOOM functions
+        function openZoom(src) {
+            document.getElementById('zoom-img').src = src;
+            document.getElementById('zoom-modal').classList.add('active');
+        }
+
+        function closeZoom() {
+            document.getElementById('zoom-modal').classList.remove('active');
+        }
+
         window.onpopstate = () => {
             closeModal('product-modal');
             closeModal('tutorial-modal');
+            // Also close zoom if open, though not in history stack explicitly
+            closeZoom();
         };
 
         function copyLink() {
