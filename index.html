@@ -277,9 +277,8 @@
         /* Product Modal Specifics - CAROUSEL UPDATE */
         .m-img-box {
             width: 100%; 
-            /* height: 320px; REMOVED FIXED HEIGHT */
-            aspect-ratio: 16/9; /* Set aspect ratio for games */
-            background: #000; /* Black background to frame image */
+            /* REMOVED FIXED ASPECT RATIO AND BACKGROUND */
+            background: transparent;
             border-radius: 16px; 
             margin-bottom: 24px; 
             overflow: hidden;
@@ -290,7 +289,7 @@
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            height: 100%;
+            /* height: 100%; REMOVED */
             width: 100%;
             -webkit-overflow-scrolling: touch; /* smooth scroll iOS */
         }
@@ -299,15 +298,16 @@
             flex: 0 0 100%;
             scroll-snap-align: center;
             width: 100%;
-            height: 100%;
+            /* height: 100%; REMOVED */
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .carousel-slide img {
             width: 100%;
-            height: 100%;
-            object-fit: contain; /* Keeps entire image visible */
+            height: auto; /* Natural Height */
+            display: block;
+            object-fit: cover;
         }
 
         .m-title { font-size: 1.4rem; font-weight: 800; line-height: 1.3; margin-bottom: 5px; }
