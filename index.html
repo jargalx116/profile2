@@ -3,905 +3,725 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#F2F2F7">
+    <meta name="theme-color" content="#FFFFFF">
     
     <meta property="og:title" content="Game Market MN" />
-    <meta property="og:description" content="Verified Gaming Store" />
+    <meta property="og:description" content="Баталгаатай тоглоомын дэлгүүр" />
     <meta property="og:image" content="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png" />
     
-    <title>Game Market MN</title>
+    <title>Game Market MN - Тоглоомын дэлгүүр</title>
     
-    <!-- Icons -->
+    <!-- Айконууд -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <!-- Font -->
+    <!-- Фонт -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* Vibrant Light Palette */
-            --bg-body: #F5F5F7;
+            /* Өнгөний сонголт */
+            --bg-body: #FAFAFA;
             --bg-card: #FFFFFF;
+            --bg-glass: rgba(255, 255, 255, 0.85);
             
-            /* Gradient Brand Colors */
-            --primary: #007AFF;
-            --gradient-main: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
-            --gradient-accent: linear-gradient(135deg, #FF2D55 0%, #FF9500 100%);
+            /* Үндсэн өнгөнүүд */
+            --primary: #007AFF; 
+            --primary-dark: #0062CC;
+            --accent: #FF3B30; 
             
-            --text-main: #1C1C1E;
-            --text-sec: #8E8E93;
+            --text-main: #1D1D1F;
+            --text-sec: #86868B;
             --border: #E5E5EA;
             
-            --shadow-card: 0 4px 20px rgba(0,0,0,0.06);
-            --shadow-float: 0 10px 30px rgba(0,122,255,0.25);
+            /* Сүүдэр */
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.08);
             
-            --radius-card: 20px;
-            --radius-btn: 14px;
+            --radius: 20px;
+            --max-w: 1080px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
         
         body {
             background-color: var(--bg-body);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        /* --- APP SHELL --- */
-        .app-shell {
-            width: 100%; max-width: 500px; height: 100%;
-            background: var(--bg-body);
+            min-height: 100vh;
             display: flex; flex-direction: column;
-            position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- HEADER --- */
-        .header {
-            padding: 0 20px; height: 60px;
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(255,255,255,0.8);
+        /* --- ДЭЭД ЦЭС (HEADER) --- */
+        .navbar {
+            background: var(--bg-glass);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            position: sticky; top: 0; z-index: 50;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 1000;
         }
-        .brand-wrap { display: flex; align-items: center; gap: 10px; }
-        .brand-logo { 
-            width: 34px; height: 34px; border-radius: 10px; 
-            overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .nav-inner {
+            max-width: var(--max-w); margin: 0 auto; height: 68px;
+            display: flex; justify-content: center; align-items: center; padding: 0 24px;
         }
-        .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
-        .header-title { font-size: 1.1rem; font-weight: 800; color: #000; letter-spacing: -0.5px; }
+        .brand {
+            display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main);
+            transition: transform 0.2s ease;
+        }
+        .brand:active { transform: scale(0.95); }
+        .logo { width: 38px; height: 38px; border-radius: 10px; object-fit: cover; box-shadow: var(--shadow-sm); }
+        .logo-text { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
+
+        /* --- ҮНДСЭН ХЭСЭГ (MAIN CONTAINER) --- */
+        .container {
+            max-width: var(--max-w); margin: 0 auto; padding: 40px 24px;
+            flex: 1; width: 100%;
+        }
+
+        /* --- БАННЕРТАЙ ПРОФАЙЛ (HERO) --- */
+        .hero {
+            background: #fff; border-radius: 24px; box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border); margin-bottom: 40px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+        }
         
-        .header-actions { display: flex; gap: 8px; }
-        .icon-btn { 
-            width: 40px; height: 40px; border-radius: 50%; border: none; background: #fff;
-            font-size: 1.2rem; color: #333; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            display: flex; align-items: center; justify-content: center; transition: 0.2s;
-        }
-        .icon-btn:active { transform: scale(0.95); }
+        .hero-banner { width: 100%; height: auto; display: block; object-fit: cover; max-height: 300px;}
+        .hero-content { position: relative; z-index: 1; padding: 0 40px 40px 40px; text-align: center; }
 
-        /* --- CONTENT --- */
-        .main-view {
-            flex: 1; overflow-y: auto; overflow-x: hidden;
-            padding-bottom: 90px;
-        }
-        .main-view::-webkit-scrollbar { display: none; }
+        .hero-text-wrap { display: flex; flex-direction: column; align-items: center; padding-top: 15px; }
 
-        .container { padding: 20px; }
-
-        /* --- HERO BANNER (REPLACES PROFILE) --- */
-        .store-hero {
-            background: #fff; border-radius: var(--radius-card);
-            overflow: hidden; margin-bottom: 24px;
-            box-shadow: var(--shadow-card); position: relative;
-        }
-        .hero-bg {
-            height: 140px; width: 100%;
-            background: url('https://i.ibb.co/TqWSLsxZ/GAME-MARKET-MN-Facebook-Cover.png') center/cover;
-            position: relative;
-        }
-        .hero-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-        }
-        .hero-content {
-            padding: 20px; position: relative; margin-top: -60px;
-        }
-        .store-avatar {
-            width: 80px; height: 80px; border-radius: 20px; border: 4px solid #fff;
-            background: #fff; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 10px;
-        }
-        .store-badge {
-            display: inline-flex; align-items: center; gap: 4px;
-            background: var(--primary); color: #fff; padding: 4px 10px;
-            border-radius: 20px; font-size: 0.75rem; font-weight: 600;
-            margin-bottom: 5px;
-        }
-        .store-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 5px; line-height: 1.1; }
-        .store-meta { font-size: 0.9rem; color: var(--text-sec); margin-bottom: 15px; }
-
-        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn-brand {
-            background: var(--gradient-main); color: #fff; border: none;
-            height: 44px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
-            display: flex; align-items: center; justify-content: center; gap: 6px;
-            text-decoration: none; box-shadow: 0 4px 15px rgba(0,122,255,0.3);
-        }
-        .btn-sec {
-            background: #F2F2F7; color: #000; border: none;
-            height: 44px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
-            display: flex; align-items: center; justify-content: center; gap: 6px;
-            text-decoration: none;
+        .hero-title { 
+            font-size: 2.2rem; font-weight: 800; color: var(--text-main); 
+            margin-bottom: 8px; line-height: 1.2; letter-spacing: -1px;
         }
 
-        /* --- TUTORIAL CARD --- */
-        .tutorial-card {
-            background: #fff; border-radius: var(--radius-card);
-            padding: 15px 20px; margin-bottom: 24px;
-            display: flex; align-items: center; justify-content: space-between;
-            box-shadow: var(--shadow-card); cursor: pointer;
-            border: 1px solid rgba(0,0,0,0.05);
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(0,122,255,0.1); color: var(--primary); padding: 6px 14px;
+            border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 15px;
         }
-        .tut-icon {
-            width: 40px; height: 40px; border-radius: 12px; background: #FFF4F6; color: #FF2D55;
-            display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
-        }
-        .tut-text h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
-        .tut-text p { font-size: 0.75rem; color: var(--text-sec); }
-        .tut-arrow { color: #C7C7CC; }
-
-        /* --- LISTS --- */
-        .section-head { 
-            display: flex; justify-content: space-between; align-items: center;
-            margin: 0 5px 15px 5px;
-        }
-        .sec-title { font-size: 1.1rem; font-weight: 700; }
-        .sec-link { font-size: 0.85rem; color: var(--primary); text-decoration: none; font-weight: 500; }
-
-        .admin-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; padding-left: 5px; scrollbar-width: none;}
-        .admin-scroll::-webkit-scrollbar { display: none; }
-
-        .admin-pill {
-            background: #fff; padding: 8px 16px 8px 8px; border-radius: 50px;
-            display: flex; align-items: center; gap: 10px; min-width: max-content;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-decoration: none; color: inherit;
-        }
-        .adm-av { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
-        .adm-info div:first-child { font-weight: 600; font-size: 0.85rem; }
-        .adm-info div:last-child { font-size: 0.7rem; color: var(--text-sec); text-transform: uppercase;}
-
-        .price-table {
-            background: #fff; border-radius: var(--radius-card); padding: 5px 20px;
-            box-shadow: var(--shadow-card);
-        }
-        .price-row {
-            display: flex; justify-content: space-between; padding: 15px 0;
-            border-bottom: 1px solid var(--border); font-size: 0.9rem;
-        }
-        .price-row:last-child { border-bottom: none; }
-        .price-val { font-weight: 700; color: var(--primary); }
-
-        /* --- SHOP --- */
-        .search-sticky {
-            position: sticky; top: 0; z-index: 40;
-            background: rgba(245, 245, 247, 0.95);
-            backdrop-filter: blur(10px); padding: 10px 20px;
-        }
-        .search-box { 
-            position: relative; 
-            display: flex; gap: 10px; align-items: center;
-        }
-        .search-inp {
-            flex: 1; height: 46px; background: #fff; border: none;
-            border-radius: 14px; padding: 0 45px; font-size: 1rem; color: #000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .search-icon { position: absolute; left: 15px; top: 14px; color: #8E8E93; font-size: 1.1rem; }
         
-        .sort-btn {
-            width: 46px; height: 46px; border-radius: 14px; border: none;
-            background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            color: #1C1C1E; font-size: 1.2rem; cursor: pointer; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
+        .hero-desc { 
+            color: var(--text-sec); font-size: 1.05rem; max-width: 600px; 
+            margin: 0 auto 24px auto; line-height: 1.5;
+        }
+        
+        .hero-actions { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;}
+        .btn {
+            padding: 12px 24px; border-radius: 50px; font-weight: 600; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; cursor: pointer; font-size: 0.95rem;
+        }
+        .btn:active { transform: scale(0.96); }
+        .btn-primary { background: var(--text-main); color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .btn-outline { background: #fff; color: var(--text-main); border: 1px solid var(--border); }
+        .btn-outline:hover { background: #F5F5F7; border-color: #D1D1D6; }
+        .btn-tutorial { background: #FFF0F0; color: #FF3B30; border: none; }
+        .btn-tutorial:hover { background: #FFE0E0; transform: translateY(-2px); }
+
+        /* --- ГАРЧИГ (SECTION HEADER) --- */
+        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; }
+        .sec-title { font-size: 1.4rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
+        
+        /* --- ХАЙЛТ БОЛОН ШҮҮЛТҮҮР (SEARCH & FILTERS) --- */
+        .toolbar {
+            background: #fff; padding: 15px 20px; border-radius: 20px; border: 1px solid var(--border);
+            display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; box-shadow: var(--shadow-sm);
+            align-items: center;
+        }
+        .search-container { flex: 1; min-width: 250px; position: relative; }
+        .search-field {
+            width: 100%; height: 48px; padding: 0 45px 0 20px; border-radius: 14px;
+            border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main);
+            font-size: 1rem; font-family: inherit; transition: 0.2s;
+        }
+        .search-field:focus { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,122,255,0.1); }
+        .search-ico { position: absolute; right: 15px; top: 14px; color: var(--text-sec); font-size: 1.2rem; pointer-events: none; }
+
+        .filter-tabs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+        .filter-tabs::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            padding: 10px 20px; border-radius: 12px; background: transparent; border: 1px solid transparent;
+            color: var(--text-sec); font-size: 0.95rem; font-weight: 600; cursor: pointer; white-space: nowrap;
             transition: 0.2s;
         }
-        .sort-btn.active { color: var(--primary); background: #E5F1FF; }
+        .tab-btn:hover { background: var(--bg-body); color: var(--text-main); }
+        .tab-btn.active { background: #fff; color: var(--text-main); border-color: var(--border); box-shadow: var(--shadow-sm); }
 
-        .tag-scroll { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none;}
-        .tag-scroll::-webkit-scrollbar { display: none; }
-        .tag {
-            padding: 8px 18px; background: #fff; border-radius: 20px;
-            font-size: 0.85rem; font-weight: 600; color: var(--text-sec);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03); cursor: pointer; white-space: nowrap; transition: 0.2s;
-        }
-        .tag.active { background: #000; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-        .prod-card {
-            background: #fff; border-radius: 18px; overflow: hidden;
-            box-shadow: var(--shadow-card); transition: 0.2s; position: relative;
-        }
-        .prod-card:active { transform: scale(0.97); }
+        /* --- БАРААНЫ ЖАГСААЛТ (PRODUCT GRID) --- */
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
         
-        .p-img-con { width: 100%; padding-top: 100%; position: relative; background: #f0f0f0; }
-        .p-img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; }
-        
-        .badge-hot {
-            position: absolute; top: 10px; right: 10px;
-            background: rgba(255,255,255,0.9); backdrop-filter: blur(4px);
-            padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 800;
-            color: #FF2D55; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .p-info { padding: 12px; }
-        .p-title { font-size: 0.9rem; font-weight: 600; color: #1C1C1E; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .p-price { font-size: 1.05rem; font-weight: 700; color: var(--primary); }
-
-        /* --- BOTTOM NAV --- */
-        .nav-float {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);
-            border: 1px solid rgba(0,0,0,0.05);
-            padding: 8px 30px; border-radius: 50px;
-            display: flex; gap: 40px; align-items: center;
-            box-shadow: var(--shadow-float); z-index: 100;
-        }
-        .nav-btn {
-            font-size: 1.5rem; color: #C7C7CC; cursor: pointer; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .nav-btn.active { color: var(--primary); transform: translateY(-3px); }
-
-        /* --- MODALS --- */
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200;
-            display: none; align-items: flex-end; backdrop-filter: blur(3px);
-        }
-        .modal-overlay.active { display: flex; animation: fade 0.3s; }
-        
-        .sheet {
-            width: 100%; max-width: 500px; height: 85vh;
-            background: #fff; border-radius: 24px 24px 0 0;
-            display: flex; flex-direction: column;
-            animation: slide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            margin: 0 auto; overflow: hidden;
-        }
-        @keyframes slide { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
-        .sheet-scroll { flex: 1; overflow-y: auto; padding: 24px; }
-        
-        /* Product Modal Specifics - CAROUSEL UPDATE */
-        .m-img-box {
-            width: 100%; 
-            /* REMOVED FIXED ASPECT RATIO AND BACKGROUND */
-            background: transparent;
-            border-radius: 16px; 
-            margin-bottom: 24px; 
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .product-card {
+            background: #fff; border-radius: 20px; overflow: hidden;
+            border: 1px solid var(--border); transition: 0.3s; cursor: pointer;
+            display: flex; flex-direction: column; box-shadow: var(--shadow-sm);
             position: relative;
         }
-        .carousel-track {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            /* height: 100%; REMOVED */
-            width: 100%;
-            -webkit-overflow-scrolling: touch; /* smooth scroll iOS */
-        }
-        .carousel-track::-webkit-scrollbar { display: none; }
-        .carousel-slide {
-            flex: 0 0 100%;
-            scroll-snap-align: center;
-            width: 100%;
-            /* height: 100%; REMOVED */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .carousel-slide img {
-            width: 100%;
-            height: auto; /* Natural Height */
-            display: block;
-            object-fit: cover;
-        }
-
-        .m-title { font-size: 1.4rem; font-weight: 800; line-height: 1.3; margin-bottom: 5px; }
-        .m-price { font-size: 1.6rem; font-weight: 700; color: var(--primary); margin-bottom: 20px; }
-
-        .m-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
-        .spec-box { background: #F9F9FB; padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #F2F2F7; }
-        .spec-lbl { font-size: 0.75rem; color: #8E8E93; text-transform: uppercase; margin-bottom: 2px; }
-        .spec-val { font-size: 0.95rem; font-weight: 700; color: #000; }
-
-        .sheet-act {
-            padding: 16px 24px; border-top: 1px solid var(--border);
-            display: flex; gap: 12px; padding-bottom: 30px; background: #fff;
-        }
-        .btn-buy {
-            flex: 1; background: var(--gradient-main); color: #fff; height: 50px;
-            border-radius: 14px; font-weight: 600; font-size: 1rem;
-            display: flex; align-items: center; justify-content: center; text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0,122,255,0.3);
-        }
-
-        /* Tutorial Specifics */
-        .step-row { display: flex; gap: 15px; margin-bottom: 25px; align-items: flex-start; }
-        .step-num { 
-            width: 32px; height: 32px; background: var(--primary); color: #fff; 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-weight: 700; flex-shrink: 0; margin-top: 2px;
-        }
-        .step-txt h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
-        .step-txt p { font-size: 0.9rem; color: #555; line-height: 1.5; }
-
-        /* Views & States */
-        .view { display: none; }
-        .view.active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-
-        .skeleton { background: #E5E5EA; border-radius: 18px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% {opacity: 0.6;} 50% {opacity: 1;} 100% {opacity: 0.6;} }
-
-        .toast {
-            position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
-            background: rgba(0,0,0,0.8); color: #fff; padding: 10px 20px; border-radius: 30px;
-            font-weight: 600; font-size: 0.9rem; opacity: 0; pointer-events: none; transition: 0.3s;
-            display: flex; align-items: center; gap: 6px;
-        }
-        .toast.show { opacity: 1; transform: translateX(-50%) translateY(10px); }
-
-        /* ZOOM MODAL STYLES */
-        .zoom-modal {
-            position: fixed; inset: 0; background: #000; z-index: 300;
-            display: none; align-items: center; justify-content: center;
-            animation: zoomFade 0.2s ease-out;
-        }
-        .zoom-modal.active { display: flex; }
-        @keyframes zoomFade { from { opacity: 0; } to { opacity: 1; } }
+        .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: #D1D1D6; }
         
-        .zoom-img {
-            max-width: 100%; max-height: 100%; object-fit: contain;
-            transition: transform 0.2s;
+        .pc-image-wrap { width: 100%; aspect-ratio: 16/11; position: relative; background: #F2F2F7; overflow: hidden; }
+        .pc-image { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .product-card:hover .pc-image { transform: scale(1.05); }
+        
+        .pc-badge {
+            position: absolute; top: 12px; left: 12px;
+            background: rgba(255,255,255,0.95); color: var(--accent); padding: 4px 10px;
+            border-radius: 8px; font-size: 0.75rem; font-weight: 800; box-shadow: var(--shadow-sm);
         }
-        .zoom-close {
-            position: absolute; top: 20px; right: 20px;
-            width: 40px; height: 40px; background: rgba(255,255,255,0.2);
-            border-radius: 50%; color: #fff; display: flex; align-items: center;
-            justify-content: center; font-size: 1.5rem; cursor: pointer; z-index: 301;
+        
+        .pc-content { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .pc-cat { font-size: 0.75rem; color: var(--text-sec); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; }
+        .pc-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        .pc-footer { margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
+        .pc-price { font-size: 1.25rem; font-weight: 800; color: var(--primary); }
+        .pc-action { 
+            width: 36px; height: 36px; border-radius: 50%; background: #F2F2F7;
+            display: flex; align-items: center; justify-content: center; color: var(--text-main);
+            transition: 0.2s;
+        }
+        .product-card:hover .pc-action { background: var(--text-main); color: #fff; }
+
+        /* --- ХӨЛ ХЭСЭГ (FOOTER) --- */
+        .footer {
+            border-top: 1px solid var(--border); padding: 40px 24px;
+            text-align: center; color: var(--text-sec); font-size: 0.9rem; margin-top: auto;
+            background: #fff;
         }
 
+        /* --- МОДАЛ (POPUP) --- */
+        .modal-wrap {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2000;
+            display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px);
+            padding: 20px; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-wrap.active { display: flex; opacity: 1; }
+        .modal-wrap.active .modal-window { animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        @keyframes scaleUp { from{opacity:0; transform:scale(0.95) translateY(10px);} to{opacity:1; transform:scale(1) translateY(0);} }
+
+        .modal-window {
+            background: #fff; width: 100%; max-width: 900px; max-height: 90vh;
+            border-radius: 24px; overflow: hidden; display: flex;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        /* Зургийн хэмжээ болон арын дэвсгэр */
+        .mw-media { 
+            flex: 1.2; background: #111; 
+            position: relative; display: flex; 
+            align-items: center; justify-content: center; overflow: hidden;
+        }
+        .mw-img { width: 100%; height: 100%; object-fit: contain; }
+        
+        .mw-close {
+            position: absolute; top: 20px; left: 20px; width: 44px; height: 44px;
+            background: rgba(255,255,255,0.9); border-radius: 50%; color: #000;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: 0.2s; z-index: 20;
+        }
+        .mw-close:hover { transform: scale(1.1); background: #fff; }
+
+        /* --- ЗУРГИЙН ЦОМОГ (IMAGE SLIDER) --- */
+        .slider-wrap { position: relative; width: 100%; height: 100%; overflow: hidden; display: flex; align-items: center; }
+        .slider-track { display: flex; width: 100%; height: 100%; transition: transform 0.3s ease-in-out; }
+        .slider-img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: contain; } 
+        
+        .slider-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; border: none; font-size: 1.2rem; color: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: 0.2s;}
+        .slider-nav:active { transform: translateY(-50%) scale(0.9); }
+        .slider-prev { left: 15px; }
+        .slider-next { right: 15px; }
+        .slider-dots { position: absolute; bottom: 15px; left: 0; width: 100%; display: flex; justify-content: center; gap: 6px; z-index: 10; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); transition: 0.2s; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .dot.active { background: #fff; transform: scale(1.3); }
+
+        .mw-details { 
+            flex: 1; padding: 40px; display: flex; flex-direction: column; 
+            overflow-y: auto; background: #fff; 
+        }
+        .mw-title { font-size: 1.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 8px; color: var(--text-main); }
+        .mw-price { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 30px; letter-spacing: -1px; }
+        
+        .mw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .mw-box { background: #F7F7F9; padding: 15px; border-radius: 16px; text-align: center; }
+        .mw-label { font-size: 0.75rem; color: var(--text-sec); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+        .mw-val { font-size: 1.1rem; font-weight: 700; color: var(--text-main); }
+
+        .mw-desc {
+            font-size: 0.95rem; color: var(--text-sec); line-height: 1.6; 
+            margin-bottom: 30px; background: #fff; padding-left: 0;
+        }
+        .mw-desc li { margin-bottom: 8px; list-style-position: inside; }
+
+        .mw-btn {
+            width: 100%; padding: 18px; background: var(--text-main); color: #fff;
+            border-radius: 16px; font-weight: 700; font-size: 1.1rem;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            text-decoration: none; transition: 0.2s; margin-top: auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); border: none; cursor: pointer;
+        }
+        .mw-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .mw-btn:active { transform: translateY(0); }
+        
+        /* ЗУРАГДСАН ТӨЛӨВИЙН ЗАГВАР */
+        .mw-btn.sold-btn { background: #E5E5EA; color: #86868B; pointer-events: none; box-shadow: none; }
+        
+        .pc-image-wrap.is-sold::after {
+            content: "ЗАРАГДСАН";
+            position: absolute; inset: 0;
+            background: rgba(0,0,0,0.65);
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; font-weight: 800; letter-spacing: 1px; z-index: 5;
+            backdrop-filter: blur(2px);
+        }
+
+        /* --- ГАР УТАСНЫ ТОХИРГОО (MOBILE SETTINGS) --- */
+        @media (max-width: 768px) {
+            .navbar { position: sticky; top: 0; background: var(--bg-glass); }
+            .container { padding: 10px 15px 20px 15px; } 
+            
+            /* Минималист Интро (Minimalist Hero for Mobile) */
+            .hero {
+                padding: 0;
+                border-radius: 16px;
+                margin-bottom: 15px;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow-sm);
+                background: #fff;
+                display: flex;
+                flex-direction: column;
+            }
+            .hero-banner { 
+                display: block; 
+                height: 160px; 
+                width: 100%;
+                object-fit: cover;
+                border-radius: 16px 16px 0 0;
+            } 
+            
+            .hero-content { 
+                padding: 10px 15px 15px 15px; /* Зайг багасгаж дээш шахсан */
+                text-align: left; 
+                display: flex; 
+                flex-direction: column; /* Босоо байрлалтай болгосон */
+                align-items: flex-start; 
+                gap: 10px;
+                width: 100%;
+            }
+            
+            .hero-text-wrap { display: flex; flex-direction: column; align-items: flex-start; width: 100%; padding-top: 0;}
+            .hero-title { font-size: 1.5rem; margin-bottom: 4px; margin-top: 0; line-height: 1.2;}
+            .hero-badge { margin-bottom: 0; padding: 4px 8px; font-size: 0.7rem; margin-top: 0;}
+            .hero-desc { display: none; } /* Урт текст утас дээр харагдахгүй */
+            
+            .hero-actions { 
+                flex-direction: row; 
+                width: 100%; 
+                gap: 6px; 
+                margin-top: 5px; 
+            }
+            .hero-actions .btn { 
+                flex: 1; 
+                padding: 8px 5px; 
+                font-size: 0.75rem; 
+                justify-content: center; 
+                border-radius: 8px;
+            }
+            .btn-tutorial { flex: 0.6; } 
+            
+            /* Бусад утасны тохиргоо */
+            .toolbar { padding: 12px; gap: 10px; margin-bottom: 15px; }
+            .search-field { height: 42px; font-size: 0.95rem; }
+            .search-ico { top: 11px; }
+            .search-container { min-width: 100%; }
+            
+            .grid-layout { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .pc-content { padding: 10px; }
+            .pc-title { font-size: 0.9rem; margin-bottom: 8px; }
+            .pc-price { font-size: 0.95rem; }
+            .pc-action { width: 28px; height: 28px; }
+            .pc-action i { font-size: 0.8rem; }
+            
+            .modal-wrap { padding: 0; align-items: flex-end; }
+            .modal-window { flex-direction: column; height: 95vh; max-height: 95vh; border-radius: 24px 24px 0 0; }
+            .mw-media { flex: 0 0 260px; background: #111;} 
+            .mw-details { padding: 24px; border-radius: 24px 24px 0 0; margin-top: -20px; position: relative; z-index: 2; }
+            .mw-title { font-size: 1.4rem; }
+            .mw-price { font-size: 1.6rem; margin-bottom: 20px; }
+            .mw-close { top: 15px; right: 15px; left: auto; width: 36px; height: 36px; }
+        }
+
+        /* --- Уншиж байх үеийн дүрс (SKELETON) --- */
+        .skeleton-card { background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+        .skeleton-img { width: 100%; aspect-ratio: 16/11; background: #E5E5EA; animation: pulse 1.5s infinite; }
+        .skeleton-body { padding: 20px; }
+        .skeleton-line { height: 16px; background: #E5E5EA; border-radius: 8px; margin-bottom: 12px; animation: pulse 1.5s infinite; }
+        .skeleton-line.short { width: 60%; }
+        
+        @keyframes pulse { 0% {opacity:0.6;} 50% {opacity:1;} 100% {opacity:0.6;} }
     </style>
 </head>
 <body>
 
-    <div class="app-shell">
-        
-        <!-- HEADER -->
-        <header class="header">
-            <div class="brand-wrap">
-                <div class="brand-logo">
-                    <img src="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png">
-                </div>
-                <div class="header-title">GameMarket</div>
-            </div>
-            <div class="header-actions">
-                <button class="icon-btn" onclick="openTutorial()"><i class="ri-question-mark"></i></button>
-            </div>
-        </header>
-
-        <div class="main-view">
-            
-            <!-- HOME VIEW -->
-            <div id="view-home" class="view active">
-                <div class="container">
-                    
-                    <!-- Store Hero Banner -->
-                    <div class="store-hero">
-                        <div class="hero-bg">
-                            <div class="hero-overlay"></div>
-                        </div>
-                        <div class="hero-content">
-                            <img src="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png" class="store-avatar">
-                            <div>
-                                <div class="store-badge"><i class="ri-verified-badge-fill"></i> Verified</div>
-                            </div>
-                            <h1 class="store-title">Game Market MN</h1>
-                            <div class="store-meta">Дижитал тоглоомын аккоунт худалдаа</div>
-                            
-                            <div class="action-grid">
-                                <a href="https://www.facebook.com/gamemarket.mn" target="_blank" class="btn-brand">
-                                    <i class="ri-facebook-fill"></i> Page
-                                </a>
-                                <a href="https://m.me/cm/AbadrhKBoffAja4U" target="_blank" class="btn-sec">
-                                    <i class="ri-messenger-line"></i> Group
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tutorial Trigger -->
-                    <div class="tutorial-card" onclick="openTutorial()">
-                        <div style="display:flex; align-items:center; gap:12px;">
-                            <div class="tut-icon"><i class="ri-book-read-line"></i></div>
-                            <div class="tut-text">
-                                <h4>Заавар үзэх</h4>
-                                <p>Худалдан авалт хийх алхамууд</p>
-                            </div>
-                        </div>
-                        <div class="tut-arrow"><i class="ri-arrow-right-s-line"></i></div>
-                    </div>
-
-                    <!-- Admins -->
-                    <div class="section-head">
-                        <div class="sec-title">Админууд</div>
-                        <a href="#" class="sec-link">Бүгд</a>
-                    </div>
-                    <div class="admin-scroll">
-                        <a href="https://www.facebook.com/jargalsaikhan.official" class="admin-pill">
-                            <img src="https://i.ibb.co/FbRQByFq/557149993-2003046580431595-7428406203553023357-n.jpg" class="adm-av">
-                            <div class="adm-info">
-                                <div>Жаргалсайхан</div>
-                                <div>Admin</div>
-                            </div>
-                        </a>
-                        <a href="https://www.facebook.com/you.good.like.man" class="admin-pill">
-                            <img src="https://i.ibb.co/5gzqvTDX/590659809-3995390137383045-2979261091254702807-n.jpg" class="adm-av">
-                            <div class="adm-info">
-                                <div>Пүрэвдаваа</div>
-                                <div>Midman</div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Pricing -->
-                    <div class="section-head" style="margin-top:25px;">
-                        <div class="sec-title">Үнийн мэдээлэл</div>
-                    </div>
-                    <div class="price-table">
-                        <div class="price-row">
-                            <span>Мидман үйлчилгээ</span>
-                            <span class="price-val">1 бинд 5,000₮</span>
-                        </div>
-                        <div class="price-row">
-                            <span>Заавар Зөвөлгөө</span>
-                            <span class="price-val">ҮНЭГҮЙ</span>
-                        </div>
-                        <div class="price-row">
-                            <span>Акк заруулах</span>
-                            <span class="price-val">Зарагдсан үнэний 5%</span>
-                        </div>
-                    </div>
-
-                    <!-- Footer Contact Icon -->
-                    <div style="display:flex; justify-content:center; margin: 40px 0 20px 0;">
-                        <a href="https://m.me/61561712856021" target="_blank" style="width:56px; height:56px; background:linear-gradient(135deg, #00C6FF 0%, #0072FF 100%); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.8rem; box-shadow: 0 4px 15px rgba(0,114,255,0.4); text-decoration:none;">
-                            <i class="ri-messenger-fill"></i>
-                        </a>
-                    </div>
-
-                    <!-- Copyright Footer -->
-                    <div style="text-align:center; padding: 20px; color: #8E8E93; font-size: 0.75rem; margin-bottom: 20px;">
-                        © 2025. All rights reserved.
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- SHOP VIEW -->
-            <div id="view-shop" class="view">
-                <div class="search-sticky">
-                    <div class="search-box">
-                        <i class="ri-search-2-line search-icon"></i>
-                        <input type="text" class="search-inp" placeholder="Хайх (ID, Skin...)" onkeyup="setSearch(this.value)">
-                        <button class="sort-btn" id="sort-btn" onclick="toggleSort()">
-                            <i class="ri-arrow-up-down-line"></i>
-                        </button>
-                    </div>
-                    <div class="tag-scroll">
-                        <div class="tag active" onclick="filterItems('all', this)">Бүгд</div>
-                        <div class="tag" onclick="filterItems('pubg', this)">PUBG</div>
-                        <div class="tag" onclick="filterItems('mlbb', this)">MLBB</div>
-                        <div class="tag" onclick="filterItems('standoff', this)">Standoff 2</div>
-                    </div>
-                </div>
-
-                <div class="grid" id="product-grid">
-                    <div class="skeleton" style="height: 220px;"></div>
-                    <div class="skeleton" style="height: 220px;"></div>
-                    <div class="skeleton" style="height: 220px;"></div>
-                    <div class="skeleton" style="height: 220px;"></div>
-                </div>
-            </div>
-
+    <!-- ДЭЭД ЦЭС -->
+    <header class="navbar">
+        <div class="nav-inner">
+            <a href="#" class="brand" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <img src="https://i.ibb.co/gLVdkq3D/Gemini-Generated-Image-6idkra6idkra6idk-modified.png" class="logo" alt="Logo">
+                <span class="logo-text">Game Market MN</span>
+            </a>
         </div>
+    </header>
 
-        <!-- FLOATING NAV -->
-        <nav class="nav-float">
-            <div class="nav-btn active" onclick="switchView('home', this)">
-                <i class="ri-home-5-fill"></i>
+    <div class="container">
+        
+        <!-- БҮГД НЭГ ХУУДАСАНД -->
+        <div id="view-shop">
+            
+            <!-- Баннертай толгой хэсэг -->
+            <div class="hero">
+                <!-- Баннер зураг -->
+                <img src="https://i.ibb.co/r2vptvzF/GAME-MARKET-MN-Facebook-Fundraiser-Cover-Photo.png" class="hero-banner" alt="Banner">
+                
+                <div class="hero-content">
+                    <div class="hero-text-wrap">
+                        <h1 class="hero-title">Game Market MN</h1>
+                        <div class="hero-badge"><i class="ri-verified-badge-fill"></i> VERIFIED PAGE</div>
+                    </div>
+                    
+                    <p class="hero-desc">Монголын анхны найдвартай тоглоомын аккоунт худалдааны платформ.</p>
+                    <div class="hero-actions">
+                        <a href="https://www.facebook.com/gamemarket.mn" target="_blank" class="btn btn-primary"><i class="ri-facebook-fill"></i> Page </a>
+                        <a href="https://m.me/cm/AbadrhKBoffAja4U" target="_blank" class="btn btn-outline"><i class="ri-messenger-line"></i> Group</a>
+                        <button onclick="openTutorial()" class="btn btn-tutorial"><i class="ri-book-open-line"></i> Заавар</button>
+                    </div>
+                </div>
             </div>
-            <div class="nav-btn" onclick="switchView('shop', this)">
-                <i class="ri-store-2-fill"></i>
+
+            <div class="section-header">
+                <div class="sec-title">Available Accounts</div>
             </div>
-        </nav>
+            
+            <div class="toolbar">
+                <div class="search-container">
+                    <input type="text" class="search-field" placeholder="Хайх (ID, Skin...)" oninput="setSearch(this.value)">
+                    <i class="ri-search-line search-ico"></i>
+                </div>
+                <div class="filter-tabs">
+                    <button class="tab-btn active" onclick="filterItems('all', this)">Бүгд</button>
+                    <button class="tab-btn" onclick="filterItems('pubg', this)">PUBG</button>
+                    <button class="tab-btn" onclick="filterItems('mlbb', this)">MLBB</button>
+                    <button class="tab-btn" onclick="filterItems('standoff', this)">Standoff</button>
+                </div>
+            </div>
+
+            <div class="grid-layout" id="product-grid">
+                <!-- Уншиж байх үеийн Skeleton анимейшн -->
+                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+            </div>
+        </div>
 
     </div>
 
-    <!-- PRODUCT MODAL -->
-    <div id="product-modal" class="modal-overlay">
-        <div class="sheet">
-            <div class="sheet-scroll">
-                <div class="m-img-box" id="m-gallery">
-                    <!-- Carousel will be inserted here -->
+    <!-- ХӨЛ ХЭСЭГ -->
+    <footer class="footer">
+        <div>© 2024 Game Market MN.</div>
+        <div style="margin-top:8px; font-size:0.85rem; opacity:0.7;">Бүх эрх хуулиар хамгаалагдсан.</div>
+    </footer>
+
+    <!-- БАРААНЫ ДЭЛГЭРЭНГҮЙ ЦОНХ -->
+    <div id="product-modal" class="modal-wrap" onclick="if(event.target === this) closeModal('product-modal')">
+        <div class="modal-window">
+            <div class="mw-media">
+                <div class="slider-wrap" id="m-slider-wrap">
+                    <div class="slider-track" id="m-slider-track"></div>
+                    <button class="slider-nav slider-prev" id="m-slider-prev" onclick="moveSlide(-1)"><i class="ri-arrow-left-s-line"></i></button>
+                    <button class="slider-nav slider-next" id="m-slider-next" onclick="moveSlide(1)"><i class="ri-arrow-right-s-line"></i></button>
+                    <div class="slider-dots" id="m-slider-dots"></div>
+                </div>
+                <div class="mw-close" onclick="closeModal('product-modal')"><i class="ri-close-line"></i></div>
+            </div>
+            <div class="mw-details">
+                <div class="mw-title" id="m-title">Уншиж байна...</div>
+                <div class="mw-price" id="m-price">0₮</div>
+                
+                <div class="mw-grid">
+                    <div class="mw-box">
+                        <div class="mw-label">Collection</div>
+                        <div class="mw-val" id="m-lvl">-</div>
+                    </div>
+                    <div class="mw-box">
+                        <div class="mw-label">Холбоос</div>
+                        <div class="mw-val" id="m-link">-</div>
+                    </div>
                 </div>
                 
-                <h2 class="m-title" id="m-title">Loading...</h2>
-                <div class="m-price" id="m-price">0₮</div>
-
-                <div class="m-specs">
-                    <div class="spec-box">
-                        <div class="spec-lbl">Collection</div>
-                        <div class="spec-val" id="m-lvl">-</div>
-                    </div>
-                    <div class="spec-box">
-                        <div class="spec-lbl">Rank</div>
-                        <div class="spec-val" id="m-rank">-</div>
-                    </div>
-                    <div class="spec-box" style="grid-column: span 2">
-                        <div class="spec-lbl">Login</div>
-                        <div class="spec-val" id="m-link">-</div>
-                    </div>
-                </div>
-
-                <div style="font-weight:700; margin-bottom:10px;">Дэлгэрэнгүй</div>
-                <ul id="m-desc" style="list-style:none; color:#555; line-height:1.6; font-size:0.95rem;"></ul>
-            </div>
-            
-            <div class="sheet-act">
-                <a href="https://m.me/61561712856021" class="btn-buy">
-                    Худалдаж авах
-                </a>
-                <div class="btn-sec" style="width: 50px; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="closeModal('product-modal')">
-                    <i class="ri-close-fill" style="font-size:1.4rem;"></i>
-                </div>
+                <div style="font-weight:700; margin-bottom:10px; color:var(--text-main); font-size: 0.9rem;">ДЭЛГЭРЭНГҮЙ МЭДЭЭЛЭЛ</div>
+                <ul id="m-desc" class="mw-desc"></ul>
+                
+                <!-- ХУДАЛДАЖ АВАХ товч -->
+                <a href="https://m.me/61561712856021" class="mw-btn" id="m-buy-btn" target="_blank">ХУДАЛДАЖ АВАХ</a>
             </div>
         </div>
     </div>
 
-    <!-- ZOOM MODAL -->
-    <div id="zoom-modal" class="zoom-modal">
-        <div class="zoom-close" onclick="closeZoom()">
-            <i class="ri-close-line"></i>
-        </div>
-        <img id="zoom-img" src="" class="zoom-img">
-    </div>
-
-    <!-- TUTORIAL MODAL -->
-    <div id="tutorial-modal" class="modal-overlay">
-        <div class="sheet" style="height:auto; max-height:80vh;">
-            <div style="padding:24px 24px 0 24px; display:flex; justify-content:space-between; align-items:center;">
-                <h2 style="font-size:1.3rem; font-weight:800;">Заавар</h2>
-                <div onclick="closeModal('tutorial-modal')" style="background:#F2F2F7; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;"><i class="ri-close-fill"></i></div>
+    <!-- ЗААВАР ЦОНХ -->
+    <div id="tutorial-modal" class="modal-wrap" onclick="if(event.target === this) closeModal('tutorial-modal')">
+        <div class="modal-window" style="max-width:450px; height:auto; display:block; padding:30px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h2 style="font-size:1.6rem; font-weight:800;">Худалдан авах заавар</h2>
+                <div onclick="closeModal('tutorial-modal')" style="cursor:pointer; padding:5px; background:#F2F2F7; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center;"><i class="ri-close-line" style="font-size:1.2rem;"></i></div>
             </div>
-            <div class="sheet-scroll">
-                <div class="step-row">
-                    <div class="step-num">1</div>
-                    <div class="step-txt">
-                        <h4>Бараагаа сонгох</h4>
-                        <p>Shop цэснээс өөрт таалагдсан аккаунтаа сонгоод дэлгэрэнгүй мэдээллийг харна уу.</p>
-                    </div>
-                </div>
-                <div class="step-row">
-                    <div class="step-num">2</div>
-                    <div class="step-txt">
-                        <h4>Холбогдох</h4>
-                        <p>"Худалдаж авах" товч дээр дарснаар манай албан ёсны чат руу шилжинэ.</p>
-                    </div>
-                </div>
-                <div class="step-row">
-                    <div class="step-num">3</div>
-                    <div class="step-txt">
-                        <h4>Төлбөр & Шилжүүлэг</h4>
-                        <p>Админтай холбогдон төлбөрөө шилжүүлж, аккаунтын мэдээллээ бүрэн авна.</p>
-                    </div>
-                </div>
-                <div style="background:#FFF4F6; color:#FF2D55; padding:15px; border-radius:12px; font-size:0.85rem; line-height:1.5;">
-                    <i class="ri-alert-fill" style="margin-right:5px;"></i> <b>Анхааруулга:</b> Зөвхөн манай албан ёсны Page болон Админуудаар дамжуулан гүйлгээ хийнэ үү.
-                </div>
+            <div style="color:var(--text-sec); line-height:1.7; margin-bottom:30px; font-size:1rem;">
+                <p style="margin-bottom:10px;"><strong>1.</strong> Дэлгүүрээс хүссэн бараагаа сонгох.</p>
+                <p style="margin-bottom:10px;"><strong>2.</strong> <b>ХУДАЛДАЖ АВАХ</b> товчийг дарснаар Messenger рүү шилжинэ.</p>
+                <p style="margin-bottom:10px;"><strong>3.</strong> Админтай холбогдож төлбөрөө шилжүүлэх.</p>
+                <p><strong>4.</strong> Аккоунтын нэвтрэх мэдээллээ хүлээж авах.</p>
             </div>
-            <div class="sheet-act">
-                <div class="btn-buy" onclick="closeModal('tutorial-modal')">Ойлголоо</div>
-            </div>
+            <button class="mw-btn" style="background:#1D1D1F; box-shadow:none;" onclick="closeModal('tutorial-modal')">ОЙЛГОЛОО</button>
         </div>
     </div>
-
-    <div class="toast" id="toast"><i class="ri-checkbox-circle-fill" style="color:#4ade80"></i> Линк хуулагдлаа!</div>
 
     <script>
         const API_URL = 'https://script.google.com/macros/s/AKfycbyVP6BCO_rf2Gr2ZvAeTREK4_ipBWEkvsydCCU4XDZu7PCS5DbL9BqleyV2G5j37-Wa/exec'; 
-        const CACHE_KEY = 'gamemarket_data_v2'; // Versioned cache key
-        let inventory = [];
-        
-        // State variables
-        let currentFilter = 'all';
-        let searchQuery = '';
-        let sortOrder = 'default'; // default, asc, desc
+        const CACHE_KEY = 'gm_premium_merged_v4';
+        let inventory = [], currentFilter = 'all', searchQuery = '';
+        let currentSlide = 0, totalSlides = 0;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadData();
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
-            if(id) {
-                switchView('shop');
-                // Wait slightly for data to load from cache/api before opening
-                setTimeout(() => { 
-                    if(inventory.length > 0) openProduct(id); 
-                }, 1000);
+        // Туршилтын Дата (API ажиллахгүй үед)
+        const dummyData = [
+            { id: 101, title: 'PUBG Mobile - Glacier M416 MAX', price: '350000', cat: 'pubg', is_hot: true, images: ['https://i.pinimg.com/736x/8f/a0/0a/8fa00a18446c6b38c0378455799a4e39.jpg'], lvl: '75', link: 'Facebook, Twitter', desc: 'Glacier M416 MAX,Mythic Fashion 50+,RP 1-20 MAX' },
+            { id: 102, title: 'MLBB - Gusion K', price: '120000', cat: 'mlbb', images: ['https://i.pinimg.com/736x/a2/5c/55/a25c553d1012354c4620f496738903c7.jpg'], lvl: 'MAX', link: 'Google, Moonton', desc: 'Бүх баатар нээлттэй,Эмблем max,KOF skin' },
+            { id: 103, title: 'PUBG Mobile - M416 Fool', price: '250000', cat: 'pubg', images: ['https://via.placeholder.com/400x250?text=Sold'], lvl: '70', link: 'Twitter', desc: 'M416 Fool Lv.5', status: 'sold' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', loadData);
+
+        async function loadData() {
+            const cached = localStorage.getItem(CACHE_KEY);
+            if (cached) { 
+                try {
+                    const p = JSON.parse(cached); 
+                    inventory = p.inventory || []; 
+                    if(inventory.length > 0) renderList(); 
+                } catch(e) { console.error("Cache error", e); }
             }
-        });
-
-        async function loadData(retryCount = 0) {
-            // 1. Instant Load from Cache
-            if (inventory.length === 0) {
-                const cachedData = localStorage.getItem(CACHE_KEY);
-                if (cachedData) {
-                    try {
-                        inventory = JSON.parse(cachedData);
-                        renderList(); // Show cached content immediately
-                        console.log("Loaded from cache");
-                    } catch (e) {
-                        console.error("Cache parse error", e);
-                    }
-                }
-            }
-
-            // 2. Fetch Fresh Data in Background
+            
             try {
                 const res = await fetch(API_URL);
-                if (!res.ok) throw new Error("Network response was not ok");
-                
                 const data = await res.json();
-                
-                if (Array.isArray(data) && data.length > 0) {
-                    inventory = data;
-                    localStorage.setItem(CACHE_KEY, JSON.stringify(data)); // Update cache
-                    renderList(); // Refresh UI with new data
-                } else {
-                    // If API returns empty (and we have no cache), retry a few times
-                    if (inventory.length === 0 && retryCount < 2) {
-                        console.log(`Retrying fetch... (${retryCount + 1})`);
-                        setTimeout(() => loadData(retryCount + 1), 1500);
-                    } else if (inventory.length === 0) {
-                        document.getElementById('product-grid').innerHTML = '<div style="grid-column: span 2; text-align: center; color: #888; padding: 40px;">Илэрц олдсонгүй.</div>';
-                    }
+                if(Array.isArray(data) && data.length > 0) {
+                    inventory = [];
+                    data.forEach(i => { if(!String(i.cat).toLowerCase().includes('rent')) inventory.push(i); });
+                    if(inventory.length === 0) inventory = dummyData;
+                    localStorage.setItem(CACHE_KEY, JSON.stringify({inventory}));
+                    renderList();
+                } else if(inventory.length === 0) {
+                    throw new Error("Empty data");
                 }
-            } catch (err) {
-                console.error("Fetch error:", err);
-                // Retry on error if we have no data
-                if (inventory.length === 0 && retryCount < 2) {
-                    setTimeout(() => loadData(retryCount + 1), 2000);
-                } else if (inventory.length === 0) {
-                    document.getElementById('product-grid').innerHTML = '<div style="grid-column: span 2; text-align: center; color: #888; padding: 40px;">Холболт амжилтгүй. <br><span onclick="loadData()" style="color:var(--primary); cursor:pointer; font-weight:600; margin-top:10px; display:inline-block;">Дахин оролдох</span></div>';
-                }
+            } catch(e) { 
+                console.log("API Fetch failed, using fallback.");
+                if(inventory.length === 0){ 
+                    inventory = dummyData; 
+                    renderList(); 
+                } 
             }
         }
 
-        // Logic for filtering and sorting
+        // Барааг харуулах
         function renderList() {
-            let filtered = inventory;
-
-            // 1. Filter by Category
-            if (currentFilter !== 'all') {
-                filtered = filtered.filter(i => String(i.cat).toLowerCase().includes(currentFilter));
-            }
-
-            // 2. Filter by Search (Title, ID, Description)
-            if (searchQuery) {
-                let q = searchQuery.toLowerCase();
-                filtered = filtered.filter(i => {
-                    let inTitle = String(i.title).toLowerCase().includes(q);
-                    let inId = String(i.id).includes(q);
-                    
-                    // Search in Description
-                    let inDesc = false;
-                    if (i.desc) {
-                        if (Array.isArray(i.desc)) {
-                            inDesc = i.desc.join(' ').toLowerCase().includes(q);
-                        } else {
-                            inDesc = String(i.desc).toLowerCase().includes(q);
-                        }
-                    }
-                    
-                    return inTitle || inId || inDesc;
-                });
-            }
-
-            // 3. Sort by Price
-            if (sortOrder !== 'default') {
-                filtered.sort((a, b) => {
-                    let priceA = parseInt(String(a.price).replace(/[^0-9]/g, '')) || 0;
-                    let priceB = parseInt(String(b.price).replace(/[^0-9]/g, '')) || 0;
-                    return sortOrder === 'asc' ? priceA - priceB : priceB - priceA;
-                });
-            } else {
-                // Default sort: Hot first, then Newest (ID desc)
-                filtered.sort((a, b) => {
-                    const isHotA = (a.is_hot && String(a.is_hot).trim() !== '') ? 1 : 0;
-                    const isHotB = (b.is_hot && String(b.is_hot).trim() !== '') ? 1 : 0;
-                    if (isHotA !== isHotB) return isHotB - isHotA;
-                    return b.id - a.id;
-                });
-            }
-
-            renderGrid(filtered);
-        }
-
-        function renderGrid(items) {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
-
-            if(items.length === 0) {
-                grid.innerHTML = '<div style="grid-column: span 2; text-align: center; color: #888; padding: 40px;">Илэрц олдсонгүй.</div>';
+            
+            let filtered = inventory.filter(i => {
+                const matchCat = currentFilter === 'all' || String(i.cat || '').toLowerCase().includes(currentFilter);
+                
+                const query = searchQuery.toLowerCase();
+                const titleMatch = String(i.title || '').toLowerCase().includes(query);
+                const descText = Array.isArray(i.desc) ? i.desc.join(' ') : String(i.desc || '');
+                const descMatch = descText.toLowerCase().includes(query);
+                
+                const matchSearch = titleMatch || descMatch;
+                
+                return matchCat && matchSearch;
+            });
+            
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-sec);">Илэрц олдсонгүй...</div>`;
                 return;
             }
 
-            items.forEach(item => {
-                const isHot = item.is_hot && String(item.is_hot).trim() !== '';
-                const isSold = item.status && item.status.toLowerCase() === 'sold';
-                const rawPrice = String(item.price).replace(/[^0-9]/g, '');
-                const price = rawPrice ? parseInt(rawPrice).toLocaleString() + '₮' : '0₮';
-                const img = Array.isArray(item.images) ? item.images[0] : item.images;
-
-                const card = document.createElement('div');
-                card.className = 'prod-card';
-                card.onclick = () => openProduct(item.id);
-
-                let badge = isHot ? `<div class="badge-hot">HOT</div>` : '';
-                let soldOverlay = isSold ? `<div style="position:absolute; inset:0; background:rgba(255,255,255,0.8); z-index:10; display:flex; align-items:center; justify-content:center;"><span style="color:#FF2D55; font-weight:800; border:3px solid #FF2D55; padding:6px 16px; transform:rotate(-10deg); border-radius:8px;">ЗАРАГДСАН</span></div>` : '';
-
-                card.innerHTML = `
-                    ${soldOverlay}
-                    <div class="p-img-con">
-                        <img src="${img}" class="p-img" loading="lazy">
-                        ${badge}
-                    </div>
-                    <div class="p-info">
-                        <div class="p-title">${item.title}</div>
-                        <!-- Category removed from view -->
-                        <div class="p-price">${price}</div>
-                    </div>
-                `;
-                grid.appendChild(card);
+            filtered.forEach(item => {
+                const img = Array.isArray(item.images) ? item.images[0] : String(item.images || '').split(',')[0];
+                const rawPrice = String(item.price || '0').replace(/[^0-9]/g,'');
+                const priceStr = rawPrice ? parseInt(rawPrice).toLocaleString() + '₮' : 'Тохиролцоно';
+                
+                // Зарагдсан эсэхийг шалгах (sold эсвэл зарсан гэж бичсэн байх)
+                const isSold = String(item.status || '').trim().toLowerCase() === 'sold' || String(item.status || '').trim().toLowerCase() === 'зарсан';
+                const soldClass = isSold ? 'is-sold' : '';
+                
+                grid.innerHTML += `
+                    <div class="product-card" onclick="openProduct('${item.id}')">
+                        <div class="pc-image-wrap ${soldClass}">
+                            <img src="${img || 'https://via.placeholder.com/400x250?text=No+Image'}" onerror="this.src='https://via.placeholder.com/400x250?text=Зураг+олдсонгүй'" class="pc-image" loading="lazy" alt="${item.title}">
+                            ${item.is_hot && !isSold ? '<div class="pc-badge">HOT</div>' : ''}
+                        </div>
+                        <div class="pc-content">
+                            <div class="pc-title">${item.title || 'Нэргүй бараа'}</div>
+                            <div class="pc-footer">
+                                <div class="pc-price" style="${isSold ? 'color: var(--text-sec); text-decoration: line-through; font-size: 1rem;' : ''}">${priceStr}</div>
+                                <div class="pc-action"><i class="ri-arrow-right-line"></i></div>
+                            </div>
+                        </div>
+                    </div>`;
             });
         }
 
-        function switchView(viewId, btn) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById('view-' + viewId).classList.add('active');
-            
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            else {
-                const t = document.querySelector(`.nav-btn[onclick="switchView('${viewId}', this)"]`);
-                if(t) t.classList.add('active');
-            }
+        // Шүүлтүүр хийх
+        function filterItems(c, el) { 
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active'); 
+            currentFilter = c; 
+            renderList(); 
+        }
+        
+        function setSearch(v) { 
+            searchQuery = v.trim(); 
+            renderList(); 
         }
 
-        function filterItems(cat, btn) {
-            document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
-            btn.classList.add('active');
-            currentFilter = cat;
-            renderList();
-        }
-
-        function setSearch(val) {
-            searchQuery = val;
-            renderList();
-        }
-
-        function toggleSort() {
-            const btn = document.getElementById('sort-btn');
-            if (sortOrder === 'default') {
-                sortOrder = 'asc';
-                btn.innerHTML = '<i class="ri-arrow-up-line"></i>';
-                btn.classList.add('active');
-            } else if (sortOrder === 'asc') {
-                sortOrder = 'desc';
-                btn.innerHTML = '<i class="ri-arrow-down-line"></i>';
-                btn.classList.add('active');
-            } else {
-                sortOrder = 'default';
-                btn.innerHTML = '<i class="ri-arrow-up-down-line"></i>';
-                btn.classList.remove('active');
-            }
-            renderList();
-        }
-
-        let currentId = null;
+        // Барааг нээх
         function openProduct(id) {
-            const item = inventory.find(i => i.id == id);
+            const item = inventory.find(i => String(i.id) === String(id));
             if(!item) return;
-            currentId = id;
 
-            document.getElementById('m-title').innerText = item.title;
-            const rawPrice = String(item.price).replace(/[^0-9]/g, '');
-            document.getElementById('m-price').innerText = rawPrice ? parseInt(rawPrice).toLocaleString() + '₮' : '0₮';
-            
-            document.getElementById('m-lvl').innerText = item.lvl || '-';
-            document.getElementById('m-rank').innerText = item.rank || '-';
-            document.getElementById('m-link').innerText = item.link || '-';
+            // Зураг - Slider үүсгэх
+            let imgs = [];
+            if (Array.isArray(item.images)) imgs = item.images;
+            else if (item.images) imgs = String(item.images).split(',').map(s => s.trim()).filter(s => s);
+            if (imgs.length === 0) imgs = ['https://via.placeholder.com/600x400?text=No+Image'];
 
-            const gal = document.getElementById('m-gallery');
-            // Setup Carousel Logic
-            gal.innerHTML = '<div class="carousel-track"></div>';
-            const track = gal.querySelector('.carousel-track');
-            
-            let imgs = Array.isArray(item.images) ? item.images : String(item.images).split(',');
-            imgs.forEach(src => {
-                let cleanSrc = src.trim();
-                if(cleanSrc) {
-                    track.innerHTML += `
-                        <div class="carousel-slide">
-                            <img src="${cleanSrc}" onclick="openZoom('${cleanSrc}')">
-                        </div>
-                    `;
+            const track = document.getElementById('m-slider-track');
+            const dots = document.getElementById('m-slider-dots');
+            track.innerHTML = '';
+            dots.innerHTML = '';
+            totalSlides = imgs.length;
+            currentSlide = 0;
+
+            imgs.forEach((url, idx) => {
+                track.innerHTML += `<img src="${url}" onerror="this.src='https://via.placeholder.com/600x400?text=Зураг+олдсонгүй'" class="slider-img" alt="Slide ${idx}">`;
+                if (totalSlides > 1) {
+                    dots.innerHTML += `<div class="dot ${idx === 0 ? 'active' : ''}" onclick="goToSlide(${idx})"></div>`;
                 }
             });
 
-            const list = document.getElementById('m-desc');
-            list.innerHTML = '';
-            let descs = Array.isArray(item.desc) ? item.desc : String(item.desc).split(',');
-            descs.forEach(d => { if(d.trim()) list.innerHTML += `<li>${d}</li>`; });
-
-            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?id=' + id;
-            window.history.pushState({modal: true, id: id}, '', newUrl);
+            document.getElementById('m-slider-prev').style.display = totalSlides > 1 ? 'flex' : 'none';
+            document.getElementById('m-slider-next').style.display = totalSlides > 1 ? 'flex' : 'none';
+            updateSlider();
+            
+            document.getElementById('m-title').innerText = item.title || 'Нэргүй бараа';
+            document.getElementById('m-lvl').innerText = item.lvl || '-';
+            document.getElementById('m-link').innerText = item.link || '-';
+            
+            const rawPrice = String(item.price || '0').replace(/[^0-9]/g,'');
+            const priceEl = document.getElementById('m-price');
+            priceEl.innerText = rawPrice ? parseInt(rawPrice).toLocaleString() + '₮' : 'Тохиролцоно';
+            
+            const ul = document.getElementById('m-desc');
+            ul.innerHTML = '';
+            
+            let ds = [];
+            if(item.desc) {
+                ds = Array.isArray(item.desc) ? item.desc : String(item.desc).split(',');
+                ds.forEach(d => { 
+                    if(d.trim()) {
+                        const li = document.createElement('li');
+                        li.textContent = d.trim();
+                        ul.appendChild(li);
+                    }
+                });
+            } else {
+                ul.innerHTML = '<li style="list-style:none; color:var(--text-sec);">Дэлгэрэнгүй мэдээлэл оруулаагүй байна.</li>';
+            }
+            
+            // Зарагдсан төлөвөөс хамаарч Худалдан авах товчийг өөрчлөх
+            const isSold = String(item.status || '').trim().toLowerCase() === 'sold' || String(item.status || '').trim().toLowerCase() === 'зарсан';
+            const buyBtn = document.getElementById('m-buy-btn');
+            
+            if (isSold) {
+                buyBtn.textContent = 'ЗАРСАН';
+                buyBtn.classList.add('sold-btn');
+                buyBtn.href = 'javascript:void(0)';
+            } else {
+                buyBtn.textContent = 'ХУДАЛДАЖ АВАХ';
+                buyBtn.classList.remove('sold-btn');
+                buyBtn.href = 'https://m.me/61561712856021';
+            }
 
             document.getElementById('product-modal').classList.add('active');
+            document.querySelector('.mw-details').scrollTop = 0;
         }
 
-        function openTutorial() {
-            document.getElementById('tutorial-modal').classList.add('active');
+        // Модалуудыг хаах
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
+        }
+        
+        function openTutorial() { 
+            document.getElementById('tutorial-modal').classList.add('active'); 
         }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-            if(modalId === 'product-modal') {
-                const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-                window.history.replaceState({}, '', cleanUrl);
-            }
+        /* --- ЗУРГИЙН ЦОМОГ (SLIDER) УДИРДЛАГА --- */
+        function moveSlide(step) {
+            if(totalSlides <= 1) return;
+            currentSlide += step;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            updateSlider();
         }
 
-        // ZOOM functions
-        function openZoom(src) {
-            document.getElementById('zoom-img').src = src;
-            document.getElementById('zoom-modal').classList.add('active');
+        function goToSlide(idx) {
+            currentSlide = idx;
+            updateSlider();
         }
 
-        function closeZoom() {
-            document.getElementById('zoom-modal').classList.remove('active');
-        }
-
-        window.onpopstate = () => {
-            closeModal('product-modal');
-            closeModal('tutorial-modal');
-            // Also close zoom if open, though not in history stack explicitly
-            closeZoom();
-        };
-
-        function copyLink() {
-            if(!currentId) return;
-            const url = window.location.protocol + "//" + window.location.host + window.location.pathname + '?id=' + currentId;
-            navigator.clipboard.writeText(url).then(() => {
-                const t = document.getElementById('toast');
-                t.classList.add('show');
-                setTimeout(() => t.classList.remove('show'), 2000);
+        function updateSlider() {
+            const track = document.getElementById('m-slider-track');
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            document.querySelectorAll('.dot').forEach((d, idx) => {
+                d.classList.toggle('active', idx === currentSlide);
             });
         }
+
+        /* --- ГАР УТСААР ГҮЙЛГЭХ (TOUCH SWIPE) --- */
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const sliderWrap = document.getElementById('m-slider-wrap');
+        
+        if (sliderWrap) {
+            sliderWrap.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+
+            sliderWrap.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 50) moveSlide(1);
+                if (touchEndX - touchStartX > 50) moveSlide(-1);
+            }, {passive: true});
+        }
+
+        /* --- ESC ТОВЧООР МОДАЛ ХААХ --- */
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal('product-modal');
+                closeModal('tutorial-modal');
+            }
+        });
     </script>
 </body>
 </html>
