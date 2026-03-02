@@ -160,7 +160,7 @@
         .search-field:focus { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); }
         .search-ico { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--text-sec); font-size: 1.3rem; pointer-events: none; }
 
-        .filter-tabs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; width: 100%; }
+        .filter-tabs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; width: 100%; align-items: center; }
         .filter-tabs::-webkit-scrollbar { display: none; }
         .tab-btn {
             padding: 12px 24px; border-radius: 14px; background: rgba(255,255,255,0.3); border: 1px solid var(--glass-border-light);
@@ -261,10 +261,11 @@
 
         /* Slider */
         .slider-wrap { position: relative; width: 100%; height: 100%; overflow: hidden; display: flex; align-items: center; }
-        .slider-track { display: flex; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .slider-track { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
+        .slider-track::-webkit-scrollbar { display: none; }
         
         /* Slider chitra click karnyayogya */
-        .slider-img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1)); cursor: zoom-in; } 
+        .slider-img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1)); cursor: zoom-in; scroll-snap-align: center; scroll-snap-stop: always; } 
         
         /* Nav buttons (Background shivay, fakt icon) */
         .slider-nav { 
@@ -314,8 +315,9 @@
             opacity: 0; transition: opacity 0.4s ease; backdrop-filter: blur(10px);
         }
         .lightbox-wrap.active { display: flex; opacity: 1; }
-        .lb-track { display: flex; width: 100%; height: 100%; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
-        .lb-img-wrap { flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px; }
+        .lb-track { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
+        .lb-track::-webkit-scrollbar { display: none; }
+        .lb-img-wrap { flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px; scroll-snap-align: center; scroll-snap-stop: always; }
         .lb-img { max-width: 100%; max-height: 100%; object-fit: contain; user-select: none; border-radius: 12px; }
         
         .lb-nav {
@@ -449,6 +451,10 @@
                     <i class="ri-search-2-line search-ico"></i>
                 </div>
                 <div class="filter-tabs">
+                    <button class="tab-btn" id="sort-price-btn" onclick="toggleSort()" style="display: flex; align-items: center; gap: 4px;">
+                        Үнэ <i class="ri-arrow-up-down-line" style="font-size: 1.1rem;"></i>
+                    </button>
+                    <div style="width: 2px; background: var(--glass-border-light); height: 24px; border-radius: 2px;"></div>
                     <button class="tab-btn active" onclick="filterItems('all', this)">Бүгд</button>
                     <button class="tab-btn" onclick="filterItems('pubg', this)">PUBG Mobile</button>
                     <button class="tab-btn" onclick="filterItems('mlbb', this)">MLBB</button>
@@ -540,6 +546,11 @@
         const API_URL = 'https://script.google.com/macros/s/AKfycbyVP6BCO_rf2Gr2ZvAeTREK4_ipBWEkvsydCCU4XDZu7PCS5DbL9BqleyV2G5j37-Wa/exec'; 
         const CACHE_KEY = 'gm_premium_merged_v8';
         let inventory = [], currentFilter = 'all', searchQuery = '';
+        let currentSort = 'default'; 
+        const sortStates = ['default', 'asc', 'desc'];
+        const sortIcons = ['ri-arrow-up-down-line', 'ri-arrow-up-line', 'ri-arrow-down-line'];
+        let sortIndex = 0;
+
         let currentSlide = 0, totalSlides = 0;
 
         // Test Data (API fail jhalya var)
@@ -599,6 +610,20 @@
                 
                 return matchCat && matchSearch;
             });
+
+            // Usporiadanie podľa zvolenej ceny (Slovak comment)
+            if (currentSort !== 'default') {
+                filtered.sort((a, b) => {
+                    let priceA = parseInt(String(a.price || '0').replace(/[^0-9]/g, '')) || 0;
+                    let priceB = parseInt(String(b.price || '0').replace(/[^0-9]/g, '')) || 0;
+                    if (currentSort === 'asc') {
+                        return priceA - priceB;
+                    } else if (currentSort === 'desc') {
+                        return priceB - priceA;
+                    }
+                    return 0;
+                });
+            }
             
             if(filtered.length === 0) {
                 grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-sec); background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); font-weight: 600;">Илэрц олдсонгүй...</div>`;
@@ -644,6 +669,20 @@
             renderList(); 
         }
 
+        // Funkcia pre nastavenie triedenia
+        function toggleSort() {
+            sortIndex = (sortIndex + 1) % 3;
+            currentSort = sortStates[sortIndex];
+
+            const btn = document.getElementById('sort-price-btn');
+            btn.innerHTML = `Үнэ <i class="${sortIcons[sortIndex]}" style="font-size: 1.1rem;"></i>`;
+
+            if(sortIndex === 0) btn.classList.remove('active');
+            else btn.classList.add('active');
+
+            renderList();
+        }
+
         // Product Open kara
         function openProduct(id) {
             const item = inventory.find(i => String(i.id) === String(id));
@@ -673,7 +712,9 @@
             document.getElementById('m-slider-prev').style.display = totalSlides > 1 ? 'flex' : 'none';
             document.getElementById('m-slider-next').style.display = totalSlides > 1 ? 'flex' : 'none';
 
-            updateSlider();
+            // Instant scroll to start
+            setTimeout(() => { track.scrollTo({ left: 0, behavior: 'instant' }); }, 10);
+            updateSliderDots();
             
             document.getElementById('m-title').innerText = item.title || 'Нэргүй бараа';
             document.getElementById('m-lvl').innerText = item.lvl || '-';
@@ -745,12 +786,25 @@
 
         function updateSlider() {
             const track = document.getElementById('m-slider-track');
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-            
+            track.scrollTo({ left: currentSlide * track.clientWidth, behavior: 'smooth' });
+            updateSliderDots();
+        }
+
+        function updateSliderDots() {
             document.querySelectorAll('.dot').forEach((d, idx) => {
                 d.classList.toggle('active', idx === currentSlide);
             });
         }
+
+        // Native scroll sync
+        document.getElementById('m-slider-track').addEventListener('scroll', function() {
+            if (this.clientWidth === 0) return;
+            let newIndex = Math.round(this.scrollLeft / this.clientWidth);
+            if (newIndex !== currentSlide) {
+                currentSlide = newIndex;
+                updateSliderDots();
+            }
+        }, {passive: true});
 
         /* --- Fullscreen Lightbox Control --- */
         let lbCurrentSlide = 0;
@@ -771,7 +825,11 @@
             document.getElementById('lb-total').innerText = lbTotalSlides;
             
             lbCurrentSlide = startIdx;
-            updateLightbox();
+            
+            // Instant scroll to start
+            setTimeout(() => { lbTrack.scrollTo({ left: startIdx * lbTrack.clientWidth, behavior: 'instant' }); }, 10);
+            document.getElementById('lb-current').innerText = lbCurrentSlide + 1;
+            
             lbModal.classList.add('active');
         }
 
@@ -789,43 +847,19 @@
 
         function updateLightbox() {
             const track = document.getElementById('lb-track');
-            track.style.transform = `translateX(-${lbCurrentSlide * 100}%)`;
+            track.scrollTo({ left: lbCurrentSlide * track.clientWidth, behavior: 'smooth' });
             document.getElementById('lb-current').innerText = lbCurrentSlide + 1;
         }
 
-        /* --- Mobile Touch Swipe --- */
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const sliderWrap = document.getElementById('m-slider-wrap');
-        
-        if (sliderWrap) {
-            sliderWrap.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
-            }, {passive: true});
-
-            sliderWrap.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].screenX;
-                if (touchStartX - touchEndX > 50) moveSlide(1);
-                if (touchEndX - touchStartX > 50) moveSlide(-1);
-            }, {passive: true});
-        }
-
-        // Lightbox touch swipe
-        let lbStartX = 0;
-        let lbEndX = 0;
-        const lbTrackEl = document.getElementById('lb-track');
-        
-        if (lbTrackEl) {
-            lbTrackEl.addEventListener('touchstart', e => {
-                lbStartX = e.changedTouches[0].screenX;
-            }, {passive: true});
-
-            lbTrackEl.addEventListener('touchend', e => {
-                lbEndX = e.changedTouches[0].screenX;
-                if (lbStartX - lbEndX > 50) moveLbSlide(1);
-                if (lbEndX - lbStartX > 50) moveLbSlide(-1);
-            }, {passive: true});
-        }
+        // Native scroll sync for Lightbox
+        document.getElementById('lb-track').addEventListener('scroll', function() {
+            if (this.clientWidth === 0) return;
+            let newIndex = Math.round(this.scrollLeft / this.clientWidth);
+            if (newIndex !== lbCurrentSlide) {
+                lbCurrentSlide = newIndex;
+                document.getElementById('lb-current').innerText = lbCurrentSlide + 1;
+            }
+        }, {passive: true});
 
         /* --- ESC/Arrow Keys Control --- */
         document.addEventListener('keydown', function(e) {
