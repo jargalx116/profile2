@@ -43,7 +43,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
-        /* Mobile var horizontal scroll thambvnyasathi */
+        /* Гар утсан дээр хөндлөн гулгалт үүсэхийг хязгаарлах */
         html, body {
             overflow-x: hidden;
             width: 100%;
@@ -59,7 +59,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Varcha Menu (GLASS NAVBAR) --- */
+        /* --- Дээд цэс (GLASS NAVBAR) --- */
         .navbar {
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
@@ -83,7 +83,7 @@
             flex: 1; width: 100%;
         }
 
-        /* --- Hero Bhag --- */
+        /* --- Hero хэсэг --- */
         .hero-container {
             position: relative;
             margin-bottom: 30px;
@@ -142,6 +142,8 @@
         .btn-outline:hover { background: rgba(255,255,255,0.8); }
         .btn-tutorial { background: rgba(255, 59, 48, 0.1); color: var(--accent); }
         .btn-tutorial:hover { background: rgba(255, 59, 48, 0.2); transform: translateY(-3px); }
+        .btn-rent { background: rgba(0, 113, 227, 0.1); color: var(--primary); }
+        .btn-rent:hover { background: rgba(0, 113, 227, 0.2); transform: translateY(-3px); }
 
         /* --- Search aani Filter --- */
         .toolbar {
@@ -170,7 +172,7 @@
         .tab-btn:hover { background: rgba(255,255,255,0.6); color: var(--text-main); }
         .tab-btn.active { background: #fff; color: var(--text-main); border-color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
 
-        /* --- Product Grid --- */
+        /* --- Барааны жагсаалт --- */
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; width: 100%; }
         
         .product-card {
@@ -208,7 +210,7 @@
         .pc-action { width: 38px; height: 38px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--text-main); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .product-card:hover .pc-action { background: var(--text-main); color: #fff; transform: scale(1.1); }
 
-        /* Viklela Status */
+        /* Зарагдсан төлөв */
         .pc-image-wrap.is-sold::after {
             content: "ЗАРАГДСАН"; position: absolute; inset: 0; background: rgba(0,0,0,0.5);
             color: #fff; display: flex; align-items: center; justify-content: center;
@@ -216,7 +218,7 @@
             text-align: center;
         }
 
-        /* --- SKELETON Animation --- */
+        /* --- Уншиж байх үеийн SKELETON Animation --- */
         .skeleton-card { background: var(--glass-bg); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--glass-border); box-shadow: var(--shadow-glass); }
         .skeleton-img { width: 100%; aspect-ratio: 4/3; background: rgba(255,255,255,0.5); animation: pulse 1.5s infinite; }
         .skeleton-body { padding: 22px; }
@@ -224,14 +226,14 @@
         .skeleton-line.short { width: 60%; }
         @keyframes pulse { 0% {opacity:0.5;} 50% {opacity:1;} 100% {opacity:0.5;} }
 
-        /* --- Footer --- */
+        /* --- Хөл хэсэг (Footer) --- */
         .footer {
             border-top: 1px solid var(--glass-border); padding: 30px 20px;
             text-align: center; color: var(--text-sec); font-size: 0.95rem; margin-top: auto;
             background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);
         }
 
-        /* --- Product Modal (GLASS MODAL) --- */
+        /* --- Барааны дэлгэрэнгүй цонх (GLASS MODAL) --- */
         .modal-wrap {
             position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 2000;
             display: none; align-items: center; justify-content: center; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -264,10 +266,10 @@
         .slider-track { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
         .slider-track::-webkit-scrollbar { display: none; }
         
-        /* Slider chitra click karnyayogya */
+        /* Зургийг томруулж үзэх (click) */
         .slider-img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1)); cursor: zoom-in; scroll-snap-align: center; scroll-snap-stop: always; } 
         
-        /* Nav buttons (Background shivay, fakt icon) */
+        /* Зүүн баруун товчлуур (Арын дэвсгэргүй, зөвхөн дүрс) */
         .slider-nav { 
             position: absolute; top: 50%; transform: translateY(-50%); 
             background: transparent; border: none;
@@ -392,14 +394,14 @@
             .mw-price { font-size: 1.5rem; margin-bottom: 15px; }
             .mw-close { top: 12px; right: 12px; left: auto; width: 36px; height: 36px; }
 
-            /* Slider buttons mobile var */
+            /* Slider buttons mobile */
             .slider-nav { font-size: 2.2rem; }
             .slider-prev { left: 0px; }
             .slider-next { right: 0px; }
 
             #tutorial-modal .modal-window { padding: 25px 15px !important; width: 95%; border-radius: 24px !important; margin-bottom: 20px; }
             
-            /* Lightbox mobile var */
+            /* Lightbox mobile */
             .lb-nav { font-size: 2.5rem; }
             .lb-prev { left: 5px; }
             .lb-next { right: 5px; }
@@ -410,7 +412,7 @@
 </head>
 <body>
 
-    <!-- Varcha Menu (GLASS NAVBAR) -->
+    <!-- Дээд цэс (GLASS NAVBAR) -->
     <header class="navbar">
         <div class="nav-inner">
             <a href="#" class="brand" onclick="window.scrollTo({top:0, behavior:'smooth'})">
@@ -422,10 +424,10 @@
 
     <div class="container">
         
-        <!-- Ekach page var sarva -->
+        <!-- Нэг хуудсанд байрлах -->
         <div id="view-shop">
             
-            <!-- Hero Bhag -->
+            <!-- Hero хэсэг -->
             <div class="hero-container">
                 <div class="hero-bg-blob"></div>
                 <div class="hero">
@@ -438,13 +440,14 @@
                         <div class="hero-actions">
                             <a href="https://www.facebook.com/gamemarket.mn" target="_blank" class="btn btn-primary"><i class="ri-facebook-circle-fill"></i> Фэйсбүүк</a>
                             <a href="https://m.me/cm/AbadrhKBoffAja4U" target="_blank" class="btn btn-outline"><i class="ri-messenger-line"></i> Групп Чат</a>
+                            <a href="https://www.turees.online" target="_blank" class="btn btn-rent"><i class="ri-earth-line"></i> Түрээс</a>
                             <button onclick="openTutorial()" class="btn btn-tutorial"><i class="ri-book-open-line"></i> Заавар</button>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Search aani Filter -->
+            <!-- Хайлт болон Шүүлтүүр -->
             <div class="toolbar">
                 <div class="search-container">
                     <input type="text" class="search-field" placeholder="Хайх " oninput="setSearch(this.value)">
@@ -462,9 +465,9 @@
                 </div>
             </div>
 
-            <!-- Product Grid -->
+            <!-- Барааны жагсаалт -->
             <div class="grid-layout" id="product-grid">
-                <!-- SKELETON Animation -->
+                <!-- Уншиж байх үеийн SKELETON Animation -->
                 <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
                 <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
                 <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
@@ -474,13 +477,13 @@
 
     </div>
 
-    <!-- Footer -->
+    <!-- Хөл хэсэг (Footer) -->
     <footer class="footer">
         <div style="font-weight: 700; color: var(--text-main);">© 2026 Game Market MN.</div>
         <div style="margin-top:8px; font-size:0.85rem; opacity:0.8;">Бүх эрх хуулиар хамгаалагдсан.</div>
     </footer>
 
-    <!-- Product Modal -->
+    <!-- Барааны дэлгэрэнгүй модал -->
     <div id="product-modal" class="modal-wrap" onclick="if(event.target === this) closeModal('product-modal')">
         <div class="modal-window">
             <div class="mw-media">
@@ -510,13 +513,13 @@
                 <div style="font-weight:800; margin-bottom:12px; color:var(--text-main); font-size: 0.9rem;">ДЭЛГЭРЭНГҮЙ МЭДЭЭЛЭЛ</div>
                 <ul id="m-desc" class="mw-desc"></ul>
                 
-                <!-- Kharedi Button -->
+                <!-- Худалдан авах товч -->
                 <a href="https://m.me/61561712856021" class="mw-btn" id="m-buy-btn" target="_blank">ХУДАЛДАЖ АВАХ</a>
             </div>
         </div>
     </div>
 
-    <!-- Tutorial Modal -->
+    <!-- Зааварчилгаа Модал -->
     <div id="tutorial-modal" class="modal-wrap" onclick="if(event.target === this) closeModal('tutorial-modal')">
         <div class="modal-window" style="max-width:500px; height:auto; display:block; padding:40px; background: rgba(255,255,255,0.85);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
@@ -553,7 +556,7 @@
 
         let currentSlide = 0, totalSlides = 0;
 
-        // Test Data (API fail jhalya var)
+        // Туршилтын Дата (API ажиллахгүй үед)
         const dummyData = [
             { id: 101, title: 'PUBG Mobile - Glacier M416 MAX', price: '350000', cat: 'pubg', is_hot: true, images: ['https://i.pinimg.com/736x/8f/a0/0a/8fa00a18446c6b38c0378455799a4e39.jpg'], lvl: '75', link: 'Facebook, Twitter', desc: 'Glacier M416 MAX,Mythic Fashion 50+,RP 1-20 MAX' },
             { id: 102, title: 'MLBB - Gusion K', price: '120000', cat: 'mlbb', images: ['https://i.pinimg.com/736x/a2/5c/55/a25c553d1012354c4620f496738903c7.jpg'], lvl: 'MAX', link: 'Google, Moonton', desc: 'Бүх баатар нээлттэй, Emblem max, KOF skin' },
@@ -593,7 +596,7 @@
             }
         }
 
-        // Product dakhva
+        // Барааг харуулах
         function renderList() {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
@@ -611,7 +614,7 @@
                 return matchCat && matchSearch;
             });
 
-            // Usporiadanie podľa zvolenej ceny (Slovak comment)
+            // Үнээр эрэмбэлэх
             if (currentSort !== 'default') {
                 filtered.sort((a, b) => {
                     let priceA = parseInt(String(a.price || '0').replace(/[^0-9]/g, '')) || 0;
@@ -635,7 +638,7 @@
                 const rawPrice = String(item.price || '0').replace(/[^0-9]/g,'');
                 const priceStr = rawPrice ? parseInt(rawPrice).toLocaleString() + '₮' : 'Тохиролцоно';
                 
-                // Viklela status check kara
+                // Зарагдсан төлөв шалгах
                 const isSold = String(item.status || '').trim().toLowerCase() === 'sold' || String(item.status || '').trim().toLowerCase() === 'зарсан';
                 const soldClass = isSold ? 'is-sold' : '';
                 
@@ -656,9 +659,9 @@
             });
         }
 
-        // Filter Function
+        // Шүүлтүүрийн функц
         function filterItems(c, el) { 
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-btn:not(#sort-price-btn)').forEach(b => b.classList.remove('active'));
             el.classList.add('active'); 
             currentFilter = c; 
             renderList(); 
@@ -669,7 +672,7 @@
             renderList(); 
         }
 
-        // Funkcia pre nastavenie triedenia
+        // Эрэмбэлэх тохиргоо
         function toggleSort() {
             sortIndex = (sortIndex + 1) % 3;
             currentSort = sortStates[sortIndex];
@@ -683,12 +686,12 @@
             renderList();
         }
 
-        // Product Open kara
+        // Барааг нээх
         function openProduct(id) {
             const item = inventory.find(i => String(i.id) === String(id));
             if(!item) return;
 
-            // Slider images set kara
+            // Зургийн цомгийг тохируулах
             let imgs = [];
             if (Array.isArray(item.images)) imgs = item.images;
             else if (item.images) imgs = String(item.images).split(',').map(s => s.trim()).filter(s => s);
@@ -702,7 +705,7 @@
             currentSlide = 0;
 
             imgs.forEach((url, idx) => {
-                // Click zalyavar lightbox open hoil
+                // Дээр нь дарахад Lightbox нээгдэнэ
                 track.innerHTML += `<img src="${url}" onerror="this.src='https://via.placeholder.com/600x400?text=Зураг+олдсонгүй'" class="slider-img" alt="Slide ${idx}" onclick="openLightbox(${idx})">`;
                 if (totalSlides > 1) {
                     dots.innerHTML += `<div class="dot ${idx === 0 ? 'active' : ''}" onclick="goToSlide(${idx}); event.stopPropagation();"></div>`;
@@ -711,10 +714,6 @@
 
             document.getElementById('m-slider-prev').style.display = totalSlides > 1 ? 'flex' : 'none';
             document.getElementById('m-slider-next').style.display = totalSlides > 1 ? 'flex' : 'none';
-
-            // Instant scroll to start
-            setTimeout(() => { track.scrollTo({ left: 0, behavior: 'instant' }); }, 10);
-            updateSliderDots();
             
             document.getElementById('m-title').innerText = item.title || 'Нэргүй бараа';
             document.getElementById('m-lvl').innerText = item.lvl || '-';
@@ -741,7 +740,7 @@
                 ul.innerHTML = '<li style="list-style:none; color:var(--text-sec);">Дэлгэрэнгүй мэдээлэл оруулаагүй байна.</li>';
             }
             
-            // Sold button condition
+            // Зарагдсан төлөвийн товч
             const isSold = String(item.status || '').trim().toLowerCase() === 'sold' || String(item.status || '').trim().toLowerCase() === 'зарсан';
             const buyBtn = document.getElementById('m-buy-btn');
             
@@ -755,11 +754,16 @@
                 buyBtn.href = 'https://m.me/61561712856021';
             }
 
+            // Модалыг харуулаад, дараа нь scroll хийх (ScrollTo ажиллахын тулд элемент харагдаж байх ёстой)
             document.getElementById('product-modal').classList.add('active');
             document.querySelector('.mw-details').scrollTop = 0;
+            setTimeout(() => { 
+                track.scrollTo({ left: 0, behavior: 'instant' }); 
+                updateSliderDots();
+            }, 10);
         }
 
-        // Modal close
+        // Модал хаах
         function closeModal(id) { 
             document.getElementById(id).classList.remove('active'); 
         }
@@ -768,7 +772,7 @@
             document.getElementById('tutorial-modal').classList.add('active'); 
         }
 
-        /* --- Slider Control --- */
+        /* --- Зургийн цомог удирдлага --- */
         function moveSlide(step) {
             if(totalSlides <= 1) return;
             currentSlide += step;
@@ -796,17 +800,20 @@
             });
         }
 
-        // Native scroll sync
+        // Native scroll sync (Гараар гар утсан дээр гүйлгэх үед цэгүүдийг өөрчлөх)
         document.getElementById('m-slider-track').addEventListener('scroll', function() {
             if (this.clientWidth === 0) return;
             let newIndex = Math.round(this.scrollLeft / this.clientWidth);
+            if (newIndex < 0) newIndex = 0;
+            if (newIndex >= totalSlides) newIndex = totalSlides - 1;
+            
             if (newIndex !== currentSlide) {
                 currentSlide = newIndex;
                 updateSliderDots();
             }
         }, {passive: true});
 
-        /* --- Fullscreen Lightbox Control --- */
+        /* --- Дэлгэц дүүрэн зураг (Lightbox) --- */
         let lbCurrentSlide = 0;
         let lbTotalSlides = 0;
 
@@ -823,14 +830,16 @@
             });
             
             document.getElementById('lb-total').innerText = lbTotalSlides;
-            
             lbCurrentSlide = startIdx;
             
-            // Instant scroll to start
-            setTimeout(() => { lbTrack.scrollTo({ left: startIdx * lbTrack.clientWidth, behavior: 'instant' }); }, 10);
-            document.getElementById('lb-current').innerText = lbCurrentSlide + 1;
-            
+            // Дэлгэцэнд эхлээд гаргана, дараа нь scrollTo ажиллана.
             lbModal.classList.add('active');
+            
+            setTimeout(() => { 
+                lbTrack.scrollTo({ left: startIdx * lbTrack.clientWidth, behavior: 'instant' }); 
+            }, 10);
+            
+            document.getElementById('lb-current').innerText = lbCurrentSlide + 1;
         }
 
         function closeLightbox() {
@@ -855,13 +864,16 @@
         document.getElementById('lb-track').addEventListener('scroll', function() {
             if (this.clientWidth === 0) return;
             let newIndex = Math.round(this.scrollLeft / this.clientWidth);
+            if (newIndex < 0) newIndex = 0;
+            if (newIndex >= lbTotalSlides) newIndex = lbTotalSlides - 1;
+
             if (newIndex !== lbCurrentSlide) {
                 lbCurrentSlide = newIndex;
                 document.getElementById('lb-current').innerText = lbCurrentSlide + 1;
             }
         }, {passive: true});
 
-        /* --- ESC/Arrow Keys Control --- */
+        /* --- ESC болон Arrow Keys удирдах --- */
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeLightbox(); 
