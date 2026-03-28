@@ -438,7 +438,7 @@
                         <div class="hero-badge"><i class="ri-verified-badge-fill"></i> VERIFIED PAGE</div>
                         <p class="hero-desc">Монголын анхны баталгаат тоглоомын аккоунт худалдааны платформ.</p>
                         <div class="hero-actions">
-                            <a href="https://www.facebook.com/jargalsaikhan.official" target="_blank" class="btn btn-primary"><i class="ri-facebook-circle-fill"></i> Admin FB</a>
+                            <a href="https://www.facebook.com/gamemarket.mn" target="_blank" class="btn btn-primary"><i class="ri-facebook-circle-fill"></i> Фэйсбүүк</a>
                             <a href="https://m.me/cm/AbadrhKBoffAja4U" target="_blank" class="btn btn-outline"><i class="ri-messenger-line"></i> Групп Чат</a>
                             <a href="https://www.turees.online" target="_blank" class="btn btn-rent"><i class="ri-earth-line"></i> Түрээс</a>
                             <button onclick="openTutorial()" class="btn btn-tutorial"><i class="ri-book-open-line"></i> Заавар</button>
@@ -514,7 +514,7 @@
                 <ul id="m-desc" class="mw-desc"></ul>
                 
                 <!-- Худалдан авах товч -->
-                <a href="https://www.messenger.com/t/100021788174984" class="mw-btn" id="m-buy-btn" target="_blank">ХУДАЛДАЖ АВАХ</a>
+                <a href="https://m.me/61561712856021" class="mw-btn" id="m-buy-btn" target="_blank">ХУДАЛДАЖ АВАХ</a>
             </div>
         </div>
     </div>
@@ -576,7 +576,8 @@
             }
             
             try {
-                const res = await fetch(API_URL);
+                // Cache-buster umeryu chhe jethi hamesha navi mahiti aave
+                const res = await fetch(API_URL + "?nocache=" + new Date().getTime());
                 const data = await res.json();
                 if(Array.isArray(data) && data.length > 0) {
                     inventory = [];
@@ -633,6 +634,9 @@
                 return;
             }
 
+            // Loop ni andar sidhu DOM update karva ni jagya e ek string ma data bhego karo
+            let htmlContent = '';
+
             filtered.forEach(item => {
                 const img = Array.isArray(item.images) ? item.images[0] : String(item.images || '').split(',')[0];
                 const rawPrice = String(item.price || '0').replace(/[^0-9]/g,'');
@@ -642,7 +646,7 @@
                 const isSold = String(item.status || '').trim().toLowerCase() === 'sold' || String(item.status || '').trim().toLowerCase() === 'зарсан';
                 const soldClass = isSold ? 'is-sold' : '';
                 
-                grid.innerHTML += `
+                htmlContent += `
                     <div class="product-card" onclick="openProduct('${item.id}')">
                         <div class="pc-image-wrap ${soldClass}">
                             <img src="${img || 'https://via.placeholder.com/400x250?text=No+Image'}" onerror="this.src='https://via.placeholder.com/400x250?text=Зураг+олдсонгүй'" class="pc-image" loading="lazy" alt="${item.title}">
@@ -657,6 +661,9 @@
                         </div>
                     </div>`;
             });
+
+            // Ek j var ma aakho data render karo (Fast performance mate)
+            grid.innerHTML = htmlContent;
         }
 
         // Шүүлтүүрийн функц
@@ -751,7 +758,7 @@
             } else {
                 buyBtn.textContent = 'ХУДАЛДАЖ АВАХ';
                 buyBtn.classList.remove('sold-btn');
-                buyBtn.href = 'https://www.messenger.com/t/100021788174984';
+                buyBtn.href = 'https://m.me/61561712856021';
             }
 
             // Модалыг харуулаад, дараа нь scroll хийх (ScrollTo ажиллахын тулд элемент харагдаж байх ёстой)
