@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="mn" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — ACCMarket</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  <style>
+    .admin-layout { display:grid; grid-template-columns:240px 1fr; gap:24px; align-items:start; }
+    @media(max-width:900px){ .admin-layout { grid-template-columns:1fr; } }
+    .admin-side { position:sticky; top:80px; }
+    .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; margin-bottom:28px; }
+    .stat-card { background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:18px; }
+    .stat-card .n { font-size:2rem; font-weight:900; }
+    .stat-card .l { font-size:0.72rem; color:var(--text-3); text-transform:uppercase; letter-spacing:0.5px; margin-top:4px; }
+    .pending-card { background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:20px; margin-bottom:14px; }
+    .pending-header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:12px; }
+    .pending-title { font-size:0.95rem; font-weight:700; line-height:1.35; }
+    .pending-meta { font-size:0.78rem; color:var(--text-3); margin-top:4px; }
+    .pending-actions { display:flex; gap:8px; flex-shrink:0; }
+    .table-wrap { background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius-lg); overflow:hidden; }
+  </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<div class="bg-canvas">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+</div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">🛡️</div>
+    <span>ACC<span style="color:var(--primary-2)">Market</span> Admin</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html"    class="nav-link">← Сайт</a>
+    <a href="listings.html" class="nav-link">Зарууд</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="theme-toggle">☀️</button>
+    <div class="avatar-btn">A</div>
+  </div>
+</nav>
+
+<main>
+  <!-- Access Denied (shown by default, removed by JS if admin) -->
+  <div id="access-denied" style="display:none;min-height:80vh;align-items:center;justify-content:center;padding:24px;">
+    <div style="text-align:center;">
+      <div style="font-size:4rem;margin-bottom:16px;">🚫</div>
+      <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:8px;">Хандах эрхгүй</h2>
+      <p class="text-muted">Энэ хуудас зөвхөн Admin-д зориулагдсан.</p>
+    </div>
+  </div>
+
+  <div id="admin-content">
+    <section class="section">
+      <div class="section-header" style="margin-bottom:24px;">
+        <h1 style="font-size:1.5rem;font-weight:900;">🛡️ Admin Panel</h1>
+        <div class="badge badge-verified" style="font-size:0.8rem;padding:6px 14px;">Тасгийн дарга</div>
+      </div>
+
+      <div class="admin-layout">
+
+        <!-- Sidebar -->
+        <div class="admin-side">
+          <div class="admin-sidebar">
+            <div class="admin-nav-item active" data-section="overview" onclick="switchSection('overview',this)">
+              <span class="icon">📊</span> Тоймлол
+            </div>
+            <div class="admin-nav-item" data-section="pending" onclick="switchSection('pending',this)">
+              <span class="icon">⏳</span> Хүлээгдэж буй
+              <span class="badge badge-pending" id="pending-badge" style="margin-left:auto;font-size:0.65rem;padding:2px 7px;">3</span>
+            </div>
+            <div class="admin-nav-item" data-section="listings" onclick="switchSection('listings',this)">
+              <span class="icon">📦</span> Бүх зарууд
+            </div>
+            <div class="admin-nav-item" data-section="users" onclick="switchSection('users',this)">
+              <span class="icon">👥</span> Хэрэглэгчид
+            </div>
+            <div class="admin-nav-item" data-section="reported" onclick="switchSection('reported',this)">
+              <span class="icon">🚩</span> Мэдэгдсэн
+            </div>
+          </div>
+        </div>
+
+        <!-- Main -->
+        <div id="admin-main">
+
+          <!-- Overview -->
+          <div id="sec-overview">
+            <div class="stat-grid">
+              <div class="stat-card"><div class="n" style="color:var(--primary-2);" id="st-listings">—</div><div class="l">Нийт зар</div></div>
+              <div class="stat-card"><div class="n" style="color:var(--success);"   id="st-active">—</div><div class="l">Идэвхтэй</div></div>
+              <div class="stat-card"><div class="n" style="color:var(--accent);"    id="st-pending">—</div><div class="l">Хүлээгдэж буй</div></div>
+              <div class="stat-card"><div class="n" style="color:var(--text-2);"    id="st-sold">—</div><div class="l">Зарагдсан</div></div>
+              <div class="stat-card"><div class="n" style="color:var(--info);"      id="st-users">—</div><div class="l">Нийт хэрэглэгч</div></div>
+              <div class="stat-card"><div class="n" style="color:var(--success);"   id="st-verified">—</div><div class="l">Verified худалдагч</div></div>
+            </div>
+
+            <div class="glass-card" style="padding:20px;">
+              <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:16px;">⏳ Шүүлтийг хүлээж буй зарууд</h3>
+              <div id="overview-pending"></div>
+            </div>
+          </div>
+
+          <!-- Pending Listings -->
+          <div id="sec-pending" style="display:none;">
+            <div class="section-header" style="margin-bottom:20px;">
+              <h2 style="font-size:1.1rem;font-weight:800;">⏳ Хүлээгдэж буй зарууд</h2>
+              <span class="text-muted text-sm" id="pending-count">0 зар</span>
+            </div>
+            <div id="pending-list"></div>
+          </div>
+
+          <!-- All Listings -->
+          <div id="sec-listings" style="display:none;">
+            <div class="section-header" style="margin-bottom:20px;">
+              <h2 style="font-size:1.1rem;font-weight:800;">📦 Бүх зарууд</h2>
+              <input type="text" class="form-control" style="width:240px;" placeholder="🔍 Хайх..." id="listings-search" oninput="renderAllListings()">
+            </div>
+            <div class="table-wrap">
+              <table class="data-table" id="all-listings-table">
+                <thead>
+                  <tr>
+                    <th>Зарын нэр</th>
+                    <th>Худалдагч</th>
+                    <th>Үнэ</th>
+                    <th>Статус</th>
+                    <th>Үзсэн</th>
+                    <th>Үйлдэл</th>
+                  </tr>
+                </thead>
+                <tbody id="listings-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Users -->
+          <div id="sec-users" style="display:none;">
+            <div class="section-header" style="margin-bottom:20px;">
+              <h2 style="font-size:1.1rem;font-weight:800;">👥 Хэрэглэгчид</h2>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Нэр</th>
+                    <th>И-мэйл</th>
+                    <th>Зар</th>
+                    <th>Үнэлгээ</th>
+                    <th>Verified</th>
+                    <th>Үйлдэл</th>
+                  </tr>
+                </thead>
+                <tbody id="users-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Reported -->
+          <div id="sec-reported" style="display:none;">
+            <div class="empty-state">
+              <div class="icon">🚩</div>
+              <h3>Мэдэгдсэн зар байхгүй</h3>
+              <p>Хэрэглэгчдийн мэдэгдсэн зарууд энд гарна</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Reject Modal -->
+<div class="modal-overlay" id="reject-modal">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-header">
+      <div class="modal-title">🚫 Татгалзах шалтгаан</div>
+      <button class="modal-close" onclick="closeModal('reject-modal')">✕</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Шалтгаан</label>
+      <textarea class="form-control" id="reject-reason" rows="4" placeholder="Татгалзах шалтгааныг худалдагчид мэдэгдэнэ..."></textarea>
+    </div>
+    <div style="display:flex;gap:12px;">
+      <button class="btn btn-outline" style="flex:1;" onclick="closeModal('reject-modal')">Болих</button>
+      <button class="btn btn-danger" style="flex:1;" onclick="confirmReject()">Татгалзах</button>
+    </div>
+  </div>
+</div>
+
+<button id="scroll-top" title="Дээшээ">↑</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+/* Demo data */
+let PENDING = [
+  { id:'p1', title:'PUBG Mobile Diamond + 500 UC, Facebook bind', game:'pubg_mobile', price:90000, level:50, bind_type:'facebook', seller:{username:'NewSeller99', verified:false}, description:'Season 27 Diamond rank. 500 UC. Level 50. Facebook bind. Зургийг харна уу.', created_at:'2024-03-21T10:00:00Z' },
+  { id:'p2', title:'COD Mobile Season 11 account, 2 Legendary weapons', game:'cod_mobile', price:60000, level:120, bind_type:'google', seller:{username:'GameShop_UB', verified:false}, description:'COD Mobile Season 11. 2 legendary blueprint. Google bind.', created_at:'2024-03-21T12:00:00Z' },
+  { id:'p3', title:'Valorant Gold 3, Elderflame Vandal bundle', game:'valorant', price:200000, level:0, bind_type:'google', seller:{username:'SkinTrader', verified:false}, description:'Gold 3 ranked. Elderflame Vandal + Operator bundle. 14 agents.', created_at:'2024-03-22T08:00:00Z' },
+];
+let ALL_LISTINGS = [
+  { id:'1', title:'PUBG Mobile Conqueror S28',      game:'pubg_mobile', price:350000, status:'active',  view_count:142, seller:{username:'BatzoSeller'} },
+  { id:'2', title:'Genshin AR 55, Hu Tao C1',       game:'genshin',     price:450000, status:'active',  view_count:201, seller:{username:'GenshinMN'} },
+  { id:'3', title:'COD Mobile Legendary S10',        game:'cod_mobile',  price:120000, status:'active',  view_count:89,  seller:{username:'CODmaster'} },
+  { id:'4', title:'PUBG PC 3000hrs BP S5-S7',        game:'pubg_pc',     price:220000, status:'sold',    view_count:55,  seller:{username:'PCGamer_UB'} },
+  { id:'5', title:'Valorant Immortal 2 Vandal',      game:'valorant',    price:180000, status:'active',  view_count:67,  seller:{username:'Valo_Seller'} },
+  { id:'6', title:'PUBG Mobile Platinum starter',    game:'pubg_mobile', price:45000,  status:'pending', view_count:0,   seller:{username:'NewSeller99'} },
+];
+const USERS = [
+  { id:'u1', username:'BatzoSeller',  email:'batzo@gmail.com',  listing_count:12, rating:4.9, verified:true },
+  { id:'u2', username:'GenshinMN',    email:'genshin@gmail.com',listing_count:8,  rating:5.0, verified:true },
+  { id:'u3', username:'CODmaster',    email:'cod@gmail.com',    listing_count:4,  rating:4.2, verified:false },
+  { id:'u4', username:'PCGamer_UB',   email:'pc@gmail.com',     listing_count:5,  rating:4.8, verified:true },
+  { id:'u5', username:'Valo_Seller',  email:'valo@gmail.com',   listing_count:3,  rating:4.6, verified:true },
+  { id:'u6', username:'NewSeller99',  email:'new@gmail.com',    listing_count:1,  rating:0,   verified:false },
+];
+
+let rejectingId = null;
+
+function switchSection(name, el) {
+  document.querySelectorAll('[id^="sec-"]').forEach(s => s.style.display = 'none');
+  document.getElementById('sec-' + name).style.display = 'block';
+  document.querySelectorAll('.admin-nav-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  if (name === 'pending')  renderPending();
+  if (name === 'listings') renderAllListings();
+  if (name === 'users')    renderUsers();
+}
+
+function renderStats() {
+  const active  = ALL_LISTINGS.filter(l => l.status === 'active').length;
+  const pending = ALL_LISTINGS.filter(l => l.status === 'pending').length + PENDING.length;
+  const sold    = ALL_LISTINGS.filter(l => l.status === 'sold').length;
+  document.getElementById('st-listings').textContent = ALL_LISTINGS.length + PENDING.length;
+  document.getElementById('st-active').textContent   = active;
+  document.getElementById('st-pending').textContent  = PENDING.length;
+  document.getElementById('st-sold').textContent     = sold;
+  document.getElementById('st-users').textContent    = USERS.length;
+  document.getElementById('st-verified').textContent = USERS.filter(u => u.verified).length;
+  document.getElementById('pending-badge').textContent = PENDING.length;
+  document.getElementById('overview-pending').innerHTML = PENDING.length
+    ? PENDING.slice(0,3).map(p => pendingCard(p, true)).join('')
+    : '<div class="text-muted text-sm text-center" style="padding:20px;">Хүлээгдэж буй зар байхгүй ✅</div>';
+}
+
+function pendingCard(p, mini = false) {
+  const game = GAMES.find(g => g.value === p.game) || { label: p.game, icon: '🎮' };
+  const bind = BIND_TYPES.find(b => b.value === p.bind_type) || { label: p.bind_type };
+  return `
+    <div class="pending-card">
+      <div class="pending-header">
+        <div>
+          <div style="font-size:0.7rem;font-weight:700;color:var(--primary-2);margin-bottom:4px;">${game.icon} ${game.label}</div>
+          <div class="pending-title">${p.title}</div>
+          <div class="pending-meta">
+            👤 ${p.seller?.username || '?'} · 💰 ${Fmt.price(p.price)} · 🔗 ${bind.label} · 📅 ${Fmt.timeAgo(p.created_at)}
+          </div>
+        </div>
+        <div class="pending-actions">
+          <button class="btn btn-success btn-sm" onclick="approveListing('${p.id}')">✅ Батлах</button>
+          <button class="btn btn-danger btn-sm" onclick="startReject('${p.id}')">🚫 Татгалзах</button>
+        </div>
+      </div>
+      ${!mini ? `<p class="text-muted text-sm" style="line-height:1.6;border-top:1px solid var(--glass-border);padding-top:12px;">${p.description}</p>` : ''}
+    </div>`;
+}
+
+function renderPending() {
+  document.getElementById('pending-count').textContent = PENDING.length + ' зар';
+  const el = document.getElementById('pending-list');
+  el.innerHTML = PENDING.length
+    ? PENDING.map(p => pendingCard(p)).join('')
+    : '<div class="empty-state"><div class="icon">✅</div><h3>Бүх зар шалгагдсан!</h3><p>Шинэ зар ирэхийг хүлээж байна.</p></div>';
+}
+
+function approveListing(id) {
+  const idx = PENDING.findIndex(p => p.id === id);
+  if (idx > -1) {
+    const p = PENDING.splice(idx, 1)[0];
+    ALL_LISTINGS.unshift({ ...p, status: 'active', view_count: 0, seller: p.seller });
+  }
+  renderStats();
+  renderPending();
+  Toast.success('Зар амжилттай баталгаажлаа!');
+}
+
+function startReject(id) {
+  rejectingId = id;
+  document.getElementById('reject-reason').value = '';
+  openModal('reject-modal');
+}
+
+function confirmReject() {
+  const reason = document.getElementById('reject-reason').value.trim();
+  if (!reason) { Toast.warning('Шалтгаан оруулна уу'); return; }
+  const idx = PENDING.findIndex(p => p.id === rejectingId);
+  if (idx > -1) PENDING.splice(idx, 1);
+  closeModal('reject-modal');
+  renderStats(); renderPending();
+  Toast.info('Зар татгалзагдлаа. Худалдагчид мэдэгдлээ.');
+}
+
+function renderAllListings() {
+  const q = (document.getElementById('listings-search')?.value || '').toLowerCase();
+  const rows = ALL_LISTINGS.filter(l => !q || l.title.toLowerCase().includes(q) || l.seller?.username?.toLowerCase().includes(q));
+  const statusMap = { active:'badge-new', pending:'badge-pending', sold:'badge-sold', rejected:'badge-rejected' };
+  const statusLabel = { active:'Идэвхтэй', pending:'Хүлээж буй', sold:'Зарагдсан', rejected:'Татгалзсан' };
+  const game = l => GAMES.find(g => g.value === l.game)?.icon || '🎮';
+  document.getElementById('listings-tbody').innerHTML = rows.map(l => `
+    <tr>
+      <td style="max-width:240px;"><span style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${game(l)} ${l.title}</span></td>
+      <td>${l.seller?.username || '—'}</td>
+      <td>${Fmt.price(l.price)}</td>
+      <td><span class="badge ${statusMap[l.status]}">${statusLabel[l.status]}</span></td>
+      <td>👁 ${l.view_count}</td>
+      <td>
+        <div style="display:flex;gap:6px;">
+          <a href="listing.html?id=${l.id}" class="btn btn-outline btn-xs">Харах</a>
+          <button class="btn btn-danger btn-xs" onclick="forceDelete('${l.id}')">Устгах</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function forceDelete(id) {
+  if (!confirm('Энэ зарыг устгах уу?')) return;
+  const idx = ALL_LISTINGS.findIndex(l => l.id === id);
+  if (idx > -1) ALL_LISTINGS.splice(idx, 1);
+  renderAllListings(); renderStats();
+  Toast.success('Зар устгагдлаа');
+}
+
+function renderUsers() {
+  document.getElementById('users-tbody').innerHTML = USERS.map(u => `
+    <tr>
+      <td><strong>${u.username}</strong></td>
+      <td class="text-muted">${u.email}</td>
+      <td>${u.listing_count}</td>
+      <td>${u.rating > 0 ? '⭐ ' + u.rating : '—'}</td>
+      <td>${u.verified ? '<span class="badge badge-verified">✓ Verified</span>' : '<span class="text-muted text-xs">—</span>'}</td>
+      <td>
+        <div style="display:flex;gap:6px;">
+          ${u.verified
+            ? `<button class="btn btn-outline btn-xs" onclick="toggleVerify('${u.id}',false)">Буцаах</button>`
+            : `<button class="btn btn-success btn-xs" onclick="toggleVerify('${u.id}',true)">✓ Verify</button>`}
+          <button class="btn btn-danger btn-xs" onclick="banUser('${u.id}')">Хаах</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function toggleVerify(userId, verified) {
+  const u = USERS.find(u => u.id === userId);
+  if (u) u.verified = verified;
+  renderUsers(); renderStats();
+  Toast.success(verified ? 'Хэрэглэгч verified боллоо!' : 'Verified статус хассан');
+}
+
+function banUser(userId) {
+  if (!confirm('Энэ хэрэглэгчийг хааx уу?')) return;
+  Toast.warning('Хэрэглэгч хаагдлаа (Demo горим)');
+}
+
+/* Init */
+renderStats();
+renderPending();
+</script>
+</body>
+</html>
