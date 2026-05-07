@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="mn" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — ACCMarket</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+  <style>
+    .dash-layout { display:grid; grid-template-columns:240px 1fr; gap:24px; align-items:start; }
+    @media(max-width:900px){ .dash-layout { grid-template-columns:1fr; } }
+    .dash-sidebar { position:sticky; top:80px; }
+    .dash-stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; margin-bottom:28px; }
+    .dash-stat { background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:18px; }
+    .dash-stat .num { font-size:1.8rem; font-weight:900; background:linear-gradient(135deg,var(--primary-2),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .dash-stat .lbl { font-size:0.72rem; color:var(--text-3); text-transform:uppercase; letter-spacing:0.5px; margin-top:4px; }
+    .listing-row { display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:10px; transition:background var(--transition); }
+    .listing-row:hover { background:var(--glass-bg); }
+    .listing-row-img { width:56px; height:40px; border-radius:8px; background:var(--bg-3); flex-shrink:0; overflow:hidden; display:flex;align-items:center;justify-content:center;font-size:1.5rem; }
+    .listing-row-info { flex:1; min-width:0; }
+    .listing-row-title { font-size:0.875rem; font-weight:600; truncate; }
+    .listing-row-meta { font-size:0.75rem; color:var(--text-3); margin-top:3px; }
+    .listing-row-price { font-size:1rem; font-weight:800; color:var(--primary-2); white-space:nowrap; }
+    .listing-row-actions { display:flex; gap:6px; flex-shrink:0; }
+  </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<div class="bg-canvas">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+</div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">🎮</div>
+    <span>ACC<span style="color:var(--primary-2)">Market</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html"     class="nav-link">Нүүр</a>
+    <a href="listings.html"  class="nav-link">Зарууд</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="theme-toggle">☀️</button>
+    <div class="avatar-btn" id="nav-avatar">?</div>
+  </div>
+</nav>
+
+<main>
+  <!-- Login Gate -->
+  <div id="login-gate" style="min-height:80vh;display:flex;align-items:center;justify-content:center;padding:24px;">
+    <div style="text-align:center;max-width:400px;">
+      <div style="font-size:4rem;margin-bottom:20px;">🔐</div>
+      <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:12px;">Нэвтрэх шаардлагатай</h2>
+      <p class="text-muted" style="margin-bottom:28px;line-height:1.65;">Зар нэмэх, dashboard ашиглахын тулд эхлээд нэвтэрнэ үү.</p>
+      <button class="social-btn" onclick="Auth.signInWithGoogle()" style="max-width:300px;margin:0 auto 12px;">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.5 0 20-7.6 20-21 0-1.4-.2-2.7-.5-4z"/></svg>
+        Google-ээр нэвтрэх
+      </button>
+      <button class="social-btn" onclick="Auth.signInWithFacebook()" style="max-width:300px;margin:0 auto;">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#1877F2" d="M48 24C48 10.7 37.3 0 24 0S0 10.7 0 24c0 12 8.8 21.9 20.2 23.7V31h-6v-7h6v-5.3c0-6 3.6-9.3 9-9.3 2.6 0 5.4.5 5.4.5V16h-3c-3 0-3.9 1.9-3.9 3.8V24h6.6l-1 7H27.5v16.7C39.2 45.9 48 36 48 24z"/></svg>
+        Facebook-ээр нэвтрэх
+      </button>
+    </div>
+  </div>
+
+  <!-- Dashboard (shown when logged in) -->
+  <div id="dashboard-content" style="display:none;">
+    <section class="section">
+      <div class="section-header" style="margin-bottom:24px;">
+        <div>
+          <h1 style="font-size:1.5rem;font-weight:900;letter-spacing:-0.5px;">📊 Dashboard</h1>
+          <p class="text-muted text-sm" id="welcome-msg">Сайн байна уу!</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('add-listing-modal')">＋ Зар нэмэх</button>
+      </div>
+
+      <div class="dash-layout">
+
+        <!-- Sidebar Nav -->
+        <div class="dash-sidebar">
+          <div class="admin-sidebar">
+            <div class="admin-nav-item active" data-section="overview" onclick="switchSection('overview',this)">
+              <span class="icon">📊</span> Тоймлол
+            </div>
+            <div class="admin-nav-item" data-section="listings" onclick="switchSection('listings',this)">
+              <span class="icon">📦</span> Миний зарууд
+            </div>
+            <div class="admin-nav-item" data-section="add" onclick="openModal('add-listing-modal')">
+              <span class="icon">＋</span> Зар нэмэх
+            </div>
+            <div class="admin-nav-item" data-section="profile" onclick="switchSection('profile',this)">
+              <span class="icon">👤</span> Профайл
+            </div>
+            <div class="admin-nav-item" data-section="wishlist" onclick="switchSection('wishlist',this)">
+              <span class="icon">❤️</span> Хадгалсан
+            </div>
+            <div class="divider"></div>
+            <div class="admin-nav-item" onclick="Auth.signOut().then(()=>location.href='index.html')" style="color:var(--danger);">
+              <span class="icon">🚪</span> Гарах
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Panel -->
+        <div id="dash-main">
+
+          <!-- Overview Section -->
+          <div id="sec-overview">
+            <div class="dash-stat-grid">
+              <div class="dash-stat"><div class="num" id="my-total">0</div><div class="lbl">Нийт зар</div></div>
+              <div class="dash-stat"><div class="num" id="my-active">0</div><div class="lbl">Идэвхтэй</div></div>
+              <div class="dash-stat"><div class="num" id="my-pending">0</div><div class="lbl">Хүлээгдэж буй</div></div>
+              <div class="dash-stat"><div class="num" id="my-sold">0</div><div class="lbl">Зарагдсан</div></div>
+            </div>
+
+            <div class="glass-card" style="padding:20px;">
+              <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:14px;">🔔 Мэдэгдлүүд</h3>
+              <div id="notifications-list">
+                <div class="text-muted text-sm text-center" style="padding:20px;">Мэдэгдэл байхгүй</div>
+              </div>
+            </div>
+
+            <div class="glass-card" style="padding:20px;margin-top:16px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <h3 style="font-size:0.9rem;font-weight:700;">📦 Сүүлийн зарууд</h3>
+                <button onclick="switchSection('listings',document.querySelector('[data-section=listings]'))" class="btn btn-outline btn-xs">Бүгдийг харах</button>
+              </div>
+              <div id="recent-listings"></div>
+            </div>
+          </div>
+
+          <!-- Listings Section -->
+          <div id="sec-listings" style="display:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+              <h2 style="font-size:1.1rem;font-weight:800;">📦 Миний зарууд</h2>
+              <button class="btn btn-primary btn-sm" onclick="openModal('add-listing-modal')">＋ Нэмэх</button>
+            </div>
+            <div id="my-listings-table">
+              <div class="text-muted text-center" style="padding:40px;">Ачааллаж байна...</div>
+            </div>
+          </div>
+
+          <!-- Profile Section -->
+          <div id="sec-profile" style="display:none;">
+            <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:20px;">👤 Профайл</h2>
+            <div class="glass-card" style="padding:24px;margin-bottom:20px;">
+              <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+                <div id="profile-avatar" style="width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:800;color:#fff;flex-shrink:0;"></div>
+                <div>
+                  <div style="font-size:1rem;font-weight:700;" id="profile-name">—</div>
+                  <div class="text-muted text-sm" id="profile-email">—</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Нэр / Хоч</label>
+                <input type="text" class="form-control" id="profile-username" placeholder="Таны хоч">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Товч танилцуулга</label>
+                <textarea class="form-control" id="profile-bio" rows="3" placeholder="Өөрийгөө товч танилцуулна уу..."></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Холбоо барих (Telegram, Facebook, утас)</label>
+                <input type="text" class="form-control" id="profile-contact" placeholder="@username эсвэл 9999-9999">
+              </div>
+              <button class="btn btn-primary" onclick="saveProfile()">Хадгалах</button>
+            </div>
+
+            <div class="glass-card" style="padding:20px;background:rgba(124,106,255,0.06);border-color:rgba(124,106,255,0.2);">
+              <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:8px;">✅ Verified худалдагч болох</h3>
+              <p class="text-muted text-sm" style="margin-bottom:12px;">Admin-д хүсэлт илгээж verified badge авна уу. Verified худалдагчид илүү олон хэрэглэгчид харагдана.</p>
+              <button class="btn btn-outline btn-sm" onclick="requestVerify()">Хүсэлт илгээх</button>
+            </div>
+          </div>
+
+          <!-- Wishlist Section -->
+          <div id="sec-wishlist" style="display:none;">
+            <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:20px;">❤️ Хадгалсан зарууд</h2>
+            <div id="wishlist-content" class="listings-grid"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Add Listing Modal -->
+<div class="modal-overlay" id="add-listing-modal">
+  <div class="modal" style="max-width:640px;">
+    <div class="modal-header">
+      <div class="modal-title">📦 Шинэ зар нэмэх</div>
+      <button class="modal-close" onclick="closeModal('add-listing-modal')">✕</button>
+    </div>
+    <p class="text-muted text-sm" style="margin-bottom:20px;">
+      Зар нэмсний дараа Admin баталгаажуулна. Ихэвчлэн 24 цагийн дотор шалгана.
+    </p>
+
+    <div class="form-group">
+      <label class="form-label">Тоглоом <span class="required">*</span></label>
+      <select class="form-control" id="new-game">
+        <option value="">Тоглоом сонгоно уу</option>
+        <option value="pubg_mobile">🎮 PUBG Mobile</option>
+        <option value="pubg_pc">💻 PUBG PC</option>
+        <option value="cod_mobile">🔫 COD Mobile</option>
+        <option value="genshin">⚔️ Genshin Impact</option>
+        <option value="valorant">🎯 Valorant</option>
+        <option value="other">🎲 Бусад</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Зарын гарчиг <span class="required">*</span></label>
+      <input type="text" class="form-control" id="new-title" placeholder="Жиш: PUBG Mobile Conqueror S28, 1500 UC, Glacier M416">
+      <div class="form-hint">Дэлгэрэнгүй, тодорхой гарчиг бичвэл илүү хурдан зарагдана</div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Дэвшлийн түвшин</label>
+        <input type="number" class="form-control" id="new-level" placeholder="85" min="1">
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Bind төрөл <span class="required">*</span></label>
+        <select class="form-control" id="new-bind">
+          <option value="">Сонгоно уу</option>
+          <option value="facebook">📘 Facebook</option>
+          <option value="google">🔵 Google</option>
+          <option value="twitter">🐦 Twitter/X</option>
+          <option value="apple">🍎 Apple ID</option>
+          <option value="none">🔓 Bind гүй</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-top:16px;">
+      <label class="form-label">Дэлгэрэнгүй тайлбар <span class="required">*</span></label>
+      <textarea class="form-control" id="new-desc" rows="5" placeholder="Акаунтын дэлгэрэнгүй мэдээлэл: rank, UC, skin, weapon, character, ялалт тоо гэх мэт..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Үнэ (₮) <span class="required">*</span></label>
+      <input type="number" class="form-control" id="new-price" placeholder="150000" min="0">
+      <div class="form-hint">Монгол төгрөгөөр оруулна уу</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Зураг оруулах</label>
+      <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+        <div class="upload-zone-icon">📸</div>
+        <div class="upload-zone-text">Зургаа <span>дарж сонгох</span> эсвэл чирэж тавих</div>
+        <div class="upload-zone-hint">PNG, JPG — дээд тал нь 5 зураг, 5MB/зураг</div>
+      </div>
+      <input type="file" id="file-input" style="display:none;" multiple accept="image/*" onchange="previewImages(this)">
+      <div class="upload-preview" id="upload-preview"></div>
+    </div>
+
+    <div style="display:flex;gap:12px;margin-top:8px;">
+      <button class="btn btn-outline" style="flex:1;" onclick="closeModal('add-listing-modal')">Болих</button>
+      <button class="btn btn-primary" style="flex:1;" onclick="submitListing()">📤 Батлуулахаар илгээх</button>
+    </div>
+  </div>
+</div>
+
+<button id="scroll-top" title="Дээшээ">↑</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+const MY_LISTINGS = [
+  { id:'1', title:'PUBG Mobile Conqueror Season 28, 1500+ UC, Glacier M416', game:'pubg_mobile', price:350000, level:85, status:'active',  view_count:142, created_at:'2024-03-10T10:00:00Z' },
+  { id:'2', title:'PUBG Mobile Platinum rank, starter account',               game:'pubg_mobile', price:45000,  level:30, status:'pending', view_count:0,   created_at:'2024-03-20T14:00:00Z' },
+  { id:'x', title:'COD Mobile Season 9 account',                              game:'cod_mobile',  price:85000,  level:80, status:'sold',    view_count:60,  created_at:'2024-02-15T09:00:00Z' },
+];
+
+let currentUser = null;
+
+function switchSection(name, el) {
+  document.querySelectorAll('[id^="sec-"]').forEach(s => s.style.display = 'none');
+  document.getElementById('sec-' + name).style.display = 'block';
+  document.querySelectorAll('.admin-nav-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  if (name === 'listings') renderMyListings();
+  if (name === 'wishlist') renderWishlist();
+}
+
+function renderOverview() {
+  const total   = MY_LISTINGS.length;
+  const active  = MY_LISTINGS.filter(l => l.status === 'active').length;
+  const pending = MY_LISTINGS.filter(l => l.status === 'pending').length;
+  const sold    = MY_LISTINGS.filter(l => l.status === 'sold').length;
+  document.getElementById('my-total').textContent   = total;
+  document.getElementById('my-active').textContent  = active;
+  document.getElementById('my-pending').textContent = pending;
+  document.getElementById('my-sold').textContent    = sold;
+
+  const recentEl = document.getElementById('recent-listings');
+  recentEl.innerHTML = MY_LISTINGS.slice(0,3).map(l => listingRow(l)).join('');
+}
+
+function listingRow(l) {
+  const game = GAMES.find(g => g.value === l.game) || { icon: '🎮' };
+  const statusMap = { active:'badge-new', pending:'badge-pending', sold:'badge-sold', rejected:'badge-rejected' };
+  const statusLabel = { active:'Идэвхтэй', pending:'Хүлээгдэж буй', sold:'Зарагдсан', rejected:'Татгалзсан' };
+  return `
+    <div class="listing-row">
+      <div class="listing-row-img">${game.icon}</div>
+      <div class="listing-row-info">
+        <div class="listing-row-title">${l.title}</div>
+        <div class="listing-row-meta">${Fmt.date(l.created_at)} · 👁 ${l.view_count}</div>
+      </div>
+      <span class="badge ${statusMap[l.status]}">${statusLabel[l.status]}</span>
+      <div class="listing-row-price">${Fmt.price(l.price)}</div>
+      <div class="listing-row-actions">
+        <a href="listing.html?id=${l.id}" class="btn btn-outline btn-xs">Харах</a>
+        ${l.status !== 'sold' ? `<button class="btn btn-danger btn-xs" onclick="deleteListing('${l.id}')">Устгах</button>` : ''}
+      </div>
+    </div>`;
+}
+
+function renderMyListings() {
+  const el = document.getElementById('my-listings-table');
+  if (!MY_LISTINGS.length) {
+    el.innerHTML = '<div class="empty-state"><div class="icon">📦</div><h3>Зар байхгүй</h3><p>Шинэ зар нэмэхийн тулд "Зар нэмэх" дарна уу</p><button class="btn btn-primary btn-sm" style="margin-top:16px;" onclick="openModal(\'add-listing-modal\')">＋ Нэмэх</button></div>';
+    return;
+  }
+  el.innerHTML = `<div style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);overflow:hidden;">${MY_LISTINGS.map(l => listingRow(l)).join('')}</div>`;
+}
+
+function renderWishlist() {
+  const ids = LocalWishlist.get();
+  const el = document.getElementById('wishlist-content');
+  if (!ids.length) {
+    el.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="icon">🤍</div><h3>Хадгалсан зар байхгүй</h3><p>Зар харахдаа ❤️ товчийг дарж хадгална уу</p></div>';
+    return;
+  }
+  el.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="icon">❤️</div><h3>' + ids.length + ' зар хадгалсан</h3><p>Нэвтэрсний дараа Supabase-аас синхрончилна</p></div>';
+}
+
+function deleteListing(id) {
+  if (!confirm('Энэ зарыг устгахдаа итгэлтэй байна уу?')) return;
+  const idx = MY_LISTINGS.findIndex(l => l.id === id);
+  if (idx > -1) MY_LISTINGS.splice(idx, 1);
+  renderMyListings();
+  renderOverview();
+  Toast.success('Зар устгагдлаа');
+}
+
+function previewImages(input) {
+  const preview = document.getElementById('upload-preview');
+  const files = [...input.files];
+  if (files.length > 5) { Toast.warning('Дээд тал нь 5 зураг оруулна уу'); return; }
+  preview.innerHTML = files.map((f, i) => {
+    const url = URL.createObjectURL(f);
+    return `<div class="upload-thumb"><img src="${url}" alt=""><button class="upload-thumb-remove" onclick="removeThumb(${i})">✕</button></div>`;
+  }).join('');
+}
+
+function removeThumb(i) {
+  const dt = new DataTransfer();
+  const input = document.getElementById('file-input');
+  [...input.files].forEach((f, idx) => { if (idx !== i) dt.items.add(f); });
+  input.files = dt.files;
+  previewImages(input);
+}
+
+function submitListing() {
+  const game  = document.getElementById('new-game').value;
+  const title = document.getElementById('new-title').value.trim();
+  const bind  = document.getElementById('new-bind').value;
+  const price = document.getElementById('new-price').value;
+  const desc  = document.getElementById('new-desc').value.trim();
+
+  if (!game || !title || !bind || !price || !desc) {
+    Toast.warning('Бүх шаардлагатай талбарыг бөглөнө үү');
+    return;
+  }
+  if (parseFloat(price) <= 0) { Toast.warning('Үнэ 0-ээс их байна'); return; }
+
+  Progress.start();
+  setTimeout(() => {
+    MY_LISTINGS.unshift({
+      id: 'new-' + Date.now(),
+      title, game, price: parseFloat(price),
+      level: parseInt(document.getElementById('new-level').value) || 0,
+      status: 'pending', view_count: 0,
+      created_at: new Date().toISOString(),
+    });
+    renderOverview();
+    closeModal('add-listing-modal');
+    Toast.success('Зар амжилттай илгээгдлээ! Admin шалгаж батална.');
+    Progress.done();
+    document.getElementById('new-game').value = '';
+    document.getElementById('new-title').value = '';
+    document.getElementById('new-bind').value = '';
+    document.getElementById('new-price').value = '';
+    document.getElementById('new-level').value = '';
+    document.getElementById('new-desc').value = '';
+    document.getElementById('upload-preview').innerHTML = '';
+  }, 800);
+}
+
+function saveProfile() {
+  const username = document.getElementById('profile-username').value.trim();
+  const bio = document.getElementById('profile-bio').value.trim();
+  if (!username) { Toast.warning('Нэр оруулна уу'); return; }
+  Progress.start();
+  setTimeout(() => { Toast.success('Профайл хадгалагдлаа!'); Progress.done(); }, 600);
+}
+
+function requestVerify() {
+  Toast.info('Хүсэлт илгээгдлээ! Admin 1-3 хоногт шалгана.');
+}
+
+/* Upload zone drag */
+const zone = document.getElementById('upload-zone');
+if (zone) {
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('dragover');
+    const input = document.getElementById('file-input');
+    const dt = new DataTransfer();
+    [...e.dataTransfer.files].forEach(f => { if (f.type.startsWith('image/')) dt.items.add(f); });
+    input.files = dt.files;
+    previewImages(input);
+  });
+}
+
+/* Auth check — show demo dashboard */
+function showDashboard(user) {
+  document.getElementById('login-gate').style.display = 'none';
+  document.getElementById('dashboard-content').style.display = 'block';
+
+  const name = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Тоглогч';
+  document.getElementById('welcome-msg').textContent = 'Сайн байна уу, ' + name + '!';
+  document.getElementById('nav-avatar').textContent = Fmt.initials(name);
+  document.getElementById('profile-avatar').textContent = Fmt.initials(name);
+  document.getElementById('profile-name').textContent = name;
+  document.getElementById('profile-email').textContent = user?.email || '';
+  document.getElementById('profile-username').value = name;
+
+  renderOverview();
+}
+
+/* For demo: show dashboard directly (remove in prod, use Auth.onAuthChange) */
+Auth.onAuthChange(user => {
+  if (user) showDashboard(user);
+  else {
+    document.getElementById('login-gate').style.display = 'flex';
+    document.getElementById('dashboard-content').style.display = 'none';
+  }
+});
+
+/* Demo mode for testing without Supabase */
+if (SUPABASE_URL.includes('YOUR_PROJECT')) {
+  showDashboard({ email: 'demo@accmarket.mn', user_metadata: { full_name: 'Demo Тоглогч' } });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="mn" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Зарууд — ACCMarket</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+  <style>
+    .listings-layout { display:grid; grid-template-columns:260px 1fr; gap:24px; align-items:start; }
+    @media(max-width:900px){ .listings-layout { grid-template-columns:1fr; } .sidebar-wrap { order:2; } .main-wrap { order:1; } }
+    .sort-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:10px; }
+    .sort-select { background:var(--bg-2); border:1px solid var(--glass-border); border-radius:8px; padding:7px 12px; color:var(--text-1); font-size:0.85rem; cursor:pointer; }
+    .sort-select:focus { outline:none; border-color:var(--primary); }
+    .search-results-count { font-size:0.85rem; color:var(--text-2); }
+    .search-bar-wrap { position:relative; margin-bottom:24px; }
+    .search-bar { width:100%; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:12px; padding:12px 44px 12px 16px; color:var(--text-1); font-size:0.95rem; }
+    .search-bar:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(124,106,255,0.15); }
+    .search-bar::placeholder { color:var(--text-3); }
+    .search-clear { position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; color:var(--text-3); font-size:16px; }
+    .search-clear:hover { color:var(--text-1); }
+  </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<div class="bg-canvas">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+</div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">🎮</div>
+    <span>ACC<span style="color:var(--primary-2)">Market</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html"    class="nav-link">Нүүр</a>
+    <a href="listings.html" class="nav-link">Зарууд</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-search-wrap">
+      <span class="nav-search-icon">🔍</span>
+      <input id="nav-search" class="nav-search" type="text" placeholder="Акаунт хайх...">
+    </div>
+    <button class="theme-toggle" id="theme-toggle">☀️</button>
+    <button class="nav-btn nav-btn-ghost" onclick="openModal('auth-modal')">Нэвтрэх</button>
+    <a href="dashboard.html" class="nav-btn nav-btn-primary">Зар нэмэх ＋</a>
+  </div>
+</nav>
+
+<main>
+  <section class="section">
+
+    <!-- Page Header -->
+    <div style="margin-bottom:24px;">
+      <h1 style="font-size:1.75rem;font-weight:900;letter-spacing:-0.5px;margin-bottom:6px;">🛍️ Бүх зарууд</h1>
+      <p class="text-muted text-sm">Verified худалдагчдын баталгаажсан акаунтууд</p>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar-wrap">
+      <input class="search-bar" id="search-input" type="text" placeholder="🔍  Тоглоом, хэрэгсэл, сезон хайх...">
+      <button class="search-clear" id="search-clear" style="display:none;" onclick="clearSearch()">✕</button>
+    </div>
+
+    <!-- Game Tabs -->
+    <div class="filter-tabs" id="game-tabs" style="margin-bottom:24px;">
+      <button class="filter-tab active" data-game="all">🌐 Бүгд</button>
+      <button class="filter-tab" data-game="pubg_mobile">🎮 PUBG Mobile</button>
+      <button class="filter-tab" data-game="pubg_pc">💻 PUBG PC</button>
+      <button class="filter-tab" data-game="cod_mobile">🔫 COD Mobile</button>
+      <button class="filter-tab" data-game="genshin">⚔️ Genshin</button>
+      <button class="filter-tab" data-game="valorant">🎯 Valorant</button>
+      <button class="filter-tab" data-game="other">🎲 Бусад</button>
+    </div>
+
+    <div class="listings-layout">
+
+      <!-- Sidebar Filters -->
+      <div class="sidebar-wrap">
+        <div class="filters-sidebar">
+          <div style="font-size:0.9rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;">
+            Шүүлтүүр
+            <button onclick="resetFilters()" style="font-size:0.75rem;color:var(--primary-2);background:none;font-weight:600;">Арилгах</button>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-group-title">Үнийн хязгаар (₮)</div>
+            <div class="price-range">
+              <input class="price-input" id="price-min" type="number" placeholder="0" min="0">
+              <span class="text-muted">—</span>
+              <input class="price-input" id="price-max" type="number" placeholder="1,000,000" min="0">
+            </div>
+            <button onclick="applyFilters()" class="btn btn-primary btn-sm" style="width:100%;margin-top:10px;">Хэрэглэх</button>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-group-title">Bind төрөл</div>
+            <label class="filter-option"><input type="checkbox" value="facebook" onchange="applyFilters()"> 📘 Facebook</label>
+            <label class="filter-option"><input type="checkbox" value="google" onchange="applyFilters()"> 🔵 Google</label>
+            <label class="filter-option"><input type="checkbox" value="twitter" onchange="applyFilters()"> 🐦 Twitter/X</label>
+            <label class="filter-option"><input type="checkbox" value="apple" onchange="applyFilters()"> 🍎 Apple ID</label>
+            <label class="filter-option"><input type="checkbox" value="none" onchange="applyFilters()"> 🔓 Bind гүй</label>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-group-title">Худалдагч</div>
+            <label class="filter-option"><input type="checkbox" id="filter-verified" onchange="applyFilters()"> ✓ Verified только</label>
+            <label class="filter-option"><input type="checkbox" id="filter-hot" onchange="applyFilters()"> 🔥 HOT зарууд</label>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-group-title">Үнэлгээ</div>
+            <label class="filter-option"><input type="radio" name="rating" value="4.5" onchange="applyFilters()"> ⭐ 4.5+</label>
+            <label class="filter-option"><input type="radio" name="rating" value="4.0" onchange="applyFilters()"> ⭐ 4.0+</label>
+            <label class="filter-option"><input type="radio" name="rating" value="any" onchange="applyFilters()" checked> Бүгд</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Listings Main -->
+      <div class="main-wrap">
+        <div class="sort-bar">
+          <span class="search-results-count" id="results-count">Ачааллаж байна...</span>
+          <select class="sort-select" id="sort-select" onchange="applyFilters()">
+            <option value="created_at">Шинэ эхэнд</option>
+            <option value="price_asc">Үнэ: бага → их</option>
+            <option value="price_desc">Үнэ: их → бага</option>
+            <option value="hot">Хамгийн их үзсэн</option>
+          </select>
+        </div>
+
+        <div class="listings-grid" id="listings-grid">
+          <!-- Skeletons -->
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line w-40" style="height:10px;margin-bottom:10px;"></div><div class="skeleton skeleton-line w-80"></div><div class="skeleton skeleton-line w-60"></div><div style="height:12px"></div><div class="skeleton skeleton-line h-6 w-40"></div></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line w-40" style="height:10px;margin-bottom:10px;"></div><div class="skeleton skeleton-line w-80"></div><div class="skeleton skeleton-line w-60"></div><div style="height:12px"></div><div class="skeleton skeleton-line h-6 w-40"></div></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line w-40" style="height:10px;margin-bottom:10px;"></div><div class="skeleton skeleton-line w-80"></div><div class="skeleton skeleton-line w-60"></div><div style="height:12px"></div><div class="skeleton skeleton-line h-6 w-40"></div></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line w-40" style="height:10px;margin-bottom:10px;"></div><div class="skeleton skeleton-line w-80"></div><div class="skeleton skeleton-line w-60"></div><div style="height:12px"></div><div class="skeleton skeleton-line h-6 w-40"></div></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line w-40" style="height:10px;margin-bottom:10px;"></div><div class="skeleton skeleton-line w-80"></div><div class="skeleton skeleton-line w-60"></div><div style="height:12px"></div><div class="skeleton skeleton-line h-6 w-40"></div></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line w-40" style="height:10px;margin-bottom:10px;"></div><div class="skeleton skeleton-line w-80"></div><div class="skeleton skeleton-line w-60"></div><div style="height:12px"></div><div class="skeleton skeleton-line h-6 w-40"></div></div></div>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-bottom" style="max-width:1280px;margin:0 auto;">
+    <span>© 2024 ACCMarket</span>
+    <span>Made with ❤️ in Mongolia 🇲🇳</span>
+  </div>
+</footer>
+
+<button id="scroll-top" title="Дээшээ">↑</button>
+
+<!-- Auth Modal -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal auth-modal">
+    <div class="modal-header">
+      <div class="modal-title">👋 Нэвтрэх</div>
+      <button class="modal-close" onclick="closeModal('auth-modal')">✕</button>
+    </div>
+    <button class="social-btn" onclick="Auth.signInWithGoogle()">
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.5 0 20-7.6 20-21 0-1.4-.2-2.7-.5-4z"/></svg>
+      Google-ээр нэвтрэх
+    </button>
+    <button class="social-btn" onclick="Auth.signInWithFacebook()">
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#1877F2" d="M48 24C48 10.7 37.3 0 24 0S0 10.7 0 24c0 12 8.8 21.9 20.2 23.7V31h-6v-7h6v-5.3c0-6 3.6-9.3 9-9.3 2.6 0 5.4.5 5.4.5V16h-3c-3 0-3.9 1.9-3.9 3.8V24h6.6l-1 7H27.5v16.7C39.2 45.9 48 36 48 24z"/></svg>
+      Facebook-ээр нэвтрэх
+    </button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+const ALL_LISTINGS = [
+  { id:'1',  title:'PUBG Mobile Conqueror Season 28, 1500+ UC, Glacier M416 + Mythic Set', game:'pubg_mobile', price:350000, level:85,  bind_type:'facebook', view_count:142, hot:true,  status:'active', images:[], profiles:{username:'BatzoSeller', verified:true,  rating:4.9} },
+  { id:'2',  title:'PUBG Mobile Diamond rank, 200+ UC, Clean account',                     game:'pubg_mobile', price:80000,  level:45,  bind_type:'google',   view_count:38,  hot:false, status:'active', images:[], profiles:{username:'MGL_Trade',   verified:true,  rating:4.7} },
+  { id:'3',  title:'COD Mobile Season 10 Legendary, Striker + Kilo full legendary',        game:'cod_mobile',  price:120000, level:150, bind_type:'facebook', view_count:89,  hot:true,  status:'active', images:[], profiles:{username:'CODmaster',   verified:false, rating:4.2} },
+  { id:'4',  title:'PUBG PC Steamworks, 3000+ hours, Battlepass S5 S6 S7 items',          game:'pubg_pc',     price:220000, level:0,   bind_type:'google',   view_count:55,  hot:false, status:'active', images:[], profiles:{username:'PCGamer_UB', verified:true,  rating:4.8} },
+  { id:'5',  title:'Genshin Impact AR 55, Hu Tao C1 + Xiao C0, Welkin Moon 3 months',     game:'genshin',     price:450000, level:55,  bind_type:'apple',    view_count:201, hot:true,  status:'active', images:[], profiles:{username:'GenshinMN',  verified:true,  rating:5.0} },
+  { id:'6',  title:'Valorant Immortal 2 account, Vandal skins, 14 agents unlocked',        game:'valorant',    price:180000, level:0,   bind_type:'google',   view_count:67,  hot:false, status:'active', images:[], profiles:{username:'Valo_Seller', verified:true,  rating:4.6} },
+  { id:'7',  title:'PUBG Mobile Ace Master, 800 UC, Limited Parachute Skin',               game:'pubg_mobile', price:95000,  level:60,  bind_type:'none',     view_count:29,  hot:false, status:'active', images:[], profiles:{username:'DropZone',   verified:false, rating:4.0} },
+  { id:'8',  title:'COD Mobile BR Legendary, 3 Legendary blueprints, Season 5',            game:'cod_mobile',  price:75000,  level:90,  bind_type:'facebook', view_count:41,  hot:false, status:'active', images:[], profiles:{username:'MGL_Trade',   verified:true,  rating:4.7} },
+  { id:'9',  title:'PUBG Mobile Crown S27, Kar98 Golden, UC 500+',                         game:'pubg_mobile', price:130000, level:70,  bind_type:'twitter',  view_count:22,  hot:false, status:'active', images:[], profiles:{username:'SniperMGL',  verified:false, rating:3.8} },
+  { id:'10', title:'Genshin Impact AR 60, Raiden Shogun C2, 5 Five-Star weapons',          game:'genshin',     price:700000, level:60,  bind_type:'apple',    view_count:340, hot:true,  status:'active', images:[], profiles:{username:'GenshinMN',  verified:true,  rating:5.0} },
+  { id:'11', title:'Valorant Diamond 3, Prime Vandal + Oni Phantom, All Episodes rank',    game:'valorant',    price:250000, level:0,   bind_type:'google',   view_count:88,  hot:false, status:'active', images:[], profiles:{username:'Valo_Seller', verified:true,  rating:4.6} },
+  { id:'12', title:'PUBG PC 500+ chicken dinners, rare Pan skin, 5 seasons BP',            game:'pubg_pc',     price:180000, level:0,   bind_type:'google',   view_count:31,  hot:false, status:'active', images:[], profiles:{username:'PCGamer_UB', verified:true,  rating:4.8} },
+];
+
+let currentGame = 'all';
+let currentPage = 1;
+const PAGE_SIZE = 8;
+let filteredListings = [...ALL_LISTINGS];
+let searchQuery = '';
+
+function getFilters() {
+  const binds = [...document.querySelectorAll('.filter-option input[type=checkbox]:not(#filter-verified):not(#filter-hot):checked')].map(c => c.value);
+  const minP = parseFloat(document.getElementById('price-min').value) || 0;
+  const maxP = parseFloat(document.getElementById('price-max').value) || Infinity;
+  const verifiedOnly = document.getElementById('filter-verified').checked;
+  const hotOnly = document.getElementById('filter-hot').checked;
+  const rating = parseFloat(document.querySelector('input[name=rating]:checked')?.value) || 0;
+  const sort = document.getElementById('sort-select').value;
+  return { binds, minP, maxP, verifiedOnly, hotOnly, rating, sort };
+}
+
+function applyFilters() {
+  const f = getFilters();
+  let results = ALL_LISTINGS.filter(l => {
+    if (currentGame !== 'all' && l.game !== currentGame) return false;
+    if (l.price < f.minP || l.price > f.maxP) return false;
+    if (f.binds.length && !f.binds.includes(l.bind_type)) return false;
+    if (f.verifiedOnly && !l.profiles?.verified) return false;
+    if (f.hotOnly && !l.hot) return false;
+    if (f.rating > 0 && (l.profiles?.rating || 0) < f.rating) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (!l.title.toLowerCase().includes(q) && !l.game.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (f.sort === 'price_asc')  results.sort((a,b) => a.price - b.price);
+  if (f.sort === 'price_desc') results.sort((a,b) => b.price - a.price);
+  if (f.sort === 'hot')        results.sort((a,b) => b.view_count - a.view_count);
+  if (f.sort === 'created_at') results.reverse();
+
+  filteredListings = results;
+  currentPage = 1;
+  renderListings();
+  renderPagination();
+}
+
+function renderListings() {
+  const grid = document.getElementById('listings-grid');
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const page  = filteredListings.slice(start, start + PAGE_SIZE);
+  const count = document.getElementById('results-count');
+
+  if (!filteredListings.length) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="icon">🔍</div><h3>Хайлт олдсонгүй</h3><p>Шүүлтүүр болон хайлтаа өөрчилж үзнэ үү</p></div>`;
+    count.textContent = '0 зар олдлоо';
+    return;
+  }
+
+  const wished = LocalWishlist.get();
+  grid.innerHTML = page.map(l => renderListingCard(l, wished)).join('');
+  count.textContent = `${filteredListings.length} зар олдлоо`;
+
+  grid.querySelectorAll('.listing-card').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', e => {
+      if (!e.target.closest('.card-wishlist')) location.href = 'listing.html?id=' + card.dataset.id;
+    });
+  });
+}
+
+function renderPagination() {
+  const total = Math.ceil(filteredListings.length / PAGE_SIZE);
+  const pag = document.getElementById('pagination');
+  if (total <= 1) { pag.innerHTML = ''; return; }
+
+  let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>←</button>`;
+  for (let i = 1; i <= total; i++) {
+    if (i === 1 || i === total || Math.abs(i - currentPage) <= 1) {
+      html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+    } else if (Math.abs(i - currentPage) === 2) {
+      html += `<span class="page-btn" style="pointer-events:none;opacity:0.4">…</span>`;
+    }
+  }
+  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===total?'disabled':''}>→</button>`;
+  pag.innerHTML = html;
+}
+
+function goPage(n) {
+  const total = Math.ceil(filteredListings.length / PAGE_SIZE);
+  if (n < 1 || n > total) return;
+  currentPage = n;
+  renderListings();
+  renderPagination();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetFilters() {
+  document.querySelectorAll('.filter-option input').forEach(i => i.checked = false);
+  document.querySelectorAll('input[name=rating]').forEach(r => r.checked = r.value === 'any');
+  document.getElementById('price-min').value = '';
+  document.getElementById('price-max').value = '';
+  searchQuery = '';
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-clear').style.display = 'none';
+  applyFilters();
+}
+
+function clearSearch() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-clear').style.display = 'none';
+  searchQuery = '';
+  applyFilters();
+}
+
+document.getElementById('game-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.filter-tab');
+  if (!tab) return;
+  document.querySelectorAll('#game-tabs .filter-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  currentGame = tab.dataset.game;
+  applyFilters();
+});
+
+let searchTimeout;
+document.getElementById('search-input').addEventListener('input', e => {
+  searchQuery = e.target.value.trim();
+  document.getElementById('search-clear').style.display = searchQuery ? 'flex' : 'none';
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(applyFilters, 300);
+});
+
+/* Init from URL params */
+const urlParams = Params.all();
+if (urlParams.q) {
+  document.getElementById('search-input').value = urlParams.q;
+  searchQuery = urlParams.q;
+  document.getElementById('search-clear').style.display = 'flex';
+}
+if (urlParams.game) {
+  const tab = document.querySelector(`[data-game="${urlParams.game}"]`);
+  if (tab) {
+    document.querySelectorAll('#game-tabs .filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentGame = urlParams.game;
+  }
+}
+
+applyFilters();
+</script>
+</body>
+</html>

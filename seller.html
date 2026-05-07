@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="mn" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Худалдагчийн профайл — ACCMarket</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+  <style>
+    .profile-layout { display:grid; grid-template-columns:340px 1fr; gap:28px; align-items:start; }
+    @media(max-width:900px){ .profile-layout { grid-template-columns:1fr; } }
+    .sticky-profile { position:sticky; top:80px; }
+  </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<div class="bg-canvas">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+</div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">🎮</div>
+    <span>ACC<span style="color:var(--primary-2)">Market</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html"    class="nav-link">Нүүр</a>
+    <a href="listings.html" class="nav-link">Зарууд</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="theme-toggle">☀️</button>
+    <button class="nav-btn nav-btn-ghost" onclick="openModal('auth-modal')">Нэвтрэх</button>
+    <a href="dashboard.html" class="nav-btn nav-btn-primary">Зар нэмэх ＋</a>
+  </div>
+</nav>
+
+<main>
+  <section class="section">
+
+    <!-- Profile Card -->
+    <div style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:32px;">
+      <!-- Banner -->
+      <div style="height:160px;background:linear-gradient(135deg,var(--primary),var(--accent));position:relative;">
+        <div id="seller-avatar-wrap" style="position:absolute;bottom:-32px;left:32px;width:72px;height:72px;border-radius:20px;border:4px solid var(--bg-2);background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:800;color:#fff;"></div>
+      </div>
+      <!-- Info -->
+      <div style="padding:48px 32px 28px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:1.4rem;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:10px;" id="seller-name">—</div>
+          <div class="text-muted text-sm" id="seller-joined">—</div>
+          <p class="text-muted text-sm" id="seller-bio" style="margin-top:8px;max-width:480px;line-height:1.6;"></p>
+          <div class="seller-stats" style="margin-top:16px;">
+            <div class="seller-stat"><div class="num" id="stat-rating">—</div><div class="lbl">Үнэлгээ</div></div>
+            <div class="seller-stat"><div class="num" id="stat-reviews">—</div><div class="lbl">Үнэлгээ тоо</div></div>
+            <div class="seller-stat"><div class="num" id="stat-listings">—</div><div class="lbl">Идэвхтэй зар</div></div>
+            <div class="seller-stat"><div class="num" id="stat-sold">—</div><div class="lbl">Зарсан</div></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end;">
+          <div id="verified-badge"></div>
+          <button onclick="openModal('contact-modal')" class="btn btn-primary btn-sm">💬 Холбогдох</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-layout">
+
+      <!-- Left: About + Reviews -->
+      <div class="sticky-profile">
+        <!-- Rating Breakdown -->
+        <div class="glass-card" style="padding:20px;margin-bottom:20px;">
+          <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:16px;">⭐ Үнэлгээний задаргаа</h3>
+          <div id="rating-bars"></div>
+          <div style="font-size:3rem;font-weight:900;text-align:center;margin-top:16px;" id="big-rating">—</div>
+          <div class="text-center text-muted text-sm" id="rating-sub">0 үнэлгээнд үндэслэв</div>
+        </div>
+
+        <!-- Contact Box -->
+        <div class="glass-card" style="padding:20px;background:rgba(124,106,255,0.08);border-color:rgba(124,106,255,0.2);">
+          <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:8px;">📨 Мессеж илгээх</h3>
+          <p class="text-muted text-xs" style="margin-bottom:12px;">Худалдагчид шууд мессеж илгээ</p>
+          <button onclick="openModal('contact-modal')" class="btn btn-primary btn-sm" style="width:100%;">Холбогдох</button>
+        </div>
+      </div>
+
+      <!-- Right: Listings + Reviews -->
+      <div>
+        <!-- Tabs -->
+        <div class="filter-tabs" id="profile-tabs" style="margin-bottom:24px;">
+          <button class="filter-tab active" data-tab="listings">📦 Зарууд <span class="tab-count" id="tc-listings">0</span></button>
+          <button class="filter-tab" data-tab="reviews">⭐ Үнэлгээ <span class="tab-count" id="tc-reviews">0</span></button>
+        </div>
+
+        <!-- Listings Tab -->
+        <div id="tab-listings">
+          <div class="listings-grid" id="seller-listings-grid">
+            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line w-80" style="margin-bottom:8px;"></div><div class="skeleton skeleton-line w-60"></div></div></div>
+            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line w-80" style="margin-bottom:8px;"></div><div class="skeleton skeleton-line w-60"></div></div></div>
+          </div>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div id="tab-reviews" style="display:none;">
+          <div id="seller-reviews-list"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<footer>
+  <div class="footer-bottom" style="max-width:1280px;margin:0 auto;">
+    <span>© 2024 ACCMarket</span>
+    <span>Made with ❤️ in Mongolia 🇲🇳</span>
+  </div>
+</footer>
+
+<button id="scroll-top" title="Дээшээ">↑</button>
+
+<!-- Auth Modal -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal auth-modal">
+    <div class="modal-header">
+      <div class="modal-title">👋 Нэвтрэх</div>
+      <button class="modal-close" onclick="closeModal('auth-modal')">✕</button>
+    </div>
+    <button class="social-btn" onclick="Auth.signInWithGoogle()">Google-ээр нэвтрэх</button>
+    <button class="social-btn" onclick="Auth.signInWithFacebook()">Facebook-ээр нэвтрэх</button>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div class="modal-overlay" id="contact-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">💬 Худалдагчид бичих</div>
+      <button class="modal-close" onclick="closeModal('contact-modal')">✕</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Мессеж</label>
+      <textarea class="form-control" id="contact-msg" rows="4" placeholder="Сайн уу..."></textarea>
+    </div>
+    <div style="display:flex;gap:12px;">
+      <button class="btn btn-outline" style="flex:1;" onclick="closeModal('contact-modal')">Болих</button>
+      <button class="btn btn-primary" style="flex:1;" onclick="sendMsg()">Илгээх</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+const SELLERS = {
+  's1': { id:'s1', username:'BatzoSeller',  verified:true,  rating:4.9, review_count:47, listing_count:12, sold_count:35, bio:'PUBG Mobile акаунт худалдаанд мэргэшсэн. 2 жилийн туршлагатай, 35+ амжилттай гүйлгээ.',  joined_at:'2022-03-10' },
+  's2': { id:'s2', username:'GenshinMN',    verified:true,  rating:5.0, review_count:31, listing_count:8,  sold_count:22, bio:'Genshin Impact AR 60, олон жил тоглосон. Premium акаунт л зардаг.',                         joined_at:'2022-08-15' },
+  's3': { id:'s3', username:'PCGamer_UB',   verified:true,  rating:4.8, review_count:19, listing_count:5,  sold_count:14, bio:'PUBG PC мэргэжилтэн. Steam акаунт, зөвхөн баталгаатай.',                                     joined_at:'2023-01-20' },
+  's4': { id:'s4', username:'MGL_Trade',    verified:true,  rating:4.7, review_count:58, listing_count:20, sold_count:38, bio:'Олон тоглоомын акаунт. Хамгийн их гүйлгээтэй худалдагч. Telegram: @mgl_trade',             joined_at:'2021-11-05' },
+};
+const SELLER_LISTINGS = {
+  's1': [
+    { id:'1', title:'PUBG Mobile Conqueror Season 28, 1500+ UC, Glacier M416', game:'pubg_mobile', price:350000, level:85, bind_type:'facebook', view_count:142, hot:true, status:'active', images:[], profiles:{username:'BatzoSeller',verified:true,rating:4.9} },
+    { id:'7', title:'PUBG Mobile Ace Master, 800 UC, Limited Parachute Skin',   game:'pubg_mobile', price:95000,  level:60, bind_type:'none',     view_count:29,  hot:false,status:'active', images:[], profiles:{username:'BatzoSeller',verified:true,rating:4.9} },
+  ],
+  's2': [
+    { id:'5',  title:'Genshin Impact AR 55, Hu Tao C1 + Xiao C0',           game:'genshin', price:450000, level:55, bind_type:'apple', view_count:201, hot:true,  status:'active', images:[], profiles:{username:'GenshinMN',verified:true,rating:5.0} },
+    { id:'10', title:'Genshin Impact AR 60, Raiden Shogun C2, 5 five-stars', game:'genshin', price:700000, level:60, bind_type:'apple', view_count:340, hot:true,  status:'active', images:[], profiles:{username:'GenshinMN',verified:true,rating:5.0} },
+  ],
+};
+const SELLER_REVIEWS = [
+  { id:'r1', reviewer:{username:'Тулга'},  rating:5, text:'Маш найдвартай худалдагч. Хурдан шилжүүлсэн, мэдээлэл 100% үнэн байсан!',   created_at:'2024-03-15' },
+  { id:'r2', reviewer:{username:'Эрдэнэ'},rating:5, text:'5/5. Акаунт зургаас ч сайн байлаа. Ярих гэхэд хурдан хариулсан.',             created_at:'2024-02-28' },
+  { id:'r3', reviewer:{username:'Болд'},   rating:4, text:'Сайн акаунт, үнэ бас тохиромжтой. Дахин авах болно.',                         created_at:'2024-02-10' },
+  { id:'r4', reviewer:{username:'Нарангэрэл'}, rating:5, text:'Гайхалтай хурдан. 20 минутын дотор шилжүүлж өгсөн. Баярлалаа!',          created_at:'2024-01-22' },
+];
+
+function loadSeller() {
+  const id = Params.get('id') || 's1';
+  const s = SELLERS[id] || SELLERS['s1'];
+  const listings = SELLER_LISTINGS[id] || SELLER_LISTINGS['s1'] || [];
+
+  document.title = s.username + ' — ACCMarket';
+  document.getElementById('seller-avatar-wrap').textContent = Fmt.initials(s.username);
+  document.getElementById('seller-name').innerHTML = s.username + (s.verified ? ' <span class="badge badge-verified">✓ Verified</span>' : '');
+  document.getElementById('seller-joined').textContent = Fmt.date(s.joined_at) + '-аас гишүүн';
+  document.getElementById('seller-bio').textContent = s.bio || '';
+
+  document.getElementById('stat-rating').textContent = '⭐ ' + s.rating;
+  document.getElementById('stat-reviews').textContent = s.review_count;
+  document.getElementById('stat-listings').textContent = s.listing_count;
+  document.getElementById('stat-sold').textContent = s.sold_count;
+
+  document.getElementById('tc-listings').textContent = listings.length;
+  document.getElementById('tc-reviews').textContent = SELLER_REVIEWS.length;
+
+  if (s.verified) {
+    document.getElementById('verified-badge').innerHTML = '<span class="badge badge-verified" style="font-size:0.8rem;padding:6px 14px;">✓ Verified худалдагч</span>';
+  }
+
+  /* Rating Bars */
+  const bars = [5,4,3,2,1].map(n => {
+    const count = SELLER_REVIEWS.filter(r => r.rating === n).length;
+    const pct = SELLER_REVIEWS.length ? Math.round(count / SELLER_REVIEWS.length * 100) : 0;
+    return `
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span class="text-xs text-muted" style="width:14px;">${n}</span>
+        <div style="flex:1;height:6px;background:var(--bg-3);border-radius:3px;overflow:hidden;">
+          <div style="height:100%;width:${pct}%;background:var(--accent);border-radius:3px;transition:width 0.8s ease;"></div>
+        </div>
+        <span class="text-xs text-muted" style="width:24px;">${count}</span>
+      </div>`;
+  }).join('');
+  document.getElementById('rating-bars').innerHTML = bars;
+  document.getElementById('big-rating').textContent = s.rating;
+  document.getElementById('rating-sub').textContent = s.review_count + ' үнэлгээнд үндэслэв';
+
+  /* Listings */
+  const grid = document.getElementById('seller-listings-grid');
+  if (!listings.length) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="icon">📦</div><h3>Зар байхгүй</h3><p>Энэ худалдагч одоогоор идэвхтэй зартай биш байна</p></div>';
+  } else {
+    grid.innerHTML = listings.map(l => renderListingCard(l, LocalWishlist.get())).join('');
+    grid.querySelectorAll('.listing-card').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', e => {
+        if (!e.target.closest('.card-wishlist')) location.href = 'listing.html?id=' + card.dataset.id;
+      });
+    });
+  }
+
+  /* Reviews */
+  const list = document.getElementById('seller-reviews-list');
+  if (!SELLER_REVIEWS.length) {
+    list.innerHTML = '<div class="empty-state"><div class="icon">⭐</div><h3>Үнэлгээ байхгүй</h3></div>';
+  } else {
+    list.innerHTML = SELLER_REVIEWS.map(r => `
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">${Fmt.initials(r.reviewer?.username)}</div>
+          <div class="review-meta">
+            <div class="review-name">${r.reviewer?.username || 'Нэвтрэгч'}</div>
+            <div class="review-date">${Fmt.timeAgo(r.created_at)} · ${'⭐'.repeat(r.rating)}</div>
+          </div>
+        </div>
+        <p class="review-text">${r.text}</p>
+      </div>`).join('');
+  }
+}
+
+/* Tab switching */
+document.getElementById('profile-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.filter-tab');
+  if (!tab) return;
+  document.querySelectorAll('#profile-tabs .filter-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const which = tab.dataset.tab;
+  document.getElementById('tab-listings').style.display = which === 'listings' ? 'block' : 'none';
+  document.getElementById('tab-reviews').style.display  = which === 'reviews'  ? 'block' : 'none';
+});
+
+function sendMsg() {
+  const msg = document.getElementById('contact-msg').value.trim();
+  if (!msg) { Toast.warning('Мессеж оруулна уу'); return; }
+  Toast.success('Мессеж илгээгдлээ!');
+  closeModal('contact-modal');
+}
+
+loadSeller();
+</script>
+</body>
+</html>
