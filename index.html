@@ -1,901 +1,1130 @@
 <!DOCTYPE html>
-<html lang="mn">
+<html lang="mn" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#e0eaf5">
+    <meta name="theme-color" content="#0a0a14">
 
-    <meta property="og:title" content="Pubg Accounts Mongolia" />
-    <meta property="og:description" content="Баталгаат Аккоунт Худалдаа" />
+    <meta property="og:title" content="Pubg Accounts Mongolia — Аккоунт, Цэнэглэлт & Түрээс" />
+    <meta property="og:description" content="Монголын №1 тоглоомын аккоунт худалдаа, UC / Diamond цэнэглэлт болон аккоунт түрээсийн үйлчилгээ." />
     <meta property="og:image" content="https://i.ibb.co/YTtMjPY3/Purple-Gradient-Modern-Brand-Guidelines-Presentation-1.png" />
 
-    <title>Pubg Accounts Mongolia</title>
+    <title>Pubg Accounts Mongolia — Аккоунт, Цэнэглэлт & Түрээс</title>
 
-    <!-- Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        /* ============================================================
+           THEME TOKENS — Хар (default) ба Цайвар theme
+        ============================================================ */
         :root {
-            /* Glassmorphism colors */
-            --bg-body-start: #e0eaf5;
-            --bg-body-end: #f8f9fa;
-
-            --glass-bg: rgba(255, 255, 255, 0.45);
-            --glass-bg-heavy: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.6);
-            --glass-border-light: rgba(255, 255, 255, 0.3);
-
-            --primary: #0071e3;
-            --primary-glow: rgba(0, 113, 227, 0.2);
-            --accent: #ff3b30;
-
-            --text-main: #1d1d1f;
-            --text-sec: #6e6e73;
-
-            --shadow-soft: 0 10px 40px rgba(0,0,0,0.05);
-            --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
-
-            --radius-lg: 28px;
-            --radius-md: 20px;
+            --primary: #7c5cff;
+            --primary-2: #22d3ee;
+            --accent: #ff2d75;
+            --gold: #ffb020;
+            --success: #22c55e;
+            --grad-brand: linear-gradient(135deg, #7c5cff 0%, #22d3ee 100%);
+            --grad-hot: linear-gradient(135deg, #ff512f 0%, #ff2d75 100%);
+            --radius-lg: 26px;
+            --radius-md: 18px;
+            --radius-sm: 12px;
+            --maxw: 1180px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
-
-        /* Гар утсан дээр хөндлөн гулгалт үүсэхийг хязгаарлах */
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
+        /* ---- DARK (default) ---- */
+        html[data-theme="dark"] {
+            --bg-1: #07070e;
+            --bg-2: #0e0e1c;
+            --blob-1: rgba(124,92,255,0.22);
+            --blob-2: rgba(34,211,238,0.16);
+            --glass: rgba(255,255,255,0.045);
+            --glass-2: rgba(255,255,255,0.07);
+            --glass-strong: rgba(20,20,38,0.72);
+            --border: rgba(255,255,255,0.09);
+            --border-2: rgba(255,255,255,0.16);
+            --text: #f3f3fb;
+            --text-sec: #9a9ab4;
+            --text-dim: #6a6a85;
+            --shadow: 0 18px 50px rgba(0,0,0,0.45);
+            --shadow-glow: 0 12px 40px rgba(124,92,255,0.25);
+            --card: rgba(255,255,255,0.04);
+            --card-hover: rgba(255,255,255,0.08);
+            --nav-bg: rgba(10,10,20,0.62);
         }
+
+        /* ---- LIGHT ---- */
+        html[data-theme="light"] {
+            --bg-1: #e6edf7;
+            --bg-2: #f6f8fc;
+            --blob-1: rgba(124,92,255,0.18);
+            --blob-2: rgba(34,211,238,0.16);
+            --glass: rgba(255,255,255,0.55);
+            --glass-2: rgba(255,255,255,0.75);
+            --glass-strong: rgba(255,255,255,0.85);
+            --border: rgba(0,0,0,0.07);
+            --border-2: rgba(0,0,0,0.12);
+            --text: #14141f;
+            --text-sec: #5a5a70;
+            --text-dim: #8a8aa0;
+            --shadow: 0 16px 44px rgba(31,38,135,0.10);
+            --shadow-glow: 0 12px 36px rgba(124,92,255,0.20);
+            --card: rgba(255,255,255,0.62);
+            --card-hover: rgba(255,255,255,0.92);
+            --nav-bg: rgba(255,255,255,0.55);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; outline:none; -webkit-tap-highlight-color:transparent; }
+        html, body { overflow-x:hidden; width:100%; scroll-behavior:smooth; }
 
         body {
-            background: linear-gradient(135deg, var(--bg-body-start) 0%, var(--bg-body-end) 100%);
+            background: radial-gradient(1200px 600px at 15% -10%, var(--blob-1), transparent 60%),
+                        radial-gradient(1000px 500px at 110% 10%, var(--blob-2), transparent 55%),
+                        linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 100%);
             background-attachment: fixed;
-            color: var(--text-main);
+            color: var(--text);
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
             display: flex; flex-direction: column;
             -webkit-font-smoothing: antialiased;
+            transition: background 0.5s ease, color 0.3s ease;
         }
+        ::selection { background: var(--primary); color:#fff; }
+        h1,h2,h3,.brand-text,.stat-num,.price,.pkg-price { font-family:'Space Grotesk','Plus Jakarta Sans',sans-serif; }
 
-        /* --- Дээд цэс (GLASS NAVBAR) --- */
+        /* ============================================================ NAVBAR ============================================================ */
         .navbar {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-bottom: 1px solid var(--glass-border-light);
-            position: sticky; top: 0; z-index: 1000;
+            position: sticky; top:0; z-index:1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(22px) saturate(160%); -webkit-backdrop-filter: blur(22px) saturate(160%);
+            border-bottom: 1px solid var(--border);
         }
         .nav-inner {
-            max-width: 1100px; margin: 0 auto; height: 72px;
-            display: flex; justify-content: center; align-items: center; padding: 0 20px;
+            max-width: var(--maxw); margin:0 auto; height:68px;
+            display:flex; align-items:center; justify-content:space-between; gap:14px; padding:0 18px;
         }
-        .brand {
-            display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-main);
-            transition: transform 0.2s ease;
+        .brand { display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--text); cursor:pointer; }
+        .brand:active { transform:scale(0.97); }
+        .logo {
+            width:42px; height:42px; border-radius:13px; object-fit:cover;
+            box-shadow:0 6px 18px rgba(124,92,255,0.35); border:1px solid var(--border-2);
         }
-        .brand:active { transform: scale(0.95); }
-        .logo { width: 40px; height: 40px; border-radius: 12px; object-fit: cover; box-shadow: var(--shadow-soft); }
-        .logo-text { font-weight: 800; font-size: 1.3rem; letter-spacing: -0.5px; background: linear-gradient(135deg, #1d1d1f 0%, #434343 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .brand-text { display:flex; flex-direction:column; line-height:1.05; }
+        .brand-text b { font-size:1.12rem; font-weight:700; letter-spacing:-0.4px; }
+        .brand-text span { font-size:0.66rem; color:var(--text-sec); font-weight:600; letter-spacing:1.5px; text-transform:uppercase; }
 
-        .container {
-            max-width: 1100px; margin: 0 auto; padding: 25px 20px;
-            flex: 1; width: 100%;
+        .nav-actions { display:flex; align-items:center; gap:9px; }
+        .icon-btn {
+            width:42px; height:42px; border-radius:12px; border:1px solid var(--border);
+            background:var(--glass); color:var(--text); cursor:pointer;
+            display:flex; align-items:center; justify-content:center; font-size:1.25rem;
+            transition:all .25s ease; position:relative; backdrop-filter:blur(10px);
         }
+        .icon-btn:hover { background:var(--glass-2); transform:translateY(-2px); border-color:var(--border-2); }
+        .icon-btn:active { transform:scale(0.92); }
+        .badge-count {
+            position:absolute; top:-5px; right:-5px; min-width:18px; height:18px; padding:0 4px;
+            background:var(--accent); color:#fff; font-size:0.62rem; font-weight:800; border-radius:10px;
+            display:flex; align-items:center; justify-content:center; border:2px solid var(--bg-1);
+            transform:scale(0); transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+        }
+        .badge-count.show { transform:scale(1); }
 
-        /* --- Hero хэсэг --- */
-        .hero-container {
-            position: relative;
-            margin-bottom: 30px;
-            width: 100%;
-            max-width: 100vw;
-        }
-        .hero-bg-blob {
-            position: absolute;
-            top: -50px; left: 50%;
-            transform: translateX(-50%);
-            width: 100%; max-width: 800px; height: 400px;
-            background: radial-gradient(circle, rgba(0,113,227,0.15) 0%, rgba(255,255,255,0) 70%);
-            z-index: -1;
-            filter: blur(40px);
-        }
+        .container { max-width: var(--maxw); margin:0 auto; padding:22px 18px; flex:1; width:100%; }
+
+        /* ============================================================ HERO ============================================================ */
         .hero {
-            background: var(--glass-bg-heavy);
-            backdrop-filter: blur(25px) saturate(150%); -webkit-backdrop-filter: blur(25px) saturate(150%);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            overflow: hidden; 
-            box-shadow: var(--shadow-glass);
-            display: flex; flex-direction: column;
-            width: 100%;
+            position:relative; border-radius:var(--radius-lg); overflow:hidden;
+            border:1px solid var(--border); background:var(--glass);
+            backdrop-filter:blur(24px) saturate(150%); -webkit-backdrop-filter:blur(24px) saturate(150%);
+            box-shadow:var(--shadow); margin-bottom:26px;
+            padding:46px 32px; text-align:center;
         }
-        .hero-banner { 
-            width: 100%; height: auto; 
-            display: block; 
-            border-bottom: 1px solid var(--glass-border-light);
+        .hero::before {
+            content:""; position:absolute; inset:0; z-index:0;
+            background: radial-gradient(700px 320px at 50% -30%, var(--blob-1), transparent 60%);
+            animation: floatGlow 8s ease-in-out infinite alternate;
         }
-        .hero-content { 
-            padding: 35px 20px; 
-            text-align: center; 
-            position: relative; z-index: 2; 
-        }
-        
+        @keyframes floatGlow { from{transform:translateY(0) scale(1);} to{transform:translateY(20px) scale(1.08);} }
+        .hero > * { position:relative; z-index:1; }
         .hero-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(0, 113, 227, 0.1); color: var(--primary);
-            padding: 8px 16px; border-radius: 100px; font-size: 0.8rem; font-weight: 800; margin-bottom: 18px;
-            border: 1px solid rgba(0, 113, 227, 0.2);
+            display:inline-flex; align-items:center; gap:7px; padding:7px 16px; border-radius:100px;
+            background:var(--glass-2); border:1px solid var(--border-2); color:var(--primary-2);
+            font-size:0.78rem; font-weight:800; margin-bottom:18px; letter-spacing:0.3px;
         }
-        .hero-title { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; color: var(--text-main); line-height: 1.2;}
-        .hero-desc { color: var(--text-sec); font-size: 1.05rem; max-width: 600px; margin: 0 auto 28px; line-height: 1.6; }
+        .hero-badge i { color:var(--success); }
+        .hero h1 {
+            font-size:2.7rem; font-weight:700; letter-spacing:-1.2px; line-height:1.08; margin-bottom:14px;
+        }
+        .hero h1 .grad { background:var(--grad-brand); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+        .hero p { color:var(--text-sec); font-size:1.06rem; max-width:560px; margin:0 auto 26px; line-height:1.6; }
+        .hero-actions { display:flex; justify-content:center; gap:11px; flex-wrap:wrap; }
 
-        .hero-actions { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
         .btn {
-            padding: 14px 28px; border-radius: 16px; font-weight: 700; text-decoration: none;
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 0.95rem; border: none; cursor: pointer; text-align: center;
+            padding:13px 22px; border-radius:14px; font-weight:700; font-size:0.92rem; cursor:pointer;
+            text-decoration:none; border:1px solid transparent; display:inline-flex; align-items:center; gap:8px;
+            transition:all .28s cubic-bezier(.4,0,.2,1); justify-content:center;
         }
-        .btn:active { transform: scale(0.96); }
-        .btn-primary { background: var(--text-main); color: #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.2); }
-        .btn-outline { background: rgba(255,255,255,0.5); color: var(--text-main); border: 1px solid var(--glass-border);}
-        .btn-outline:hover { background: rgba(255,255,255,0.8); }
-        .btn-tutorial { background: rgba(255, 59, 48, 0.1); color: var(--accent); }
-        .btn-tutorial:hover { background: rgba(255, 59, 48, 0.2); transform: translateY(-3px); }
-        .btn-rent { background: rgba(0, 113, 227, 0.1); color: var(--primary); }
-        .btn-rent:hover { background: rgba(0, 113, 227, 0.2); transform: translateY(-3px); }
+        .btn:active { transform:scale(0.96); }
+        .btn-primary { background:var(--grad-brand); color:#fff; box-shadow:var(--shadow-glow); }
+        .btn-primary:hover { transform:translateY(-3px); box-shadow:0 18px 44px rgba(124,92,255,0.4); }
+        .btn-ghost { background:var(--glass-2); color:var(--text); border-color:var(--border-2); }
+        .btn-ghost:hover { transform:translateY(-3px); background:var(--card-hover); }
 
-        /* --- Search aani Filter --- */
+        /* Hero stats */
+        .hero-stats {
+            display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:30px;
+        }
+        .stat {
+            min-width:120px; padding:16px 20px; border-radius:var(--radius-md);
+            background:var(--glass-2); border:1px solid var(--border); backdrop-filter:blur(10px);
+        }
+        .stat-num { font-size:1.7rem; font-weight:700; background:var(--grad-brand); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+        .stat-lbl { font-size:0.74rem; color:var(--text-sec); font-weight:700; letter-spacing:0.5px; text-transform:uppercase; margin-top:2px; }
+
+        /* ============================================================ SECTION TITLES ============================================================ */
+        .sec-head { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin:34px 6px 16px; flex-wrap:wrap; }
+        .sec-head h2 { font-size:1.5rem; font-weight:700; letter-spacing:-0.5px; display:flex; align-items:center; gap:10px; }
+        .sec-head h2 i { color:var(--primary); }
+        .sec-head p { color:var(--text-sec); font-size:0.9rem; }
+
+        /* ============================================================ TYPE SWITCH (Account / Topup) ============================================================ */
+        .type-switch {
+            display:flex; gap:6px; padding:6px; border-radius:16px; background:var(--glass);
+            border:1px solid var(--border); width:fit-content; margin:0 auto 22px;
+        }
+        .type-switch button {
+            padding:11px 22px; border:none; border-radius:11px; background:transparent; color:var(--text-sec);
+            font-weight:700; font-size:0.92rem; cursor:pointer; transition:.25s; display:flex; align-items:center; gap:7px;
+        }
+        .type-switch button.active { background:var(--grad-brand); color:#fff; box-shadow:var(--shadow-glow); }
+
+        /* ============================================================ TOOLBAR ============================================================ */
         .toolbar {
-            display: flex; gap: 15px; margin-bottom: 25px; align-items: center; flex-wrap: wrap;
-            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            padding: 18px 24px; border-radius: var(--radius-lg); 
-            border: 1px solid var(--glass-border); box-shadow: var(--shadow-glass);
-            width: 100%;
+            display:flex; gap:13px; flex-wrap:wrap; align-items:center;
+            background:var(--glass); border:1px solid var(--border); border-radius:var(--radius-lg);
+            padding:15px 18px; box-shadow:var(--shadow); backdrop-filter:blur(20px); margin-bottom:18px;
         }
-        .search-container { flex: 1; min-width: 250px; position: relative; }
-        .search-field {
-            width: 100%; height: 50px; padding: 0 45px 0 24px; border-radius: 16px;
-            border: 1px solid var(--glass-border); background: rgba(255,255,255,0.5); color: var(--text-main);
-            font-size: 1rem; font-family: inherit; transition: all 0.3s ease;
+        .search-box { flex:1; min-width:230px; position:relative; }
+        .search-box input {
+            width:100%; height:48px; padding:0 44px 0 44px; border-radius:14px;
+            border:1px solid var(--border); background:var(--glass-2); color:var(--text);
+            font-size:0.98rem; font-family:inherit; transition:.25s;
         }
-        .search-field:focus { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); }
-        .search-ico { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--text-sec); font-size: 1.3rem; pointer-events: none; }
-
-        .filter-tabs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; width: 100%; align-items: center; }
-        .filter-tabs::-webkit-scrollbar { display: none; }
-        .tab-btn {
-            padding: 12px 24px; border-radius: 14px; background: rgba(255,255,255,0.3); border: 1px solid var(--glass-border-light);
-            color: var(--text-sec); font-size: 0.95rem; font-weight: 700; cursor: pointer; white-space: nowrap;
-            transition: 0.3s;
+        .search-box input::placeholder { color:var(--text-dim); }
+        .search-box input:focus { border-color:var(--primary); box-shadow:0 0 0 4px rgba(124,92,255,0.18); background:var(--card-hover); }
+        .search-ico { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--text-dim); font-size:1.2rem; pointer-events:none; }
+        .search-clear {
+            position:absolute; right:13px; top:50%; transform:translateY(-50%);
+            width:26px; height:26px; border-radius:50%; border:none; cursor:pointer; display:none;
+            background:var(--border-2); color:var(--text); align-items:center; justify-content:center;
         }
-        .tab-btn:hover { background: rgba(255,255,255,0.6); color: var(--text-main); }
-        .tab-btn.active { background: #fff; color: var(--text-main); border-color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-
-        /* --- Барааны жагсаалт --- */
-        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; width: 100%; }
-        
-        .product-card {
-            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: var(--radius-lg); overflow: hidden;
-            border: 1px solid var(--glass-border); transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            box-shadow: var(--shadow-glass); position: relative; display: flex; flex-direction: column;
-            cursor: pointer;
+        .search-clear.show { display:flex; }
+        .sort-btn {
+            height:48px; padding:0 18px; border-radius:14px; border:1px solid var(--border);
+            background:var(--glass-2); color:var(--text); font-weight:700; font-size:0.9rem; cursor:pointer;
+            display:flex; align-items:center; gap:7px; white-space:nowrap; transition:.25s;
         }
-        .product-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.1); border-color: #fff; background: rgba(255,255,255,0.7); }
-        
-        .pc-image-wrap { width: 100%; aspect-ratio: 4/3; overflow: hidden; background: rgba(255,255,255,0.3); position: relative; }
-        .pc-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
-        .product-card:hover .pc-image { transform: scale(1.1); }
-        
-        .pc-badge {
-            position: absolute; top: 12px; left: 12px;
-            background: linear-gradient(135deg, #ff512f 0%, #dd2476 100%);
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            z-index: 2;
-            box-shadow: 0 4px 15px rgba(221, 36, 118, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            letter-spacing: 0.5px;
-            display: flex; align-items: center; gap: 4px;
+        .sort-btn.active { border-color:var(--primary); color:var(--primary); }
+        .sort-btn:hover { background:var(--card-hover); }
+
+        /* Category chips */
+        .chips { display:flex; gap:9px; overflow-x:auto; padding:2px 6px 14px; scrollbar-width:none; }
+        .chips::-webkit-scrollbar { display:none; }
+        .chip {
+            padding:10px 18px; border-radius:13px; border:1px solid var(--border);
+            background:var(--glass); color:var(--text-sec); font-weight:700; font-size:0.9rem; cursor:pointer;
+            white-space:nowrap; transition:.25s; display:flex; align-items:center; gap:7px;
+        }
+        .chip:hover { background:var(--card-hover); color:var(--text); }
+        .chip.active { background:var(--text); color:var(--bg-1); border-color:var(--text); }
+        html[data-theme="dark"] .chip.active { background:#fff; color:#000; }
+        .chip i { font-size:1.05rem; }
+
+        .results-bar { display:flex; justify-content:space-between; align-items:center; margin:4px 6px 16px; flex-wrap:wrap; gap:8px; }
+        .results-count { font-size:0.9rem; color:var(--text-sec); font-weight:700; }
+        .results-count b { color:var(--text); }
+
+        /* ============================================================ PRODUCT GRID ============================================================ */
+        .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(248px,1fr)); gap:20px; }
+
+        .card {
+            position:relative; border-radius:var(--radius-lg); overflow:hidden; cursor:pointer;
+            background:var(--card); border:1px solid var(--border); box-shadow:var(--shadow);
+            backdrop-filter:blur(18px); display:flex; flex-direction:column;
+            transition:all .4s cubic-bezier(.165,.84,.44,1);
+            animation:cardIn .5s cubic-bezier(.165,.84,.44,1) both;
+        }
+        @keyframes cardIn { from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+        .card:hover { transform:translateY(-7px); background:var(--card-hover); border-color:var(--border-2); box-shadow:0 26px 56px rgba(0,0,0,0.4); }
+
+        .card-img { position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:var(--glass-2); }
+        .card-img img { width:100%; height:100%; object-fit:cover; transition:transform .7s ease; }
+        .card:hover .card-img img { transform:scale(1.08); }
+
+        .tag {
+            position:absolute; top:11px; padding:5px 11px; border-radius:20px; font-size:0.66rem; font-weight:800;
+            letter-spacing:0.4px; z-index:2; display:flex; align-items:center; gap:4px; backdrop-filter:blur(8px);
+        }
+        .tag-hot { left:11px; background:var(--grad-hot); color:#fff; box-shadow:0 4px 14px rgba(255,45,117,0.45); }
+        .tag-disc { left:11px; top:auto; bottom:11px; background:var(--gold); color:#1a1200; }
+        .tag-cat { right:11px; background:rgba(0,0,0,0.55); color:#fff; text-transform:uppercase; border:1px solid rgba(255,255,255,0.18); }
+
+        .fav {
+            position:absolute; bottom:11px; right:11px; z-index:3; width:34px; height:34px; border-radius:50%;
+            background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.2); color:#fff; cursor:pointer;
+            display:flex; align-items:center; justify-content:center; font-size:1.1rem; backdrop-filter:blur(6px); transition:.25s;
+        }
+        .fav:hover { transform:scale(1.12); }
+        .fav.on { background:var(--accent); border-color:var(--accent); }
+        .fav.on i::before { content:"\ee0e"; } /* filled heart */
+
+        .card-body { padding:16px; display:flex; flex-direction:column; flex:1; }
+        .card-title { font-size:0.98rem; font-weight:700; line-height:1.35; margin-bottom:10px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; flex:1; }
+        .card-meta { display:flex; align-items:center; gap:10px; margin-bottom:12px; font-size:0.76rem; color:var(--text-sec); flex-wrap:wrap; }
+        .card-meta span { display:inline-flex; align-items:center; gap:4px; }
+        .stars { color:var(--gold); }
+        .card-foot { display:flex; align-items:center; justify-content:space-between; margin-top:auto; }
+        .price-wrap { display:flex; flex-direction:column; }
+        .price-old { font-size:0.74rem; color:var(--text-dim); text-decoration:line-through; }
+        .price { font-size:1.2rem; font-weight:700; color:var(--text); }
+        html[data-theme="dark"] .price { background:var(--grad-brand); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+        .price-info { font-size:0.96rem; font-weight:700; color:var(--primary); display:inline-flex; align-items:center; gap:5px; }
+        .price-info i { font-size:1.05rem; }
+        /* Картын CTA товч (Худалдан авах / Дэлгэрэнгүй) */
+        .card-cta {
+            width:100%; margin-top:12px; padding:10px 12px; border-radius:12px; cursor:pointer;
+            border:1px solid var(--border-2); background:var(--glass-2); color:var(--text);
+            font-family:inherit; font-weight:700; font-size:0.85rem;
+            display:flex; align-items:center; justify-content:center; gap:6px; transition:.25s;
+        }
+        .card-cta i { transition:transform .25s; }
+        .card:hover .card-cta { background:var(--grad-brand); color:#fff; border-color:transparent; box-shadow:var(--shadow-glow); }
+        .card:hover .card-cta i { transform:translateX(3px); }
+        .card-cta.cta-rent { } /* түрээс — ижил загвар, текст нь "Дэлгэрэнгүй" */
+        .card-cta.cta-sold { opacity:.55; }
+        .card:hover .card-cta.cta-sold { background:var(--glass-2); color:var(--text-dim); box-shadow:none; border-color:var(--border-2); }
+
+        .sold-overlay::after {
+            content:"ЗАРАГДСАН"; position:absolute; inset:0; z-index:4; display:flex; align-items:center; justify-content:center;
+            background:rgba(0,0,0,0.62); color:#fff; font-weight:800; letter-spacing:2px; backdrop-filter:blur(3px);
         }
 
-        .pc-content { padding: 22px; flex: 1; display: flex; flex-direction: column; }
-        .pc-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; flex: 1; }
-        .pc-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
-        .pc-price { font-size: 1.25rem; font-weight: 800; color: var(--primary); }
-        .pc-action { width: 38px; height: 38px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--text-main); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .product-card:hover .pc-action { background: var(--text-main); color: #fff; transform: scale(1.1); }
+        /* Skeleton */
+        .sk { border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--border); background:var(--card); }
+        .sk-img { aspect-ratio:4/3; background:var(--glass-2); animation:pulse 1.5s infinite; }
+        .sk-body { padding:16px; }
+        .sk-line { height:14px; border-radius:7px; background:var(--glass-2); margin-bottom:10px; animation:pulse 1.5s infinite; }
+        .sk-line.s { width:55%; }
+        @keyframes pulse { 0%,100%{opacity:.4;} 50%{opacity:1;} }
 
-        /* Зарагдсан төлөв */
-        .pc-image-wrap.is-sold::after {
-            content: "ЗАРАГДСАН"; position: absolute; inset: 0; background: rgba(0,0,0,0.5);
-            color: #fff; display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; backdrop-filter: blur(4px); z-index: 5;
-            text-align: center;
+        .empty {
+            grid-column:1/-1; text-align:center; padding:56px 20px; color:var(--text-sec); font-weight:600;
+            background:var(--glass); border:1px solid var(--border); border-radius:var(--radius-lg);
         }
+        .empty i { font-size:2.4rem; display:block; margin-bottom:12px; color:var(--text-dim); }
 
-        /* --- Уншиж байх үеийн SKELETON Animation --- */
-        .skeleton-card { background: var(--glass-bg); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--glass-border); box-shadow: var(--shadow-glass); }
-        .skeleton-img { width: 100%; aspect-ratio: 4/3; background: rgba(255,255,255,0.5); animation: pulse 1.5s infinite; }
-        .skeleton-body { padding: 22px; }
-        .skeleton-line { height: 16px; background: rgba(255,255,255,0.6); border-radius: 8px; margin-bottom: 12px; animation: pulse 1.5s infinite; }
-        .skeleton-line.short { width: 60%; }
-        @keyframes pulse { 0% {opacity:0.5;} 50% {opacity:1;} 100% {opacity:0.5;} }
-
-        /* --- Хөл хэсэг (Footer) --- */
-        .footer {
-            border-top: 1px solid var(--glass-border); padding: 30px 20px;
-            text-align: center; color: var(--text-sec); font-size: 0.95rem; margin-top: auto;
-            background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);
+        /* ============================================================ INFO SECTIONS (steps / faq / reviews) ============================================================ */
+        .panel-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+        .info-card {
+            background:var(--glass); border:1px solid var(--border); border-radius:var(--radius-lg);
+            padding:24px; backdrop-filter:blur(16px); box-shadow:var(--shadow); transition:.3s;
         }
-
-        /* --- Барааны дэлгэрэнгүй цонх (GLASS MODAL) --- */
-        .modal-wrap {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 2000;
-            display: none; align-items: center; justify-content: center; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            padding: 20px; opacity: 0; transition: opacity 0.4s ease;
+        .info-card:hover { transform:translateY(-4px); border-color:var(--border-2); }
+        .info-ico {
+            width:50px; height:50px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+            font-size:1.5rem; color:#fff; background:var(--grad-brand); margin-bottom:14px; box-shadow:var(--shadow-glow);
         }
-        .modal-wrap.active { display: flex; opacity: 1; }
-        .modal-wrap.active .modal-window { animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes scaleUp { from{opacity:0; transform:scale(0.9) translateY(20px);} to{opacity:1; transform:scale(1) translateY(0);} }
+        .info-card h3 { font-size:1.05rem; font-weight:700; margin-bottom:7px; }
+        .info-card p { color:var(--text-sec); font-size:0.9rem; line-height:1.55; }
+        .info-step-num { position:absolute; top:18px; right:22px; font-size:2.4rem; font-weight:800; color:var(--border-2); font-family:'Space Grotesk'; }
 
-        .modal-window {
-            background: rgba(255, 255, 255, 0.85); width: 100%; max-width: 950px; max-height: 90vh;
-            border-radius: 32px; overflow: hidden; display: flex; border: 1px solid rgba(255,255,255,0.9);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.2); position: relative;
-            backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%);
+        /* FAQ accordion */
+        .faq-item { background:var(--glass); border:1px solid var(--border); border-radius:var(--radius-md); margin-bottom:11px; overflow:hidden; transition:.3s; }
+        .faq-q { padding:18px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; cursor:pointer; font-weight:700; font-size:0.98rem; }
+        .faq-q i { transition:.3s; color:var(--primary); flex-shrink:0; }
+        .faq-item.open .faq-q i { transform:rotate(180deg); }
+        .faq-a { max-height:0; overflow:hidden; transition:max-height .35s ease, padding .35s ease; padding:0 20px; color:var(--text-sec); line-height:1.6; font-size:0.92rem; }
+        .faq-item.open .faq-a { max-height:240px; padding:0 20px 18px; }
+
+        /* Reviews */
+        .review { background:var(--glass); border:1px solid var(--border); border-radius:var(--radius-md); padding:20px; }
+        .review-head { display:flex; align-items:center; gap:11px; margin-bottom:11px; }
+        .review-av { width:42px; height:42px; border-radius:50%; background:var(--grad-brand); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:1.05rem; }
+        .review-name { font-weight:700; font-size:0.94rem; }
+        .review-stars { color:var(--gold); font-size:0.82rem; }
+        .review p { color:var(--text-sec); font-size:0.9rem; line-height:1.55; }
+
+        /* ============================================================ FOOTER ============================================================ */
+        .footer { border-top:1px solid var(--border); padding:34px 18px; text-align:center; color:var(--text-sec); background:var(--glass); backdrop-filter:blur(12px); margin-top:42px; }
+        .footer-socials { display:flex; justify-content:center; gap:12px; margin-bottom:18px; }
+        .footer-socials a {
+            width:44px; height:44px; border-radius:13px; border:1px solid var(--border); background:var(--glass-2);
+            display:flex; align-items:center; justify-content:center; color:var(--text); font-size:1.3rem; transition:.25s; text-decoration:none;
         }
+        .footer-socials a:hover { transform:translateY(-3px); background:var(--primary); color:#fff; border-color:var(--primary); }
+        .footer b { color:var(--text); }
 
-        .mw-media { flex: 1.2; background: rgba(0,0,0,0.05); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .mw-details { flex: 1; padding: 45px; overflow-y: auto; display: flex; flex-direction: column; background: rgba(255,255,255,0.4);}
-        
+        /* ============================================================ MODAL ============================================================ */
+        .modal {
+            position:fixed; inset:0; z-index:2000; display:none; align-items:center; justify-content:center; padding:20px;
+            background:rgba(0,0,0,0.55); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); opacity:0; transition:opacity .35s;
+        }
+        .modal.active { display:flex; opacity:1; }
+        .modal.active .modal-win { animation:popUp .4s cubic-bezier(.16,1,.3,1); }
+        @keyframes popUp { from{opacity:0; transform:scale(.92) translateY(20px);} to{opacity:1; transform:scale(1) translateY(0);} }
+        .modal-win {
+            width:100%; max-width:920px; max-height:90vh; border-radius:28px; overflow:hidden; display:flex; position:relative;
+            background:var(--glass-strong); border:1px solid var(--border-2);
+            backdrop-filter:blur(40px) saturate(160%); -webkit-backdrop-filter:blur(40px) saturate(160%); box-shadow:0 40px 100px rgba(0,0,0,0.6);
+        }
+        .mw-media { flex:1.15; background:rgba(0,0,0,0.25); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; min-width:0; }
+        .mw-body { flex:1; padding:34px 30px; overflow-y:auto; display:flex; flex-direction:column; }
         .mw-close {
-            position: absolute; top: 20px; left: 20px; width: 44px; height: 44px;
-            background: rgba(255,255,255,0.8); border-radius: 50%; display: flex; 
-            align-items: center; justify-content: center; cursor: pointer; z-index: 20; color: #000;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: 0.3s; backdrop-filter: blur(10px);
+            position:absolute; top:16px; left:16px; z-index:20; width:42px; height:42px; border-radius:50%;
+            background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.2); color:#fff; cursor:pointer;
+            display:flex; align-items:center; justify-content:center; font-size:1.4rem; backdrop-filter:blur(8px); transition:.25s;
         }
-        .mw-close:hover { transform: scale(1.1); background: #fff; }
+        .mw-close:hover { transform:scale(1.08); background:rgba(0,0,0,0.7); }
 
-        /* Slider */
-        .slider-wrap { position: relative; width: 100%; height: 100%; overflow: hidden; display: flex; align-items: center; }
-        .slider-track { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
-        .slider-track::-webkit-scrollbar { display: none; }
-        
-        /* Зургийг томруулж үзэх (click) */
-        .slider-img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1)); cursor: zoom-in; scroll-snap-align: center; scroll-snap-stop: always; } 
-        
-        /* Зүүн баруун товчлуур (Арын дэвсгэргүй, зөвхөн дүрс) */
-        .slider-nav { 
-            position: absolute; top: 50%; transform: translateY(-50%); 
-            background: transparent; border: none;
-            display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; z-index: 10; 
-            font-size: 2.8rem; color: #fff; 
-            transition: all 0.3s ease; 
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6)); 
-            width: 50px; height: 50px;
+        .slider { position:relative; width:100%; height:100%; }
+        .slider-track { display:flex; width:100%; height:100%; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
+        .slider-track::-webkit-scrollbar { display:none; }
+        .slider-track img { flex:0 0 100%; width:100%; height:100%; object-fit:contain; scroll-snap-align:center; scroll-snap-stop:always; cursor:zoom-in; }
+        .slider-nav { position:absolute; top:50%; transform:translateY(-50%); background:none; border:none; color:#fff; font-size:2.6rem; cursor:pointer; z-index:10; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.7)); transition:.25s; }
+        .slider-nav:hover { transform:translateY(-50%) scale(1.15); }
+        .slider-prev { left:6px; } .slider-next { right:6px; }
+        .slider-dots { position:absolute; bottom:18px; left:0; width:100%; display:flex; justify-content:center; gap:7px; z-index:10; }
+        .dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.4); cursor:pointer; transition:.3s; }
+        .dot.active { background:var(--primary-2); transform:scale(1.3); }
+
+        .mw-cat { font-size:0.72rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--primary-2); margin-bottom:8px; }
+        .mw-title { font-size:1.55rem; font-weight:700; line-height:1.25; margin-bottom:10px; }
+        .mw-rating { display:flex; align-items:center; gap:8px; margin-bottom:16px; font-size:0.86rem; color:var(--text-sec); }
+        .mw-rating .stars { color:var(--gold); font-size:0.95rem; }
+        .mw-price-row { display:flex; align-items:baseline; gap:12px; margin-bottom:24px; flex-wrap:wrap; }
+        .mw-price { font-size:2rem; font-weight:700; background:var(--grad-brand); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+        .mw-price-old { font-size:1rem; color:var(--text-dim); text-decoration:line-through; }
+        .mw-save { font-size:0.74rem; font-weight:800; color:#1a1200; background:var(--gold); padding:4px 10px; border-radius:8px; }
+
+        .mw-specs { display:grid; grid-template-columns:1fr 1fr; gap:11px; margin-bottom:22px; }
+        .spec { background:var(--glass-2); border:1px solid var(--border); border-radius:14px; padding:14px; text-align:center; }
+        .spec-l { font-size:0.68rem; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-sec); font-weight:800; margin-bottom:5px; }
+        .spec-v { font-size:1.02rem; font-weight:700; }
+
+        .mw-sub { font-size:0.78rem; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:var(--text-sec); margin-bottom:11px; }
+        .mw-desc { list-style:none; margin-bottom:24px; }
+        .mw-desc li { position:relative; padding:8px 0 8px 26px; color:var(--text); font-size:0.94rem; line-height:1.5; border-bottom:1px solid var(--border); }
+        .mw-desc li:last-child { border-bottom:none; }
+        .mw-desc li::before { content:"\eb7b"; font-family:remixicon; position:absolute; left:0; top:8px; color:var(--success); }
+
+        /* Top-up packages */
+        .pkgs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:22px; }
+        .pkg {
+            background:var(--glass-2); border:1.5px solid var(--border); border-radius:14px; padding:13px 14px; cursor:pointer;
+            display:flex; flex-direction:column; gap:3px; transition:.2s; text-align:center;
         }
-        .slider-nav:hover { transform: translateY(-50%) scale(1.1); }
-        .slider-prev { left: 5px; }
-        .slider-next { right: 5px; }
-        
-        .slider-dots { position: absolute; bottom: 25px; left: 0; width: 100%; display: flex; justify-content: center; gap: 8px; z-index: 10; pointer-events: none; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.25); transition: 0.3s; cursor: pointer; pointer-events: auto; }
-        .dot.active { background: var(--primary); transform: scale(1.3); box-shadow: 0 2px 5px rgba(0,113,227,0.4); }
+        .pkg:hover { border-color:var(--primary); transform:translateY(-2px); }
+        .pkg.sel { border-color:var(--primary); background:rgba(124,92,255,0.14); box-shadow:0 0 0 3px rgba(124,92,255,0.15); }
+        .pkg-amt { font-weight:700; font-size:0.96rem; }
+        .pkg-price { font-size:0.84rem; color:var(--primary-2); font-weight:700; }
 
-        .mw-title { font-size: 1.8rem; font-weight: 800; line-height: 1.3; margin-bottom: 10px; color: var(--text-main); }
-        .mw-price { font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 30px; letter-spacing: -0.5px; text-shadow: 0 4px 15px rgba(0,113,227,0.2); }
-        
-        .mw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
-        .mw-box { background: rgba(255,255,255,0.6); padding: 18px; border-radius: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.8); box-shadow: inset 0 2px 10px rgba(255,255,255,0.5); }
-        .mw-label { font-size: 0.75rem; color: var(--text-sec); text-transform: uppercase; font-weight: 800; margin-bottom: 6px; letter-spacing: 0.5px;}
-        .mw-val { font-size: 1.1rem; font-weight: 800; color: var(--text-main); }
-
-        .mw-desc { font-size: 1rem; color: var(--text-main); line-height: 1.7; margin-bottom: 40px; padding-left: 0; }
-        .mw-desc li { margin-bottom: 10px; list-style-position: inside; }
-
-        .mw-btn {
-            width: 100%; padding: 20px; background: var(--text-main); color: #fff;
-            border-radius: 20px; font-weight: 800; font-size: 1.1rem;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            text-decoration: none; transition: 0.3s; margin-top: auto; border: none; cursor: pointer;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        .mw-contact {
+            display:flex; align-items:center; justify-content:center; gap:9px; margin-bottom:11px;
+            padding:14px; border-radius:16px; text-decoration:none; font-weight:800; font-size:0.96rem;
+            color:#fff; background:linear-gradient(135deg,#1877f2,#0a5dc2); box-shadow:0 10px 26px rgba(24,119,242,0.3); transition:.3s;
         }
-        .mw-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
-        .mw-btn:active { transform: translateY(0); }
-        .mw-btn.sold-btn { background: rgba(0,0,0,0.1); color: var(--text-sec); pointer-events: none; box-shadow: none; border: 1px solid rgba(0,0,0,0.1); backdrop-filter: blur(10px);}
+        .mw-contact:hover { transform:translateY(-3px); box-shadow:0 16px 36px rgba(24,119,242,0.45); }
+        .mw-actions { display:flex; gap:10px; margin-top:auto; }
+        .mw-buy { flex:1; padding:17px; border-radius:16px; background:var(--grad-brand); color:#fff; font-weight:800; font-size:1.02rem; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:9px; text-decoration:none; box-shadow:var(--shadow-glow); transition:.3s; }
+        .mw-buy:hover { transform:translateY(-3px); box-shadow:0 18px 44px rgba(124,92,255,0.45); }
+        .mw-buy.sold { background:var(--glass-2); color:var(--text-dim); pointer-events:none; box-shadow:none; border:1px solid var(--border); }
+        .mw-icon-btn { width:55px; border-radius:16px; border:1px solid var(--border-2); background:var(--glass-2); color:var(--text); font-size:1.3rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.25s; }
+        .mw-icon-btn:hover { background:var(--card-hover); transform:translateY(-3px); }
 
-        /* --- Fullscreen Lightbox --- */
-        .lightbox-wrap {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000;
-            display: none; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.4s ease; backdrop-filter: blur(10px);
+        /* Generic info modal (tutorial) */
+        .modal-simple .modal-win { max-width:520px; max-height:88vh; flex-direction:column; padding:34px; display:block; overflow-y:auto; }
+
+        /* Lightbox */
+        .lightbox { position:fixed; inset:0; z-index:3000; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.96); opacity:0; transition:opacity .35s; }
+        .lightbox.active { display:flex; opacity:1; }
+        .lb-track { display:flex; width:100%; height:100%; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
+        .lb-track::-webkit-scrollbar { display:none; }
+        .lb-track > div { flex:0 0 100%; width:100%; height:100%; display:flex; align-items:center; justify-content:center; padding:14px; scroll-snap-align:center; scroll-snap-stop:always; }
+        .lb-track img { max-width:100%; max-height:100%; object-fit:contain; border-radius:12px; }
+        .lb-close { position:absolute; top:18px; right:18px; background:none; border:none; color:#fff; font-size:2.8rem; cursor:pointer; z-index:3010; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.8)); }
+        .lb-nav { position:absolute; top:50%; transform:translateY(-50%); background:none; border:none; color:#fff; font-size:3.4rem; cursor:pointer; z-index:3010; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.8)); }
+        .lb-prev { left:12px; } .lb-next { right:12px; }
+        .lb-counter { position:absolute; top:26px; left:26px; color:#fff; font-weight:700; background:rgba(0,0,0,0.5); padding:5px 16px; border-radius:20px; z-index:3010; }
+
+        /* Scroll top */
+        .scroll-top {
+            position:fixed; bottom:24px; right:24px; z-index:1500; width:50px; height:50px; border-radius:14px;
+            background:var(--glass-strong); border:1px solid var(--border-2); color:var(--text); font-size:1.4rem; cursor:pointer;
+            display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow); backdrop-filter:blur(16px);
+            opacity:0; pointer-events:none; transform:translateY(18px); transition:all .35s ease;
         }
-        .lightbox-wrap.active { display: flex; opacity: 1; }
-        .lb-track { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
-        .lb-track::-webkit-scrollbar { display: none; }
-        .lb-img-wrap { flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px; scroll-snap-align: center; scroll-snap-stop: always; }
-        .lb-img { max-width: 100%; max-height: 100%; object-fit: contain; user-select: none; border-radius: 12px; }
-        
-        .lb-nav {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: transparent; border: none;
-            display: flex; align-items: center; justify-content: center; color: #fff; font-size: 3.5rem;
-            cursor: pointer; z-index: 3010; transition: 0.3s;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
-            width: 60px; height: 60px;
+        .scroll-top.show { opacity:1; pointer-events:auto; transform:translateY(0); }
+        .scroll-top:hover { background:var(--primary); color:#fff; }
+
+        /* Toast */
+        .toast-wrap { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:4000; display:flex; flex-direction:column; gap:9px; align-items:center; pointer-events:none; }
+        .toast {
+            background:var(--glass-strong); border:1px solid var(--border-2); color:var(--text); padding:12px 20px; border-radius:14px;
+            font-weight:700; font-size:0.9rem; box-shadow:var(--shadow); backdrop-filter:blur(20px); display:flex; align-items:center; gap:9px;
+            animation:toastIn .35s cubic-bezier(.34,1.56,.64,1);
         }
-        .lb-nav:hover { transform: translateY(-50%) scale(1.1); }
-        .lb-prev { left: 15px; }
-        .lb-next { right: 15px; }
-        
-        .lb-close {
-            position: absolute; top: 20px; right: 20px; 
-            background: transparent; border: none; display: flex;
-            align-items: center; justify-content: center; color: #fff; font-size: 2.8rem;
-            cursor: pointer; z-index: 3010; transition: 0.3s;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+        .toast i { color:var(--success); font-size:1.2rem; }
+        @keyframes toastIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+
+        /* Marquee trust strip */
+        .trust-strip { overflow:hidden; border:1px solid var(--border); border-radius:var(--radius-md); background:var(--glass); margin-bottom:26px; }
+        .trust-track { display:flex; gap:42px; padding:13px 0; white-space:nowrap; animation:scrollX 22s linear infinite; }
+        .trust-track span { display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:0.88rem; color:var(--text-sec); }
+        .trust-track span i { color:var(--primary-2); font-size:1.1rem; }
+        @keyframes scrollX { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+        /* ============================================================ RESPONSIVE ============================================================ */
+        @media (max-width:768px) {
+            .container { padding:14px 11px; }
+            .nav-inner { height:60px; }
+            .brand-text b { font-size:1rem; } .brand-text span { font-size:0.58rem; }
+            .logo { width:38px; height:38px; }
+            .hero { padding:32px 18px; }
+            .hero h1 { font-size:1.85rem; }
+            .hero p { font-size:0.96rem; }
+            .hero-actions .btn { flex:1 1 44%; padding:12px 10px; font-size:0.84rem; }
+            .stat { min-width:96px; padding:13px 14px; }
+            .stat-num { font-size:1.35rem; }
+            .toolbar { padding:13px; gap:10px; }
+            .grid { grid-template-columns:repeat(2,1fr); gap:12px; }
+            .card-body { padding:12px; }
+            .card-title { font-size:0.82rem; }
+            .price { font-size:1.02rem; }
+            .card-cta { padding:9px; font-size:0.78rem; margin-top:10px; }
+            .card-meta { font-size:0.68rem; gap:7px; }
+            .sec-head h2 { font-size:1.25rem; }
+            .modal { padding:0; align-items:flex-end; }
+            .modal-win { flex-direction:column; height:95vh; max-height:95vh; border-radius:24px 24px 0 0; }
+            .mw-media { flex:0 0 270px; }
+            .mw-body { padding:24px 18px; }
+            .mw-title { font-size:1.3rem; }
+            .mw-price { font-size:1.6rem; }
+            .mw-specs { grid-template-columns:1fr 1fr; }
+            .pkgs { grid-template-columns:1fr 1fr; }
+            .modal-simple .modal-win { padding:26px 20px; }
+            .lb-nav { font-size:2.6rem; } .lb-close { font-size:2.3rem; }
         }
-        .lb-close:hover { transform: scale(1.1); }
-        
-        .lb-counter {
-            position: absolute; top: 30px; left: 30px; color: #fff; font-size: 1.2rem;
-            font-weight: 600; background: rgba(0,0,0,0.5); padding: 6px 18px; border-radius: 20px;
-            z-index: 3010; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px);
-        }
-
-        /* --- Mobile Responsive --- */
-        @media (max-width: 768px) {
-            .container { padding: 15px 10px; } 
-            .hero-container { margin-bottom: 20px; }
-            
-            .hero-content { padding: 25px 15px; }
-            .hero-title { font-size: 1.6rem; }
-            .hero-badge { font-size: 0.75rem; padding: 6px 10px; }
-            .hero-desc { display: none; } 
-            
-            .hero-actions { 
-                flex-direction: row; 
-                flex-wrap: wrap; 
-                gap: 8px; 
-            }
-            .hero-actions .btn { 
-                flex: 1 1 45%; 
-                padding: 12px 10px; 
-                font-size: 0.85rem; 
-                border-radius: 12px;
-            }
-            
-            .toolbar { flex-direction: column; padding: 15px; gap: 12px; align-items: stretch; border-radius: 20px; margin-bottom: 20px;}
-            .search-container { min-width: 100%; }
-            .search-field { height: 44px; font-size: 0.95rem; }
-            .search-ico { top: 50%; transform: translateY(-50%); right: 15px; }
-            
-            .grid-layout { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-
-            .pc-badge { padding: 4px 8px; font-size: 0.6rem; top: 10px; left: 10px; }
-            .pc-badge i { font-size: 0.65rem; }
-
-            .pc-content { padding: 12px; }
-            .pc-title { font-size: 0.85rem; margin-bottom: 8px; height: 2.5rem; }
-            .pc-price { font-size: 1rem; }
-            .pc-action { width: 28px; height: 28px; }
-            
-            .modal-wrap { padding: 0; align-items: flex-end; }
-            .modal-window { flex-direction: column; height: 95vh; max-height: 95vh; border-radius: 24px 24px 0 0; }
-            .mw-media { flex: 0 0 280px; background: rgba(0,0,0,0.05); } 
-            .mw-details { padding: 25px 15px; border-radius: 24px 24px 0 0; margin-top: -20px; position: relative; z-index: 2; }
-            .mw-title { font-size: 1.4rem; }
-            .mw-price { font-size: 1.5rem; margin-bottom: 15px; }
-            .mw-close { top: 12px; right: 12px; left: auto; width: 36px; height: 36px; }
-
-            /* Slider buttons mobile */
-            .slider-nav { font-size: 2.2rem; }
-            .slider-prev { left: 0px; }
-            .slider-next { right: 0px; }
-
-            #tutorial-modal .modal-window { padding: 25px 15px !important; width: 95%; border-radius: 24px !important; margin-bottom: 20px; }
-            
-            /* Lightbox mobile */
-            .lb-nav { font-size: 2.5rem; }
-            .lb-prev { left: 5px; }
-            .lb-next { right: 5px; }
-            .lb-close { top: 15px; right: 15px; font-size: 2.2rem; }
-            .lb-counter { top: 15px; left: 15px; font-size: 1rem; padding: 4px 12px; }
-        }
+        @media (max-width:380px) { .grid { gap:10px; } }
     </style>
 </head>
 <body>
 
-    <!-- Дээд цэс (GLASS NAVBAR) -->
+    <!-- ===================== NAVBAR ===================== -->
     <header class="navbar">
         <div class="nav-inner">
-            <a href="#" class="brand" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+            <a class="brand" onclick="scrollTop()">
                 <img src="https://i.ibb.co/KjCsGXc2/Untitled-design-1.png" class="logo" alt="Logo">
-                <span class="logo-text">Pubg Accounts Mongolia</span>
+                <span class="brand-text"><b>Pubg Accounts MN</b><span>Verified Store</span></span>
             </a>
+            <div class="nav-actions">
+                <button class="icon-btn" onclick="openTutorial()" title="Заавар"><i class="ri-question-line"></i></button>
+                <button class="icon-btn" id="fav-btn" onclick="toggleFavView()" title="Хадгалсан">
+                    <i class="ri-heart-line"></i>
+                    <span class="badge-count" id="fav-badge">0</span>
+                </button>
+                <button class="icon-btn" id="theme-btn" onclick="toggleTheme()" title="Theme солих"><i class="ri-moon-line"></i></button>
+            </div>
         </div>
     </header>
 
     <div class="container">
-        
-        <!-- Нэг хуудсанд байрлах -->
-        <div id="view-shop">
-            
-            <!-- Hero хэсэг -->
-            <div class="hero-container">
-                <div class="hero-bg-blob"></div>
-                <div class="hero">
-                    <img src="https://i.ibb.co/nM32DzgL/Purple-Gradient-Modern-Brand-Guidelines-Presentation-2.png" class="hero-banner" alt="Banner">
-                    
-                    <div class="hero-content">
-                        <h1 class="hero-title">Pubg Accounts MN</h1>
-                        <div class="hero-badge"><i class="ri-verified-badge-fill"></i> VERIFIED PAGE</div>
-                        <p class="hero-desc">Монголын анхны баталгаат тоглоомын аккоунт худалдааны платформ.</p>
-                        <div class="hero-actions">
-                            <a href="https://www.facebook.com/gamemarket.mn" target="_blank" class="btn btn-primary"><i class="ri-facebook-circle-fill"></i> Фэйсбүүк</a>
-                            <a href="https://m.me/cm/AbadrhKBoffAja4U" target="_blank" class="btn btn-outline"><i class="ri-messenger-line"></i> Групп Чат</a>
-                            <a href="https://www.turees.online" target="_blank" class="btn btn-rent"><i class="ri-earth-line"></i> Түрээс</a>
-                            <button onclick="openTutorial()" class="btn btn-tutorial"><i class="ri-book-open-line"></i> Заавар</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Хайлт болон Шүүлтүүр -->
-            <div class="toolbar">
-                <div class="search-container">
-                    <input type="text" class="search-field" placeholder="Хайх " oninput="setSearch(this.value)">
-                    <i class="ri-search-2-line search-ico"></i>
-                </div>
-                <div class="filter-tabs">
-                    <button class="tab-btn" id="sort-price-btn" onclick="toggleSort()" style="display: flex; align-items: center; gap: 4px;">
-                        Үнэ <i class="ri-arrow-up-down-line" style="font-size: 1.1rem;"></i>
-                    </button>
-                    <div style="width: 2px; background: var(--glass-border-light); height: 24px; border-radius: 2px;"></div>
-                    <button class="tab-btn active" onclick="filterItems('all', this)">Бүгд</button>
-                    <button class="tab-btn" onclick="filterItems('pubg', this)">PUBG Mobile</button>
-                    <button class="tab-btn" onclick="filterItems('mlbb', this)">MLBB</button>
-                    <button class="tab-btn" onclick="filterItems('standoff', this)">Standoff 2</button>
-                </div>
-            </div>
 
-            <!-- Барааны жагсаалт -->
-            <div class="grid-layout" id="product-grid">
-                <!-- Уншиж байх үеийн SKELETON Animation -->
-                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
-                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
-                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
-                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+        <!-- ===================== HERO ===================== -->
+        <section class="hero">
+            <div class="hero-badge"><i class="ri-verified-badge-fill"></i> МОНГОЛЫН №1 БАТАЛГААТ ДЭЛГҮҮР</div>
+            <h1>Тоглоомын <span class="grad">аккоунт &amp; цэнэглэлт</span><br>хамгийн найдвартай газар</h1>
+            <p>PUBG Mobile, MLBB, Standoff 2 болон бусад тоглоомын баталгаат аккоунт, UC / Diamond цэнэглэлт — шуурхай, аюулгүй, баталгаатай.</p>
+            <div class="hero-actions">
+                <a href="#shop" class="btn btn-primary"><i class="ri-shopping-bag-3-line"></i> Дэлгүүр үзэх</a>
+                <a href="#shop" class="btn btn-ghost" onclick="setType('rent', document.getElementById('type-rent'))"><i class="ri-time-line"></i> Түрээс</a>
+                <a href="https://m.me/cm/AbadrhKBoffAja4U" target="_blank" class="btn btn-ghost"><i class="ri-messenger-line"></i> Групп чат</a>
             </div>
+            <div class="hero-stats">
+                <div class="stat"><div class="stat-num" data-count="1200">0</div><div class="stat-lbl">Зарагдсан</div></div>
+                <div class="stat"><div class="stat-num" data-count="950">0</div><div class="stat-lbl">Үйлчлүүлэгч</div></div>
+                <div class="stat"><div class="stat-num" data-count="4.9" data-dec="1">0</div><div class="stat-lbl">Үнэлгээ ★</div></div>
+                <div class="stat"><div class="stat-num" data-count="100">0</div><div class="stat-lbl">% Баталгаат</div></div>
+            </div>
+        </section>
+
+        <!-- ===================== TRUST STRIP ===================== -->
+        <div class="trust-strip">
+            <div class="trust-track" id="trust-track"></div>
         </div>
+
+        <!-- ===================== SHOP ===================== -->
+        <div id="shop"></div>
+
+        <!-- Type switch -->
+        <div class="type-switch">
+            <button class="active" id="type-account" onclick="setType('account', this)"><i class="ri-user-star-line"></i> Аккоунт</button>
+            <button id="type-topup" onclick="setType('topup', this)"><i class="ri-coin-line"></i> Цэнэглэлт</button>
+            <button id="type-rent" onclick="setType('rent', this)"><i class="ri-time-line"></i> Түрээс</button>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="search-box">
+                <i class="ri-search-2-line search-ico"></i>
+                <input id="search" type="text" placeholder="Аккоунт, скин, тоглоом хайх..." oninput="onSearch(this.value)">
+                <button class="search-clear" id="clear" onclick="clearSearch()"><i class="ri-close-line"></i></button>
+            </div>
+            <button class="sort-btn" id="sort" onclick="toggleSort()">Үнэ <i class="ri-arrow-up-down-line"></i></button>
+        </div>
+
+        <!-- Category chips -->
+        <div class="chips" id="chips"></div>
+
+        <div class="results-bar">
+            <div class="results-count" id="count"></div>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid" id="grid">
+            <div class="sk"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div></div></div>
+            <div class="sk"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div></div></div>
+            <div class="sk"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div></div></div>
+            <div class="sk"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div></div></div>
+        </div>
+
+        <!-- ===================== HOW IT WORKS ===================== -->
+        <div class="sec-head"><h2><i class="ri-rocket-2-line"></i> Хэрхэн худалдаж авах вэ?</h2></div>
+        <div class="panel-grid">
+            <div class="info-card" style="position:relative"><span class="info-step-num">1</span><div class="info-ico"><i class="ri-search-eye-line"></i></div><h3>Бараагаа сонгох</h3><p>Дэлгүүрээс хүссэн аккоунт эсвэл цэнэглэлтийн багцаа сонгож, дэлгэрэнгүйг нь шалгаарай.</p></div>
+            <div class="info-card" style="position:relative"><span class="info-step-num">2</span><div class="info-ico"><i class="ri-messenger-line"></i></div><h3>Холбогдох</h3><p><b>Худалдаж авах</b> товчийг дарж Messenger-ээр админтай шууд холбогдоно.</p></div>
+            <div class="info-card" style="position:relative"><span class="info-step-num">3</span><div class="info-ico"><i class="ri-bank-card-line"></i></div><h3>Төлбөр төлөх</h3><p>Тохиролцсоны дараа төлбөрөө шилжүүлнэ. Дансны мэдээллийг админ өгнө.</p></div>
+            <div class="info-card" style="position:relative"><span class="info-step-num">4</span><div class="info-ico"><i class="ri-shield-check-line"></i></div><h3>Хүлээн авах</h3><p>Аккоунтын мэдээлэл эсвэл цэнэглэлтээ шуурхай, баталгаатай хүлээн авна.</p></div>
+        </div>
+
+        <!-- ===================== FAQ ===================== -->
+        <div class="sec-head"><h2><i class="ri-questionnaire-line"></i> Түгээмэл асуултууд</h2></div>
+        <div id="faq"></div>
 
     </div>
 
-    <!-- Хөл хэсэг (Footer) -->
+    <!-- ===================== FOOTER ===================== -->
     <footer class="footer">
-        <div style="font-weight: 700; color: var(--text-main);">© 2026 Pubg Accounts MN.</div>
-        <div style="margin-top:8px; font-size:0.85rem; opacity:0.8;">Бүх эрх хуулиар хамгаалагдсан.</div>
+        <div class="footer-socials">
+            <a href="https://www.facebook.com/gamemarket.mn" target="_blank" title="Facebook"><i class="ri-facebook-circle-fill"></i></a>
+            <a href="https://m.me/cm/AbadrhKBoffAja4U" target="_blank" title="Messenger"><i class="ri-messenger-fill"></i></a>
+            <a href="https://www.turees.online" target="_blank" title="Түрээс"><i class="ri-earth-fill"></i></a>
+        </div>
+        <div><b>Pubg Accounts Mongolia</b> — Баталгаат аккоунт, цэнэглэлт & түрээс</div>
+        <div style="margin-top:7px; font-size:0.84rem; opacity:0.75;">© 2026 Pubg Accounts Mongolia. Бүх эрх хуулиар хамгаалагдсан.</div>
     </footer>
 
-    <!-- Барааны дэлгэрэнгүй модал -->
-    <div id="product-modal" class="modal-wrap" onclick="if(event.target === this) closeModal('product-modal')">
-        <div class="modal-window">
+    <!-- ===================== PRODUCT MODAL ===================== -->
+    <div class="modal" id="modal" onclick="if(event.target===this) closeModal('modal')">
+        <div class="modal-win">
             <div class="mw-media">
-                <div class="slider-wrap" id="m-slider-wrap">
-                    <div class="slider-track" id="m-slider-track"></div>
-                    <button class="slider-nav slider-prev" id="m-slider-prev" onclick="moveSlide(-1)"><i class="ri-arrow-left-s-line"></i></button>
-                    <button class="slider-nav slider-next" id="m-slider-next" onclick="moveSlide(1)"><i class="ri-arrow-right-s-line"></i></button>
-                    <div class="slider-dots" id="m-slider-dots"></div>
+                <div class="slider">
+                    <div class="slider-track" id="m-track"></div>
+                    <button class="slider-nav slider-prev" id="m-prev" onclick="moveSlide(-1)"><i class="ri-arrow-left-s-line"></i></button>
+                    <button class="slider-nav slider-next" id="m-next" onclick="moveSlide(1)"><i class="ri-arrow-right-s-line"></i></button>
+                    <div class="slider-dots" id="m-dots"></div>
                 </div>
-                <div class="mw-close" onclick="closeModal('product-modal')"><i class="ri-close-line"></i></div>
+                <button class="mw-close" onclick="closeModal('modal')"><i class="ri-close-line"></i></button>
             </div>
-            <div class="mw-details">
-                <div class="mw-title" id="m-title">Уншиж байна...</div>
-                <div class="mw-price" id="m-price">0₮</div>
-                
-                <div class="mw-grid">
-                    <div class="mw-box">
-                        <div class="mw-label">Collection </div>
-                        <div class="mw-val" id="m-lvl">-</div>
-                    </div>
-                    <div class="mw-box">
-                        <div class="mw-label">Bind</div>
-                        <div class="mw-val" id="m-link">-</div>
-                    </div>
+            <div class="mw-body">
+                <div class="mw-cat" id="m-cat"></div>
+                <div class="mw-title" id="m-title"></div>
+                <div class="mw-rating" id="m-rating"></div>
+                <div class="mw-price-row">
+                    <span class="mw-price" id="m-price">0₮</span>
+                    <span class="mw-price-old" id="m-price-old"></span>
+                    <span class="mw-save" id="m-save" style="display:none"></span>
                 </div>
-                
-                <div style="font-weight:800; margin-bottom:12px; color:var(--text-main); font-size: 0.9rem;">ДЭЛГЭРЭНГҮЙ МЭДЭЭЛЭЛ</div>
-                <ul id="m-desc" class="mw-desc"></ul>
-                
-                <!-- Худалдан авах товч -->
-                <a href="https://m.me/61561712856021" class="mw-btn" id="m-buy-btn" target="_blank">ХУДАЛДАЖ АВАХ</a>
+                <div id="m-specs-wrap">
+                    <div class="mw-specs" id="m-specs"></div>
+                </div>
+                <div id="m-pkg-wrap" style="display:none">
+                    <div class="mw-sub">Багц сонгох</div>
+                    <div class="pkgs" id="m-pkgs"></div>
+                </div>
+                <div class="mw-sub">Дэлгэрэнгүй мэдээлэл</div>
+                <ul class="mw-desc" id="m-desc"></ul>
+                <a class="mw-contact" id="m-contact" href="#" target="_blank" style="display:none"><i class="ri-facebook-circle-fill"></i> Эзэнтэй холбогдох</a>
+                <div class="mw-actions">
+                    <a class="mw-buy" id="m-buy" href="#" target="_blank"><i class="ri-shopping-bag-3-line"></i> Худалдаж авах</a>
+                    <button class="mw-icon-btn" onclick="shareProduct()" title="Хуваалцах"><i class="ri-share-line"></i></button>
+                    <button class="mw-icon-btn" id="m-fav" onclick="favFromModal()" title="Хадгалах"><i class="ri-heart-line"></i></button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Зааварчилгаа Модал -->
-    <div id="tutorial-modal" class="modal-wrap" onclick="if(event.target === this) closeModal('tutorial-modal')">
-        <div class="modal-window" style="max-width:500px; height:auto; display:block; padding:40px; background: rgba(255,255,255,0.85);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
-                <h2 style="font-size:1.6rem; font-weight:800; color: var(--text-main);">Худалдан авах заавар</h2>
-                <div onclick="closeModal('tutorial-modal')" style="cursor:pointer; padding:5px; background:rgba(255,255,255,0.8); border:1px solid rgba(0,0,0,0.1); border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; transition: 0.3s;"><i class="ri-close-line" style="font-size:1.4rem; color: #1d1d1f;"></i></div>
+    <!-- ===================== TUTORIAL MODAL ===================== -->
+    <div class="modal modal-simple" id="tut" onclick="if(event.target===this) closeModal('tut')">
+        <div class="modal-win">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:22px;">
+                <h2 style="font-size:1.4rem; font-weight:700;"><i class="ri-book-open-line" style="color:var(--primary)"></i> Худалдан авах заавар</h2>
+                <button class="mw-close" style="position:static; background:var(--glass-2); color:var(--text); border-color:var(--border)" onclick="closeModal('tut')"><i class="ri-close-line"></i></button>
             </div>
-            <div style="color:var(--text-main); line-height:1.8; margin-bottom:35px; font-size:1rem; font-weight: 500;">
-                <p style="margin-bottom:15px; display: flex; gap: 12px;"><strong style="color:var(--primary); font-size:1.2rem;">1.</strong> <span>Дэлгүүрээс хүссэн бараагаа сонгох.</span></p>
-                <p style="margin-bottom:15px; display: flex; gap: 12px;"><strong style="color:var(--primary); font-size:1.2rem;">2.</strong> <span><b>ХУДАЛДАЖ АВАХ</b> товчийг дарснаар Messenger рүү шилжинэ.</span></p>
-                <p style="margin-bottom:15px; display: flex; gap: 12px;"><strong style="color:var(--primary); font-size:1.2rem;">3.</strong> <span>Админтай холбогдож төлбөрөө шилжүүлэх.</span></p>
-                <p style="display: flex; gap: 12px;"><strong style="color:var(--primary); font-size:1.2rem;">4.</strong> <span>Аккоунтын нэвтрэх мэдээллээ хүлээж авах.</span></p>
+            <div style="line-height:1.9; color:var(--text); font-weight:500;">
+                <p style="display:flex; gap:12px; margin-bottom:12px;"><b style="color:var(--primary)">1.</b> Дэлгүүрээс хүссэн бараа эсвэл цэнэглэлтийн багцаа сонгоно.</p>
+                <p style="display:flex; gap:12px; margin-bottom:12px;"><b style="color:var(--primary)">2.</b> <b>Худалдаж авах</b> товчийг дарж Messenger руу шилжинэ.</p>
+                <p style="display:flex; gap:12px; margin-bottom:12px;"><b style="color:var(--primary)">3.</b> Админтай холбогдож төлбөрөө шилжүүлнэ.</p>
+                <p style="display:flex; gap:12px;"><b style="color:var(--primary)">4.</b> Аккоунт / цэнэглэлтээ баталгаатай хүлээн авна.</p>
             </div>
-            <button class="mw-btn" style="background:var(--text-main); box-shadow:0 10px 20px rgba(0,0,0,0.1); padding: 18px;" onclick="closeModal('tutorial-modal')">ОЙЛГОЛОО</button>
+            <button class="btn btn-primary" style="width:100%; margin-top:26px; padding:16px;" onclick="closeModal('tut')">Ойлголоо</button>
         </div>
     </div>
 
-    <!-- Fullscreen Lightbox -->
-    <div id="lightbox-modal" class="lightbox-wrap">
-        <div class="lb-counter"><span id="lb-current">1</span> / <span id="lb-total">1</span></div>
-        <div class="lb-close" onclick="closeLightbox()"><i class="ri-close-line"></i></div>
-        <div class="lb-nav lb-prev" onclick="moveLbSlide(-1); event.stopPropagation();"><i class="ri-arrow-left-s-line"></i></div>
-        <div class="lb-nav lb-next" onclick="moveLbSlide(1); event.stopPropagation();"><i class="ri-arrow-right-s-line"></i></div>
+    <!-- ===================== LIGHTBOX ===================== -->
+    <div class="lightbox" id="lb">
+        <div class="lb-counter"><span id="lb-cur">1</span> / <span id="lb-tot">1</span></div>
+        <button class="lb-close" onclick="closeLb()"><i class="ri-close-line"></i></button>
+        <button class="lb-nav lb-prev" onclick="moveLb(-1);event.stopPropagation()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="lb-nav lb-next" onclick="moveLb(1);event.stopPropagation()"><i class="ri-arrow-right-s-line"></i></button>
         <div class="lb-track" id="lb-track"></div>
     </div>
 
+    <button class="scroll-top" id="scrolltop" onclick="scrollTop()"><i class="ri-arrow-up-line"></i></button>
+    <div class="toast-wrap" id="toasts"></div>
+
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbyVP6BCO_rf2Gr2ZvAeTREK4_ipBWEkvsydCCU4XDZu7PCS5DbL9BqleyV2G5j37-Wa/exec'; 
-        const CACHE_KEY = 'gm_premium_merged_v8';
-        let inventory = [], currentFilter = 'all', searchQuery = '';
-        let currentSort = 'default'; 
-        const sortStates = ['default', 'asc', 'desc'];
-        const sortIcons = ['ri-arrow-up-down-line', 'ri-arrow-up-line', 'ri-arrow-down-line'];
-        let sortIndex = 0;
+    /* ============================================================
+       CONFIG — танай Google Sheet Apps Script холбоос
+    ============================================================ */
+    const API_URL   = 'https://script.google.com/macros/s/AKfycbw_0NxsxBfe457_EdU9K6WSlnjChR1ewbg1B-jUXJfMxXjqjgUG9sMecoOeEjnwwFVO/exec';
+    const MESSENGER = 'https://m.me/61561712856021';
+    const CACHE_KEY = 'gm_v2_inventory';
 
-        let currentSlide = 0, totalSlides = 0;
+    /* Ангиллын тодорхойлолт (icon + шошго). Шинэ тоглоом нэмэх бол энд нэмнэ. */
+    const CATS = {
+        account: [
+            { id:'all',      label:'Бүгд',        icon:'ri-apps-2-line' },
+            { id:'pubg',     label:'PUBG Mobile', icon:'ri-crosshair-2-line' },
+            { id:'mlbb',     label:'MLBB',        icon:'ri-sword-line' },
+            { id:'standoff', label:'Standoff 2',  icon:'ri-aim-line' },
+        ],
+        topup: [
+            { id:'all',      label:'Бүгд',        icon:'ri-apps-2-line' },
+            { id:'pubg',     label:'PUBG UC',     icon:'ri-coin-line' },
+            { id:'mlbb',     label:'MLBB Diamond',icon:'ri-vip-diamond-line' },
+        ],
+        rent: [
+            { id:'all',      label:'Бүгд',        icon:'ri-apps-2-line' },
+            { id:'pubg',     label:'PUBG Mobile', icon:'ri-crosshair-2-line' },
+            { id:'mlbb',     label:'MLBB',        icon:'ri-sword-line' },
+            { id:'standoff', label:'Standoff 2',  icon:'ri-aim-line' },
+        ]
+    };
 
-        // Туршилтын Дата (API ажиллахгүй үед)
-        const dummyData = [
-            { id: 101, title: 'PUBG Mobile - Glacier M416 MAX', price: '350000', cat: 'pubg', is_hot: true, images: ['https://i.pinimg.com/736x/8f/a0/0a/8fa00a18446c6b38c0378455799a4e39.jpg'], lvl: '75', link: 'Facebook, Twitter', desc: 'Glacier M416 MAX,Mythic Fashion 50+,RP 1-20 MAX' },
-            { id: 102, title: 'MLBB - Gusion K', price: '120000', cat: 'mlbb', images: ['https://i.pinimg.com/736x/a2/5c/55/a25c553d1012354c4620f496738903c7.jpg'], lvl: 'MAX', link: 'Google, Moonton', desc: 'Бүх баатар нээлттэй, Emblem max, KOF skin' },
-            { id: 103, title: 'PUBG Mobile - M416 Fool', price: '250000', cat: 'pubg', images: ['https://via.placeholder.com/400x250?text=Sold'], lvl: '70', link: 'Twitter', desc: 'M416 Fool Lv.5', status: 'sold' }
-        ];
+    /* State */
+    let inventory = [], currentType = 'account', currentCat = 'all', search = '';
+    let sortIdx = 0; const sortStates=['default','asc','desc'], sortIcons=['ri-arrow-up-down-line','ri-arrow-up-line','ri-arrow-down-line'];
+    let favs = JSON.parse(localStorage.getItem('gm_favs') || '[]');
+    let favView = false, activeItem = null, selectedPkg = null;
+    let curSlide=0, totalSlides=0;
 
-        document.addEventListener('DOMContentLoaded', loadData);
+    /* ============================================================ INIT ============================================================ */
+    document.addEventListener('DOMContentLoaded', () => {
+        initTheme();
+        renderChips();
+        renderTrust();
+        renderFaq();
+        updateFavBadge();
+        loadData();
+        window.addEventListener('scroll', () => {
+            document.getElementById('scrolltop').classList.toggle('show', window.scrollY > 420);
+        }, {passive:true});
+        document.getElementById('m-track').addEventListener('scroll', syncDots);
+        document.addEventListener('keydown', onKey);
+    });
 
-        async function loadData() {
-            const cached = localStorage.getItem(CACHE_KEY);
-            if (cached) { 
-                try {
-                    const p = JSON.parse(cached); 
-                    inventory = p.inventory || []; 
-                    if(inventory.length > 0) renderList(); 
-                } catch(e) { console.error("Cache error", e); }
-            }
-            
-            try {
-                // Cache-buster umeryu chhe jethi hamesha navi mahiti aave
-                const res = await fetch(API_URL + "?nocache=" + new Date().getTime());
-                const data = await res.json();
-                if(Array.isArray(data) && data.length > 0) {
-                    inventory = [];
-                    data.forEach(i => { if(!String(i.cat).toLowerCase().includes('rent')) inventory.push(i); });
-                    if(inventory.length === 0) inventory = dummyData;
-                    localStorage.setItem(CACHE_KEY, JSON.stringify({inventory}));
-                    renderList();
-                } else if(inventory.length === 0) {
-                    throw new Error("Empty data");
-                }
-            } catch(e) { 
-                console.log("API Fetch failed, using fallback.");
-                if(inventory.length === 0){ 
-                    inventory = dummyData; 
-                    renderList(); 
-                } 
-            }
+    /* ============================================================ THEME ============================================================ */
+    function initTheme() {
+        let saved = localStorage.getItem('gm_theme');
+        if (!saved) saved = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        applyTheme(saved);
+    }
+    function applyTheme(t) {
+        document.documentElement.setAttribute('data-theme', t);
+        document.getElementById('theme-btn').innerHTML = t==='dark' ? '<i class="ri-moon-line"></i>' : '<i class="ri-sun-line"></i>';
+        document.querySelector('meta[name=theme-color]').setAttribute('content', t==='dark' ? '#0a0a14' : '#e6edf7');
+    }
+    function toggleTheme() {
+        const next = document.documentElement.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+        localStorage.setItem('gm_theme', next); applyTheme(next);
+        if (typeof animateStats._done !== 'undefined') {} // keep stats as-is
+    }
+
+    /* ============================================================ DATA ============================================================ */
+    async function loadData() {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) { try { const p=JSON.parse(cached); inventory=p||[]; if(inventory.length) renderGrid(); } catch(e){} }
+        try {
+            const res = await fetch(API_URL + '?nocache=' + Date.now());
+            const data = await res.json();
+            if (Array.isArray(data) && data.length) {
+                inventory = data.map(normalize);
+                localStorage.setItem(CACHE_KEY, JSON.stringify(inventory));
+            } else if (!inventory.length) { inventory = DEMO.map(normalize); }
+        } catch(e) {
+            console.log('API fail → demo');
+            if (!inventory.length) inventory = DEMO.map(normalize);
         }
+        renderGrid();
+        animateStats();
+    }
 
-        // Барааг харуулах
-        function renderList() {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = '';
-            
-            let filtered = inventory.filter(i => {
-                const matchCat = currentFilter === 'all' || String(i.cat || '').toLowerCase().includes(currentFilter);
-                
-                const query = searchQuery.toLowerCase();
-                const titleMatch = String(i.title || '').toLowerCase().includes(query);
-                const descText = Array.isArray(i.desc) ? i.desc.join(' ') : String(i.desc || '');
-                const descMatch = descText.toLowerCase().includes(query);
-                
-                const matchSearch = titleMatch || descMatch;
-                
-                return matchCat && matchSearch;
+    /* Аль ч хэлбэрийн дата ороход аюулгүй болгох */
+    function normalize(i) {
+        const o = {...i};
+        o.id = String(o.id ?? Math.random().toString(36).slice(2));
+        o.cat = String(o.cat || '').toLowerCase();
+        // type: cat / type талбараас rent | topup | account гэж ялгана
+        const t = String(o.type || '').toLowerCase();
+        const catHasRent  = /rent|түрээс|turees|tureesleh/.test(o.cat) || /rent|түрээс|turees/.test(t);
+        const catHasTopup = /topup|top-up|\buc\b|diamond|алмаз|цэнэг/.test(o.cat) || /topup|uc|diamond/.test(t);
+        o.ptype = catHasRent ? 'rent' : ((t==='topup' || catHasTopup) ? 'topup' : 'account');
+        o.fb = String(o.fb || o.facebook || '').trim();
+        o.images = Array.isArray(o.images) ? o.images : String(o.images||'').split(',').map(s=>s.trim()).filter(Boolean);
+        if (!o.images.length) o.images = ['https://via.placeholder.com/600x450?text=No+Image'];
+        o.origNum = parseInt(String(o.originalPrice||o.oldPrice||'0').replace(/[^0-9]/g,'')) || 0;
+        o.rating = parseFloat(o.rating||0) || 0;
+        o.sold = parseInt(o.sold||0) || 0;
+        o.isHot = o.is_hot===true || String(o.is_hot).toLowerCase()==='true' || String(o.hot).toLowerCase()==='true';
+        o.isSold = ['sold','зарсан','зарагдсан'].includes(String(o.status||'').trim().toLowerCase());
+        // packages: "1 цаг:3000, 12 цаг:15000" эсвэл "85 UC:5000" эсвэл массив
+        o.packages = parsePackages(o.packages);
+        // үнэ: топ-ап/түрээсийн хувьд үндсэн үнэ хоосон бол хамгийн хямд багцаас авна
+        o.priceNum = parseInt(String(o.price||'0').replace(/[^0-9]/g,'')) || 0;
+        if (!o.priceNum && o.packages.length) o.priceNum = Math.min(...o.packages.map(p=>p.price||Infinity).filter(n=>isFinite(n))) || 0;
+        return o;
+    }
+    function parsePackages(p) {
+        if (!p) return [];
+        if (Array.isArray(p)) return p.map(x => typeof x==='string' ? pkgFromStr(x) : x).filter(Boolean);
+        return String(p).split(',').map(pkgFromStr).filter(Boolean);
+    }
+    function pkgFromStr(s) {
+        const parts = String(s).split(':');
+        if (parts.length < 2) return null;
+        const amt = parts[0].trim(); const price = parseInt(parts[1].replace(/[^0-9]/g,''))||0;
+        return amt ? { amt, price } : null;
+    }
+
+    /* ============================================================ RENDER GRID ============================================================ */
+    function setType(t, el) {
+        currentType = t; currentCat = 'all'; favView = false;
+        document.querySelectorAll('.type-switch button').forEach(b=>b.classList.remove('active'));
+        el.classList.add('active');
+        renderChips(); renderGrid();
+    }
+
+    function renderChips() {
+        const wrap = document.getElementById('chips');
+        wrap.innerHTML = CATS[currentType].map(c =>
+            `<div class="chip ${c.id===currentCat?'active':''}" onclick="setCat('${c.id}',this)"><i class="${c.icon}"></i> ${c.label}</div>`
+        ).join('');
+    }
+    function setCat(c, el) {
+        currentCat = c; favView = false;
+        document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+        el.classList.add('active');
+        renderGrid();
+    }
+
+    function getFiltered() {
+        let list = inventory.filter(i => i.ptype === currentType);
+        if (favView) list = inventory.filter(i => favs.includes(i.id));
+        if (!favView && currentCat !== 'all') list = list.filter(i => i.cat.includes(currentCat));
+        if (search) {
+            const q = search.toLowerCase();
+            list = list.filter(i => {
+                const desc = Array.isArray(i.desc) ? i.desc.join(' ') : String(i.desc||'');
+                return String(i.title||'').toLowerCase().includes(q) || desc.toLowerCase().includes(q) || i.cat.includes(q);
             });
+        }
+        const sort = sortStates[sortIdx];
+        if (sort === 'asc')  list.sort((a,b)=>a.priceNum-b.priceNum);
+        if (sort === 'desc') list.sort((a,b)=>b.priceNum-a.priceNum);
+        return list;
+    }
 
-            // Үнээр эрэмбэлэх
-            if (currentSort !== 'default') {
-                filtered.sort((a, b) => {
-                    let priceA = parseInt(String(a.price || '0').replace(/[^0-9]/g, '')) || 0;
-                    let priceB = parseInt(String(b.price || '0').replace(/[^0-9]/g, '')) || 0;
-                    if (currentSort === 'asc') {
-                        return priceA - priceB;
-                    } else if (currentSort === 'desc') {
-                        return priceB - priceA;
-                    }
-                    return 0;
-                });
-            }
-            
-            if(filtered.length === 0) {
-                grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-sec); background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); font-weight: 600;">Илэрц олдсонгүй...</div>`;
-                return;
-            }
+    function renderGrid() {
+        const grid = document.getElementById('grid');
+        const list = getFiltered();
+        document.getElementById('count').innerHTML = favView
+            ? `Хадгалсан <b>${list.length}</b> бараа`
+            : `Нийт <b>${list.length}</b> ${currentType==='topup'?'багц':(currentType==='rent'?'түрээс':'аккоунт')}`;
 
-            // Loop ni andar sidhu DOM update karva ni jagya e ek string ma data bhego karo
-            let htmlContent = '';
-
-            filtered.forEach(item => {
-                const img = Array.isArray(item.images) ? item.images[0] : String(item.images || '').split(',')[0];
-                const rawPrice = String(item.price || '0').replace(/[^0-9]/g,'');
-                const priceStr = rawPrice ? parseInt(rawPrice).toLocaleString() + '₮' : 'Тохиролцоно';
-                
-                // Зарагдсан төлөв шалгах
-                const isSold = String(item.status || '').trim().toLowerCase() === 'sold' || String(item.status || '').trim().toLowerCase() === 'зарсан';
-                const soldClass = isSold ? 'is-sold' : '';
-                
-                htmlContent += `
-                    <div class="product-card" onclick="openProduct('${item.id}')">
-                        <div class="pc-image-wrap ${soldClass}">
-                            <img src="${img || 'https://via.placeholder.com/400x250?text=No+Image'}" onerror="this.src='https://via.placeholder.com/400x250?text=Зураг+олдсонгүй'" class="pc-image" loading="lazy" alt="${item.title}">
-                            ${item.is_hot && !isSold ? '<div class="pc-badge"><i class="ri-fire-fill"></i> HOT</div>' : ''}
+        if (!list.length) {
+            grid.innerHTML = `<div class="empty"><i class="ri-inbox-line"></i>${favView?'Та одоогоор бараа хадгалаагүй байна.':'Илэрц олдсонгүй.'}</div>`;
+            return;
+        }
+        grid.innerHTML = list.map((i, idx) => {
+            const disc = i.origNum > i.priceNum ? Math.round((1 - i.priceNum/i.origNum)*100) : 0;
+            const priceStr = i.priceNum ? (i.priceNum.toLocaleString()+'₮') : 'Тохиролцоно';
+            // Аккоунт/түрээс → "Дэлгэрэнгүй", цэнэглэлт → "Худалдан авах"
+            const ctaText = i.isSold ? 'Дууссан' : (i.ptype==='topup' ? 'Худалдан авах' : 'Дэлгэрэнгүй');
+            const catLabel = ((CATS[i.ptype]||CATS[currentType]).find(c=>i.cat.includes(c.id)&&c.id!=='all')||{}).label || '';
+            const isFav = favs.includes(i.id);
+            return `
+            <div class="card" style="animation-delay:${Math.min(idx,10)*0.045}s" onclick="openProduct('${i.id}')">
+                <div class="card-img ${i.isSold?'sold-overlay':''}">
+                    <img src="${i.images[0]}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=Зураг'" alt="${esc(i.title)}">
+                    ${i.isHot && !i.isSold ? '<div class="tag tag-hot"><i class="ri-fire-fill"></i> HOT</div>' : ''}
+                    ${disc && !i.isSold ? `<div class="tag tag-disc">-${disc}%</div>` : ''}
+                    ${catLabel ? `<div class="tag tag-cat">${catLabel}</div>` : ''}
+                    <button class="fav ${isFav?'on':''}" onclick="event.stopPropagation();toggleFav('${i.id}',this)"><i class="ri-heart-line"></i></button>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">${esc(i.title)||'Нэргүй'}</div>
+                    <div class="card-meta">
+                        ${i.rating?`<span class="stars">${stars(i.rating)} ${i.rating.toFixed(1)}</span>`:''}
+                        ${i.ptype==='rent'?`<span><i class="ri-time-line"></i> Цагаар түрээс</span>`:''}
+                        ${i.ptype==='topup'&&i.packages.length?`<span><i class="ri-stack-line"></i> ${i.packages.length} багц</span>`:''}
+                        ${i.ptype!=='rent'&&i.sold?`<span><i class="ri-fire-line"></i> ${i.sold} зарсан</span>`:''}
+                        ${i.ptype==='account'&&i.lvl?`<span><i class="ri-bar-chart-2-line"></i> Lv.${esc(i.lvl)}</span>`:''}
+                    </div>
+                    <div class="card-foot">
+                        <div class="price-wrap">
+                            ${i.ptype==='topup'
+                                ? `<span class="price-info"><i class="ri-price-tag-3-line"></i> Үнийн мэдээлэл</span>`
+                                : `${disc?`<span class="price-old">${i.origNum.toLocaleString()}₮</span>`:''}<span class="price" style="${i.isSold?'text-decoration:line-through;opacity:.6':''}">${priceStr}</span>`}
                         </div>
-                        <div class="pc-content">
-                            <div class="pc-title">${item.title || 'Нэргүй бараа'}</div>
-                            <div class="pc-footer">
-                                <div class="pc-price" style="${isSold ? 'color: var(--text-sec); text-decoration: line-through; font-size: 1.05rem;' : ''}">${priceStr}</div>
-                                <div class="pc-action"><i class="ri-arrow-right-line"></i></div>
-                            </div>
-                        </div>
-                    </div>`;
-            });
+                    </div>
+                    <button class="card-cta ${i.ptype==='rent'?'cta-rent':''} ${i.isSold?'cta-sold':''}">${ctaText} <i class="ri-arrow-right-line"></i></button>
+                </div>
+            </div>`;
+        }).join('');
+    }
 
-            // Ek j var ma aakho data render karo (Fast performance mate)
-            grid.innerHTML = htmlContent;
+    /* ============================================================ SEARCH / SORT / FAV view ============================================================ */
+    function onSearch(v) { search = v.trim(); document.getElementById('clear').classList.toggle('show', v.length>0); renderGrid(); }
+    function clearSearch() { document.getElementById('search').value=''; search=''; document.getElementById('clear').classList.remove('show'); renderGrid(); document.getElementById('search').focus(); }
+    function toggleSort() {
+        sortIdx = (sortIdx+1)%3;
+        const b = document.getElementById('sort');
+        b.innerHTML = `Үнэ <i class="${sortIcons[sortIdx]}"></i>`;
+        b.classList.toggle('active', sortIdx!==0);
+        renderGrid();
+    }
+    function toggleFavView() {
+        favView = !favView;
+        document.getElementById('fav-btn').classList.toggle('active');
+        if (favView) { document.getElementById('shop').scrollIntoView({behavior:'smooth'}); toast(favs.length?'Хадгалсан бараанууд':'Хадгалсан бараа алга', favs.length?'ri-heart-fill':'ri-information-line'); }
+        renderGrid();
+    }
+
+    /* ============================================================ FAVORITES ============================================================ */
+    function toggleFav(id, el) {
+        const k = String(id);
+        if (favs.includes(k)) { favs = favs.filter(x=>x!==k); el && el.classList.remove('on'); }
+        else { favs.push(k); el && el.classList.add('on'); toast('Хадгалсанд нэмлээ', 'ri-heart-fill'); }
+        localStorage.setItem('gm_favs', JSON.stringify(favs));
+        updateFavBadge();
+        if (favView) renderGrid();
+        syncModalFav();
+    }
+    function updateFavBadge() {
+        const b = document.getElementById('fav-badge');
+        b.textContent = favs.length; b.classList.toggle('show', favs.length>0);
+    }
+    function favFromModal() { if (activeItem) toggleFav(activeItem.id); }
+    function syncModalFav() {
+        if (!activeItem) return;
+        const on = favs.includes(activeItem.id);
+        document.getElementById('m-fav').innerHTML = on ? '<i class="ri-heart-fill" style="color:var(--accent)"></i>' : '<i class="ri-heart-line"></i>';
+    }
+
+    /* ============================================================ PRODUCT MODAL ============================================================ */
+    function openProduct(id) {
+        const i = inventory.find(x=>x.id===String(id)); if(!i) return;
+        activeItem = i; selectedPkg = null;
+
+        // slider
+        const track = document.getElementById('m-track'), dots = document.getElementById('m-dots');
+        totalSlides = i.images.length; curSlide = 0;
+        track.innerHTML = i.images.map((u,idx)=>`<img src="${u}" onerror="this.src='https://via.placeholder.com/600x450?text=Зураг'" onclick="openLb(${idx})" alt="img">`).join('');
+        dots.innerHTML = totalSlides>1 ? i.images.map((_,idx)=>`<div class="dot ${idx?'':'active'}" onclick="goSlide(${idx});event.stopPropagation()"></div>`).join('') : '';
+        document.getElementById('m-prev').style.display = totalSlides>1?'block':'none';
+        document.getElementById('m-next').style.display = totalSlides>1?'block':'none';
+
+        // info
+        const catLabel = (CATS[i.ptype].find(c=>i.cat.includes(c.id)&&c.id!=='all')||{}).label || (i.ptype==='topup'?'Цэнэглэлт':(i.ptype==='rent'?'Түрээс':'Аккоунт'));
+        document.getElementById('m-cat').textContent = catLabel;
+        document.getElementById('m-title').textContent = i.title || 'Нэргүй';
+        document.getElementById('m-rating').innerHTML = i.rating
+            ? `<span class="stars">${stars(i.rating)}</span> <b>${i.rating.toFixed(1)}</b> ${i.sold?`· ${i.sold} удаа зарсан`:''}`
+            : (i.sold?`<i class="ri-fire-line" style="color:var(--accent)"></i> ${i.sold} удаа зарагдсан`:'');
+
+        // price
+        const isRent = i.ptype==='rent';
+        const disc = i.origNum>i.priceNum ? Math.round((1-i.priceNum/i.origNum)*100) : 0;
+        document.getElementById('m-price').textContent = i.priceNum ? (i.priceNum.toLocaleString()+'₮') : 'Тохиролцоно';
+        document.getElementById('m-price-old').textContent = disc ? i.origNum.toLocaleString()+'₮' : '';
+        const saveEl = document.getElementById('m-save');
+        if (disc) { saveEl.style.display='inline-block'; saveEl.textContent = `-${disc}% ХЯМДРАЛ`; } else saveEl.style.display='none';
+
+        // specs vs packages (топ-ап ба түрээс хоёулаа багцтай)
+        const specsWrap = document.getElementById('m-specs-wrap'), pkgWrap = document.getElementById('m-pkg-wrap');
+        if ((i.ptype==='topup' || isRent) && i.packages.length) {
+            specsWrap.style.display='none'; pkgWrap.style.display='block';
+            document.querySelector('#m-pkg-wrap .mw-sub').textContent = isRent ? 'Түрээсийн хугацаа сонгох' : 'Багц сонгох';
+            document.getElementById('m-pkgs').innerHTML = i.packages.map((p,idx)=>
+                `<div class="pkg" onclick="selectPkg(${idx},this)"><span class="pkg-amt">${esc(p.amt)}</span><span class="pkg-price">${p.price?p.price.toLocaleString()+'₮':'-'}</span></div>`
+            ).join('');
+        } else {
+            pkgWrap.style.display='none'; specsWrap.style.display='block';
+            const specs = i.ptype==='topup'
+                ? [['Төрөл', catLabel], ['Хүргэлт', 'Шуурхай']]
+                : (isRent
+                    ? [['Төрөл', 'Цагаар түрээс'], ['Bind', i.link||'-']]
+                    : [['Collection', i.lvl||'-'], ['Bind', i.link||'-']]);
+            document.getElementById('m-specs').innerHTML = specs.map(([l,v])=>
+                `<div class="spec"><div class="spec-l">${l}</div><div class="spec-v">${esc(String(v))}</div></div>`
+            ).join('');
         }
 
-        // Шүүлтүүрийн функц
-        function filterItems(c, el) { 
-            document.querySelectorAll('.tab-btn:not(#sort-price-btn)').forEach(b => b.classList.remove('active'));
-            el.classList.add('active'); 
-            currentFilter = c; 
-            renderList(); 
+        // desc
+        let ds = i.desc ? (Array.isArray(i.desc)?i.desc:String(i.desc).split(',')) : [];
+        ds = ds.map(d=>d.trim()).filter(Boolean);
+        document.getElementById('m-desc').innerHTML = ds.length
+            ? ds.map(d=>`<li>${esc(d)}</li>`).join('')
+            : '<li style="color:var(--text-sec)">Дэлгэрэнгүй мэдээлэл оруулаагүй байна.</li>';
+
+        // buy btn — түрээс бол "Түрээслэх" (шууд эзний FB рүү), бусад нь Messenger
+        const buy = document.getElementById('m-buy');
+        const buyLabel = isRent
+            ? (i.fb ? '<i class="ri-facebook-circle-fill"></i> Түрээслэх (эзэнтэй холбогдох)' : '<i class="ri-time-line"></i> Түрээслэх')
+            : '<i class="ri-shopping-bag-3-line"></i> Худалдаж авах';
+        if (i.isSold) { buy.classList.add('sold'); buy.innerHTML = isRent ? '<i class="ri-lock-line"></i> Завгүй' : '<i class="ri-lock-line"></i> Зарагдсан'; buy.href='javascript:void(0)'; }
+        else { buy.classList.remove('sold'); buy.innerHTML=buyLabel; buy.href=buildBuyLink(i); }
+
+        // эзэнтэй холбогдох товч — fb байгаа боловч худалдан авах товч өөр газар (Messenger) рүү очдог үед л давхар харуулна.
+        // Түрээст худалдан авах товч аль хэдийн FB рүү очдог тул давхардуулахгүй.
+        const contact = document.getElementById('m-contact');
+        if (i.fb && !isRent) { contact.style.display='flex'; contact.href = i.fb; } else { contact.style.display='none'; }
+
+        syncModalFav();
+        document.getElementById('modal').classList.add('active');
+        document.querySelector('.mw-body').scrollTop = 0;
+        setTimeout(()=>{ track.scrollTo({left:0,behavior:'instant'}); syncDots(); }, 10);
+    }
+
+    function buildBuyLink(i, pkg) {
+        // Түрээс бол шууд эзний Facebook руу. Бусад нь Messenger чат.
+        if (i.ptype==='rent' && i.fb) return i.fb;
+        return MESSENGER;
+    }
+
+    function selectPkg(idx, el) {
+        selectedPkg = activeItem.packages[idx];
+        document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('sel'));
+        el.classList.add('sel');
+        document.getElementById('m-price').textContent = selectedPkg.price ? selectedPkg.price.toLocaleString()+'₮' : 'Тохиролцоно';
+        const buy = document.getElementById('m-buy');
+        buy.href = buildBuyLink(activeItem, selectedPkg);
+    }
+
+    function shareProduct() {
+        const txt = activeItem ? `${activeItem.title} — Pubg Accounts Mongolia` : 'Pubg Accounts Mongolia';
+        if (navigator.share) navigator.share({title:txt, url:location.href}).catch(()=>{});
+        else { navigator.clipboard?.writeText(location.href); toast('Холбоос хууллаа', 'ri-link'); }
+    }
+
+    function closeModal(id){ document.getElementById(id).classList.remove('active'); }
+    function openTutorial(){ document.getElementById('tut').classList.add('active'); }
+
+    /* ============================================================ SLIDER ============================================================ */
+    function moveSlide(s){ if(totalSlides<=1)return; curSlide=(curSlide+s+totalSlides)%totalSlides; updateSlide(); if(window.event)window.event.stopPropagation(); }
+    function goSlide(i){ curSlide=i; updateSlide(); }
+    function updateSlide(){ const t=document.getElementById('m-track'); t.scrollTo({left:curSlide*t.clientWidth,behavior:'smooth'}); }
+    function syncDots(){ const t=document.getElementById('m-track'); if(!t.clientWidth)return; const idx=Math.round(t.scrollLeft/t.clientWidth); curSlide=idx; document.querySelectorAll('#m-dots .dot').forEach((d,i)=>d.classList.toggle('active',i===idx)); }
+
+    /* ============================================================ LIGHTBOX ============================================================ */
+    let lbSlide=0, lbTotal=0;
+    function openLb(start){
+        if(!activeItem)return;
+        const imgs=activeItem.images; lbTotal=imgs.length; lbSlide=start||0;
+        document.getElementById('lb-track').innerHTML = imgs.map(u=>`<div><img src="${u}" onerror="this.src='https://via.placeholder.com/600x450?text=Зураг'"></div>`).join('');
+        document.getElementById('lb-tot').textContent=lbTotal;
+        document.getElementById('lb').classList.add('active');
+        setTimeout(()=>{ const t=document.getElementById('lb-track'); t.scrollTo({left:lbSlide*t.clientWidth,behavior:'instant'}); updateLbCount(); },20);
+        document.getElementById('lb-track').onscroll = updateLbCount;
+    }
+    function moveLb(s){ lbSlide=(lbSlide+s+lbTotal)%lbTotal; const t=document.getElementById('lb-track'); t.scrollTo({left:lbSlide*t.clientWidth,behavior:'smooth'}); }
+    function updateLbCount(){ const t=document.getElementById('lb-track'); if(!t.clientWidth)return; lbSlide=Math.round(t.scrollLeft/t.clientWidth); document.getElementById('lb-cur').textContent=lbSlide+1; }
+    function closeLb(){ document.getElementById('lb').classList.remove('active'); }
+    document.getElementById('lb').addEventListener('click', e=>{ if(e.target.id==='lb'||e.target.closest('.lb-track')) closeLb(); });
+
+    /* ============================================================ KEYBOARD ============================================================ */
+    function onKey(e){
+        if(document.getElementById('lb').classList.contains('active')){
+            if(e.key==='ArrowRight')moveLb(1); if(e.key==='ArrowLeft')moveLb(-1); if(e.key==='Escape')closeLb(); return;
         }
-        
-        function setSearch(v) { 
-            searchQuery = v.trim(); 
-            renderList(); 
+        if(document.getElementById('modal').classList.contains('active')){
+            if(e.key==='ArrowRight')moveSlide(1); if(e.key==='ArrowLeft')moveSlide(-1); if(e.key==='Escape')closeModal('modal');
         }
+        if(e.key==='Escape')closeModal('tut');
+    }
 
-        // Эрэмбэлэх тохиргоо
-        function toggleSort() {
-            sortIndex = (sortIndex + 1) % 3;
-            currentSort = sortStates[sortIndex];
-
-            const btn = document.getElementById('sort-price-btn');
-            btn.innerHTML = `Үнэ <i class="${sortIcons[sortIndex]}" style="font-size: 1.1rem;"></i>`;
-
-            if(sortIndex === 0) btn.classList.remove('active');
-            else btn.classList.add('active');
-
-            renderList();
-        }
-
-        // Барааг нээх
-        function openProduct(id) {
-            const item = inventory.find(i => String(i.id) === String(id));
-            if(!item) return;
-
-            // Зургийн цомгийг тохируулах
-            let imgs = [];
-            if (Array.isArray(item.images)) imgs = item.images;
-            else if (item.images) imgs = String(item.images).split(',').map(s => s.trim()).filter(s => s);
-            if (imgs.length === 0) imgs = ['https://via.placeholder.com/600x400?text=No+Image'];
-
-            const track = document.getElementById('m-slider-track');
-            const dots = document.getElementById('m-slider-dots');
-            track.innerHTML = '';
-            dots.innerHTML = '';
-            totalSlides = imgs.length;
-            currentSlide = 0;
-
-            imgs.forEach((url, idx) => {
-                // Дээр нь дарахад Lightbox нээгдэнэ
-                track.innerHTML += `<img src="${url}" onerror="this.src='https://via.placeholder.com/600x400?text=Зураг+олдсонгүй'" class="slider-img" alt="Slide ${idx}" onclick="openLightbox(${idx})">`;
-                if (totalSlides > 1) {
-                    dots.innerHTML += `<div class="dot ${idx === 0 ? 'active' : ''}" onclick="goToSlide(${idx}); event.stopPropagation();"></div>`;
-                }
-            });
-
-            document.getElementById('m-slider-prev').style.display = totalSlides > 1 ? 'flex' : 'none';
-            document.getElementById('m-slider-next').style.display = totalSlides > 1 ? 'flex' : 'none';
-            
-            document.getElementById('m-title').innerText = item.title || 'Нэргүй бараа';
-            document.getElementById('m-lvl').innerText = item.lvl || '-';
-            document.getElementById('m-link').innerText = item.link || '-';
-            
-            const rawPrice = String(item.price || '0').replace(/[^0-9]/g,'');
-            const priceEl = document.getElementById('m-price');
-            priceEl.innerText = rawPrice ? parseInt(rawPrice).toLocaleString() + '₮' : 'Тохиролцоно';
-            
-            const ul = document.getElementById('m-desc');
-            ul.innerHTML = '';
-            
-            let ds = [];
-            if(item.desc) {
-                ds = Array.isArray(item.desc) ? item.desc : String(item.desc).split(',');
-                ds.forEach(d => { 
-                    if(d.trim()) {
-                        const li = document.createElement('li');
-                        li.textContent = d.trim();
-                        ul.appendChild(li);
-                    }
-                });
-            } else {
-                ul.innerHTML = '<li style="list-style:none; color:var(--text-sec);">Дэлгэрэнгүй мэдээлэл оруулаагүй байна.</li>';
-            }
-            
-            // Зарагдсан төлөвийн товч
-            const isSold = String(item.status || '').trim().toLowerCase() === 'sold' || String(item.status || '').trim().toLowerCase() === 'зарсан';
-            const buyBtn = document.getElementById('m-buy-btn');
-            
-            if (isSold) {
-                buyBtn.textContent = 'ЗАРАГДСАН';
-                buyBtn.classList.add('sold-btn');
-                buyBtn.href = 'javascript:void(0)';
-            } else {
-                buyBtn.textContent = 'ХУДАЛДАЖ АВАХ';
-                buyBtn.classList.remove('sold-btn');
-                buyBtn.href = 'https://m.me/61561712856021';
-            }
-
-            // Модалыг харуулаад, дараа нь scroll хийх (ScrollTo ажиллахын тулд элемент харагдаж байх ёстой)
-            document.getElementById('product-modal').classList.add('active');
-            document.querySelector('.mw-details').scrollTop = 0;
-            setTimeout(() => { 
-                track.scrollTo({ left: 0, behavior: 'instant' }); 
-                updateSliderDots();
-            }, 10);
-        }
-
-        // Модал хаах
-        function closeModal(id) { 
-            document.getElementById(id).classList.remove('active'); 
-        }
-        
-        function openTutorial() { 
-            document.getElementById('tutorial-modal').classList.add('active'); 
-        }
-
-        /* --- Зургийн цомог удирдлага --- */
-        function moveSlide(step) {
-            if(totalSlides <= 1) return;
-            currentSlide += step;
-            if (currentSlide < 0) currentSlide = totalSlides - 1;
-            if (currentSlide >= totalSlides) currentSlide = 0;
-            updateSlider();
-            
-            if (window.event) window.event.stopPropagation();
-        }
-
-        function goToSlide(idx) {
-            currentSlide = idx;
-            updateSlider();
-        }
-
-        function updateSlider() {
-            const track = document.getElementById('m-slider-track');
-            track.scrollTo({ left: currentSlide * track.clientWidth, behavior: 'smooth' });
-            updateSliderDots();
-        }
-
-        function updateSliderDots() {
-            document.querySelectorAll('.dot').forEach((d, idx) => {
-                d.classList.toggle('active', idx === currentSlide);
-            });
-        }
-
-        // Native scroll sync (Гараар гар утсан дээр гүйлгэх үед цэгүүдийг өөрчлөх)
-        document.getElementById('m-slider-track').addEventListener('scroll', function() {
-            if (this.clientWidth === 0) return;
-            let newIndex = Math.round(this.scrollLeft / this.clientWidth);
-            if (newIndex < 0) newIndex = 0;
-            if (newIndex >= totalSlides) newIndex = totalSlides - 1;
-            
-            if (newIndex !== currentSlide) {
-                currentSlide = newIndex;
-                updateSliderDots();
-            }
-        }, {passive: true});
-
-        /* --- Дэлгэц дүүрэн зураг (Lightbox) --- */
-        let lbCurrentSlide = 0;
-        let lbTotalSlides = 0;
-
-        function openLightbox(startIdx) {
-            const lbModal = document.getElementById('lightbox-modal');
-            const lbTrack = document.getElementById('lb-track');
-            const sourceImgs = document.querySelectorAll('#m-slider-track .slider-img');
-            
-            lbTrack.innerHTML = '';
-            lbTotalSlides = sourceImgs.length;
-            
-            sourceImgs.forEach((img) => {
-                lbTrack.innerHTML += `<div class="lb-img-wrap"><img src="${img.src}" class="lb-img"></div>`;
-            });
-            
-            document.getElementById('lb-total').innerText = lbTotalSlides;
-            lbCurrentSlide = startIdx;
-            
-            // Дэлгэцэнд эхлээд гаргана, дараа нь scrollTo ажиллана.
-            lbModal.classList.add('active');
-            
-            setTimeout(() => { 
-                lbTrack.scrollTo({ left: startIdx * lbTrack.clientWidth, behavior: 'instant' }); 
-            }, 10);
-            
-            document.getElementById('lb-current').innerText = lbCurrentSlide + 1;
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox-modal').classList.remove('active');
-        }
-
-        function moveLbSlide(step) {
-            if (lbTotalSlides <= 1) return;
-            lbCurrentSlide += step;
-            if (lbCurrentSlide < 0) lbCurrentSlide = lbTotalSlides - 1;
-            if (lbCurrentSlide >= lbTotalSlides) lbCurrentSlide = 0;
-            updateLightbox();
-        }
-
-        function updateLightbox() {
-            const track = document.getElementById('lb-track');
-            track.scrollTo({ left: lbCurrentSlide * track.clientWidth, behavior: 'smooth' });
-            document.getElementById('lb-current').innerText = lbCurrentSlide + 1;
-        }
-
-        // Native scroll sync for Lightbox
-        document.getElementById('lb-track').addEventListener('scroll', function() {
-            if (this.clientWidth === 0) return;
-            let newIndex = Math.round(this.scrollLeft / this.clientWidth);
-            if (newIndex < 0) newIndex = 0;
-            if (newIndex >= lbTotalSlides) newIndex = lbTotalSlides - 1;
-
-            if (newIndex !== lbCurrentSlide) {
-                lbCurrentSlide = newIndex;
-                document.getElementById('lb-current').innerText = lbCurrentSlide + 1;
-            }
-        }, {passive: true});
-
-        /* --- ESC болон Arrow Keys удирдах --- */
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeLightbox(); 
-                closeModal('product-modal');
-                closeModal('tutorial-modal');
-            }
-            if (e.key === 'ArrowRight') {
-                if(document.getElementById('lightbox-modal').classList.contains('active')) moveLbSlide(1);
-                else if(document.getElementById('product-modal').classList.contains('active')) moveSlide(1);
-            }
-            if (e.key === 'ArrowLeft') {
-                if(document.getElementById('lightbox-modal').classList.contains('active')) moveLbSlide(-1);
-                else if(document.getElementById('product-modal').classList.contains('active')) moveSlide(-1);
-            }
+    /* ============================================================ STATS COUNTER ============================================================ */
+    function animateStats(){
+        if(animateStats._done)return; animateStats._done=true;
+        document.querySelectorAll('.stat-num').forEach(el=>{
+            const target=parseFloat(el.dataset.count), dec=parseInt(el.dataset.dec||0); let cur=0;
+            const step=target/45;
+            const t=setInterval(()=>{ cur+=step; if(cur>=target){cur=target;clearInterval(t);} el.textContent=dec?cur.toFixed(dec):Math.floor(cur).toLocaleString(); },22);
         });
+    }
+
+    /* ============================================================ STATIC CONTENT ============================================================ */
+    function renderTrust(){
+        const items=[['ri-shield-check-line','100% Баталгаат'],['ri-flashlight-line','Шуурхай хүргэлт'],['ri-customer-service-2-line','24/7 Дэмжлэг'],['ri-secure-payment-line','Найдвартай төлбөр'],['ri-thumb-up-line','950+ Үйлчлүүлэгч'],['ri-verified-badge-line','Verified Page']];
+        const html=items.map(([ic,t])=>`<span><i class="${ic}"></i> ${t}</span>`).join('');
+        document.getElementById('trust-track').innerHTML = html+html; // давхар → тасралтгүй
+    }
+    function renderFaq(){
+        const data=[
+            ['Худалдаж авсан аккоунт баталгаатай юу?','Тийм. Бид зөвхөн шалгагдсан, баталгаатай аккоунт зардаг бөгөөд худалдан авалтын дараа бүрэн мэдээллийг шилжүүлж өгнө.'],
+            ['Төлбөрөө хэрхэн төлөх вэ?','Messenger-ээр админтай холбогдоход дансны мэдээллийг өгнө. Та шилжүүлэг хийсний дараа бараагаа хүлээн авна.'],
+            ['Цэнэглэлт хэр хугацаанд ордог вэ?','Ихэвчлэн төлбөр баталгаажсанаас хойш хэдхэн минутын дотор орно. Ачаалал ихтэй үед 10-15 минут болж магадгүй.'],
+            ['Аккоунт буцаах/солих боломжтой юу?','Худалдан авалтаас өмнө дэлгэрэнгүйг сайтар шалгана уу. Асуудал гарвал админтай шууд холбогдож шийдвэрлэнэ.'],
+        ];
+        document.getElementById('faq').innerHTML = data.map(([q,a])=>`
+            <div class="faq-item">
+                <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">${q}<i class="ri-arrow-down-s-line"></i></div>
+                <div class="faq-a">${a}</div>
+            </div>`).join('');
+    }
+
+    /* ============================================================ HELPERS ============================================================ */
+    function stars(r){ const f=Math.round(r); return '★'.repeat(f)+'☆'.repeat(5-f); }
+    function esc(s){ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+    function scrollTop(){ window.scrollTo({top:0,behavior:'smooth'}); }
+    function toast(msg, ico='ri-check-line'){
+        const w=document.getElementById('toasts');
+        const el=document.createElement('div'); el.className='toast'; el.innerHTML=`<i class="${ico}"></i> ${msg}`;
+        w.appendChild(el);
+        setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateY(12px)'; el.style.transition='.3s'; setTimeout(()=>el.remove(),300); }, 2200);
+    }
+
+    /* ============================================================ DEMO DATA (API ажиллахгүй үед) ============================================================ */
+    const DEMO = [
+        { id:101, title:'PUBG Mobile — Glacier M416 MAX', price:'350000', originalPrice:'450000', cat:'pubg', is_hot:true, rating:5, sold:42, lvl:'75', link:'Facebook, Twitter', images:['https://i.pinimg.com/736x/8f/a0/0a/8fa00a18446c6b38c0378455799a4e39.jpg'], desc:'Glacier M416 MAX, Mythic Fashion 50+, RP 1-20 MAX, Олон скин' },
+        { id:102, title:'MLBB — Gusion KOF Collector', price:'120000', cat:'mlbb', rating:4.8, sold:18, lvl:'MAX', link:'Google, Moonton', images:['https://i.pinimg.com/736x/a2/5c/55/a25c553d1012354c4620f496738903c7.jpg'], desc:'Бүх баатар нээлттэй, Emblem MAX, KOF skin, Collector skin' },
+        { id:103, title:'PUBG Mobile — M416 Fool Lv.5', price:'250000', cat:'pubg', rating:4.5, sold:11, lvl:'70', link:'Twitter', status:'sold', images:['https://via.placeholder.com/600x450?text=Sold'], desc:'M416 Fool Lv.5, Season RP' },
+        { id:104, title:'Standoff 2 — Knife + Gold Collection', price:'180000', originalPrice:'220000', cat:'standoff', is_hot:true, rating:4.9, sold:25, lvl:'62', link:'VK', images:['https://via.placeholder.com/600x450/7c5cff/ffffff?text=Standoff+2'], desc:'Gold knife, ховор скинүүд, өндөр rank' },
+        { id:201, title:'PUBG Mobile UC цэнэглэлт', price:'5000', cat:'pubg topup', type:'topup', rating:5, sold:320, images:['https://via.placeholder.com/600x450/22d3ee/0a0a14?text=PUBG+UC'], desc:'Албан ёсны цэнэглэлт, шуурхай орно, ID-гаар цэнэглэнэ', packages:'60 UC:5000, 325 UC:24000, 660 UC:46000, 1800 UC:120000, 3850 UC:240000, 8100 UC:480000' },
+        { id:202, title:'Mobile Legends Diamond цэнэглэлт', price:'3500', cat:'mlbb topup', type:'topup', rating:4.9, sold:210, images:['https://via.placeholder.com/600x450/ff2d75/ffffff?text=MLBB+Diamond'], desc:'ID + Server-ээр цэнэглэнэ, шуурхай', packages:'56 💎:3500, 172 💎:9500, 344 💎:18500, 706 💎:37000, 1412 💎:73000' },
+        { id:301, title:'PUBG Account — Цагаар түрээслэх', cat:'pubg rent', type:'rent', rating:5, lvl:'70', link:'Elink', fb:'https://www.facebook.com/gamemarket.mn', images:['https://via.placeholder.com/600x450/7c5cff/ffffff?text=PUBG+Rent'], desc:'Mythic outfit, M416 Glacier, бүрэн скинтэй, цагаар түрээслэнэ', packages:'1 цаг:3000, 12 цаг:15000, 24 цаг:25000' },
+    ];
     </script>
 </body>
 </html>
