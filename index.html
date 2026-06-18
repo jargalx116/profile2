@@ -604,7 +604,7 @@
             <div class="info-card" style="position:relative"><span class="info-step-num">1</span><div class="info-ico"><i class="ri-search-eye-line"></i></div><h3>Бараагаа сонгох</h3><p>Дэлгүүрээс хүссэн аккоунт эсвэл цэнэглэлтийн багцаа сонгож, дэлгэрэнгүйг нь шалгаарай.</p></div>
             <div class="info-card" style="position:relative"><span class="info-step-num">2</span><div class="info-ico"><i class="ri-messenger-line"></i></div><h3>Холбогдох</h3><p><b>Худалдаж авах</b> товчийг дарж Messenger-ээр админтай шууд холбогдоно.</p></div>
             <div class="info-card" style="position:relative"><span class="info-step-num">3</span><div class="info-ico"><i class="ri-bank-card-line"></i></div><h3>Төлбөр төлөх</h3><p>Тохиролцсоны дараа төлбөрөө шилжүүлнэ. Дансны мэдээллийг админ өгнө.</p></div>
-            <div class="info-card" style="position:relative"><span class="info-step-num">4</span><div class="info-ico"><i class="ri-shield-check-line"></i></div><h3>Хүлээн авах</h3><p>Аккоунтын мэдээлэл эсвэл цэнэглэлтээ шуурхай, баталгаатай хүлээн авна.</p></div>
+            <div class="info-card" style="position:relative"><span class="info-step-num">4</span><div class="info-ico"><i class="ri-shield-check-line"></i></div><h3>Хүлээн авах</h3><p>Админ танд Аккоунтын мэдээлэл эсвэл цэнэглэлтээ шуурхай, баталгаатай хүлээлгэн өгнө.</p></div>
         </div>
 
         <!-- ===================== FAQ ===================== -->
@@ -620,7 +620,7 @@
             <a href="https://m.me/cm/AbadrhKBoffAja4U" target="_blank" title="Messenger"><i class="ri-messenger-fill"></i></a>
             <a href="https://www.turees.online" target="_blank" title="Түрээс"><i class="ri-earth-fill"></i></a>
         </div>
-        <div><b>Pubg Accounts Mongolia</b> — Баталгаат аккоунт, цэнэглэлт & түрээс</div>
+        <div><b>Pubg Accounts Mongolia</b> — Баталгаат аккоунт,түрээс & цэнэглэлт</div>
         <div style="margin-top:7px; font-size:0.84rem; opacity:0.75;">© 2026 Pubg Accounts Mongolia. Бүх эрх хуулиар хамгаалагдсан.</div>
     </footer>
 
@@ -886,7 +886,7 @@
                     <div class="card-title">${esc(i.title)||'Нэргүй'}</div>
                     <div class="card-meta">
                         ${i.rating?`<span class="stars">${stars(i.rating)} ${i.rating.toFixed(1)}</span>`:''}
-                        ${i.ptype==='rent'?`<span><i class="ri-time-line"></i> Цагаар түрээс</span>`:''}
+                        ${i.ptype==='rent'?`<span><i class="ri-time-line"></i> Цагын түрээс</span>`:''}
                         ${i.ptype==='topup'&&i.packages.length?`<span><i class="ri-stack-line"></i> ${i.packages.length} багц</span>`:''}
                         ${i.ptype!=='rent'&&i.sold?`<span><i class="ri-fire-line"></i> ${i.sold} зарсан</span>`:''}
                         ${i.ptype==='account'&&i.lvl?`<span><i class="ri-bar-chart-2-line"></i> Lv.${esc(i.lvl)}</span>`:''}
@@ -1001,7 +1001,7 @@
         // buy btn — түрээс бол "Түрээслэх" (шууд эзний FB рүү), бусад нь Messenger
         const buy = document.getElementById('m-buy');
         const buyLabel = isRent
-            ? (i.fb ? '<i class="ri-facebook-circle-fill"></i> Түрээслэх (эзэнтэй холбогдох)' : '<i class="ri-time-line"></i> Түрээслэх')
+            ? (i.fb ? '<i class="ri-facebook-circle-fill"></i> Түрээслэх ' : '<i class="ri-time-line"></i> Түрээслэх')
             : '<i class="ri-shopping-bag-3-line"></i> Худалдаж авах';
         if (i.isSold) { buy.classList.add('sold'); buy.innerHTML = isRent ? '<i class="ri-lock-line"></i> Завгүй' : '<i class="ri-lock-line"></i> Зарагдсан'; buy.href='javascript:void(0)'; }
         else { buy.classList.remove('sold'); buy.innerHTML=buyLabel; buy.href=buildBuyLink(i); }
