@@ -1086,7 +1086,7 @@
 
     /* ============================================================ STATIC CONTENT ============================================================ */
     function renderTrust(){
-        const items=[['ri-shield-check-line','100% Баталгаат'],['ri-flashlight-line','Шуурхай үйлчилгээ'],['ri-customer-service-2-line','24/7 '],['ri-secure-payment-line','Найдвартай наймааа'],['ri-thumb-up-line','10K+ Үйлчлүүлэгч'],['ri-verified-badge-line','Verified Page']];
+        const items=[['ri-shield-check-line','100% Баталгаат'],['ri-flashlight-line','Шуурхай үйлчилгээ'],['ri-customer-service-2-line','24/7 '],['ri-secure-payment-line','Найдвартай наймаа'],['ri-thumb-up-line','10K+ Үйлчлүүлэгч'],['ri-verified-badge-line','Verified Page']];
         const html=items.map(([ic,t])=>`<span><i class="${ic}"></i> ${t}</span>`).join('');
         document.getElementById('trust-track').innerHTML = html+html; // давхар → тасралтгүй
     }
