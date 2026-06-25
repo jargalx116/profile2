@@ -2,7 +2,7 @@
 <html lang="mn" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#0a0a14">
 
     <meta property="og:title" content="Pubg Accounts Mongolia — Аккоунт, Цэнэглэлт & Түрээс" />
@@ -75,7 +75,9 @@
         }
 
         * { margin:0; padding:0; box-sizing:border-box; outline:none; -webkit-tap-highlight-color:transparent; }
-        html, body { overflow-x:hidden; width:100%; scroll-behavior:smooth; }
+        html, body { overflow-x:hidden; width:100%; scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+        /* Хэвтээ гулсагч элементүүдэд инерцтэй гулгалт (iOS) */
+        .chips, .filter-tabs, .slider-track, .lb-track, .trust-strip { -webkit-overflow-scrolling:touch; }
 
         body {
             background: radial-gradient(1200px 600px at 15% -10%, var(--blob-1), transparent 60%),
@@ -101,7 +103,8 @@
         }
         .nav-inner {
             max-width: var(--maxw); margin:0 auto; height:68px;
-            display:flex; align-items:center; justify-content:space-between; gap:14px; padding:0 18px;
+            display:flex; align-items:center; justify-content:space-between; gap:14px;
+            padding:0 max(18px, env(safe-area-inset-left)) 0 max(18px, env(safe-area-inset-left));
         }
         .brand { display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--text); cursor:pointer; }
         .brand:active { transform:scale(0.97); }
@@ -137,8 +140,8 @@
             position:relative; border-radius:var(--radius-lg); overflow:hidden;
             border:1px solid var(--border); background:var(--glass);
             backdrop-filter:blur(24px) saturate(150%); -webkit-backdrop-filter:blur(24px) saturate(150%);
-            box-shadow:var(--shadow); margin-bottom:26px;
-            padding:46px 32px; text-align:center;
+            box-shadow:var(--shadow); margin-bottom:22px;
+            padding:34px 28px; text-align:center;
         }
         .hero::before {
             content:""; position:absolute; inset:0; z-index:0;
@@ -173,10 +176,10 @@
 
         /* Hero stats */
         .hero-stats {
-            display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:30px;
+            display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:24px;
         }
         .stat {
-            min-width:120px; padding:16px 20px; border-radius:var(--radius-md);
+            min-width:120px; padding:15px 20px; border-radius:var(--radius-md);
             background:var(--glass-2); border:1px solid var(--border); backdrop-filter:blur(10px);
         }
         .stat-num { font-size:1.7rem; font-weight:700; background:var(--grad-brand); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
@@ -486,36 +489,84 @@
 
         /* ============================================================ RESPONSIVE ============================================================ */
         @media (max-width:768px) {
-            .container { padding:14px 11px; }
-            .nav-inner { height:60px; }
-            .brand-text b { font-size:1rem; } .brand-text span { font-size:0.58rem; }
-            .logo { width:38px; height:38px; }
-            .hero { padding:32px 18px; }
-            .hero h1 { font-size:1.85rem; }
-            .hero p { font-size:0.96rem; }
-            .hero-actions .btn { flex:1 1 44%; padding:12px 10px; font-size:0.84rem; }
-            .stat { min-width:96px; padding:13px 14px; }
-            .stat-num { font-size:1.35rem; }
-            .toolbar { padding:13px; gap:10px; }
+            .container { padding:14px max(11px, env(safe-area-inset-left)) calc(14px + env(safe-area-inset-bottom)); }
+            .nav-inner { height:58px; }
+            .brand-text b { font-size:1rem; } .brand-text span { font-size:0.56rem; letter-spacing:1px; }
+            .logo { width:36px; height:36px; border-radius:11px; }
+            .icon-btn { width:40px; height:40px; font-size:1.2rem; }
+
+            /* Hero */
+            .hero { padding:30px 18px; border-radius:22px; margin-bottom:20px; }
+            .hero-badge { font-size:0.68rem; padding:6px 13px; margin-bottom:14px; }
+            .hero h1 { font-size:1.72rem; letter-spacing:-0.6px; }
+            .hero p { font-size:0.92rem; margin-bottom:22px; }
+            .hero-actions { gap:9px; }
+            .hero-actions .btn { flex:1 1 44%; padding:12px 10px; font-size:0.85rem; }
+            .hero-stats { gap:10px; margin-top:24px; }
+            .hero-stats .stat { flex:1 1 calc(50% - 5px); min-width:0; padding:13px 12px; }
+            .stat-num { font-size:1.5rem; }
+            .stat-lbl { font-size:0.66rem; }
+
+            .trust-strip { margin-bottom:20px; }
+
+            /* Type switch — бүрэн өргөн, 3 таб тэнцүү багтана */
+            .type-switch { width:100%; gap:5px; padding:5px; margin-bottom:18px; }
+            .type-switch button { flex:1; padding:11px 4px; font-size:0.8rem; gap:5px; justify-content:center; }
+            .type-switch button i { font-size:1rem; }
+
+            /* Toolbar — хайлт ба эрэмбэ доош өрөгдөнө */
+            .toolbar { padding:12px; gap:10px; flex-direction:column; align-items:stretch; }
+            .search-box { min-width:0; }
+            .search-box input { height:46px; }
+            .sort-btn { width:100%; height:46px; justify-content:center; }
+
+            .chips { gap:8px; padding-bottom:12px; }
+            .chip { padding:9px 15px; font-size:0.86rem; }
+
+            /* Grid */
             .grid { grid-template-columns:repeat(2,1fr); gap:12px; }
+            .card { border-radius:20px; }
             .card-body { padding:12px; }
-            .card-title { font-size:0.82rem; }
-            .price { font-size:1.02rem; }
-            .card-cta { padding:9px; font-size:0.78rem; margin-top:10px; }
+            .card-title { font-size:0.84rem; -webkit-line-clamp:2; }
+            .price { font-size:1.05rem; }
+            .price-info { font-size:0.86rem; }
+            .card-cta { padding:10px 8px; font-size:0.8rem; margin-top:10px; }
             .card-meta { font-size:0.68rem; gap:7px; }
-            .sec-head h2 { font-size:1.25rem; }
+            .fav { width:32px; height:32px; bottom:9px; right:9px; }
+            .tag { font-size:0.62rem; padding:4px 9px; }
+
+            .sec-head { margin:28px 4px 14px; }
+            .sec-head h2 { font-size:1.22rem; }
+            .panel-grid { gap:12px; }
+            .info-card { padding:20px; }
+
+            /* Modal → доод хуудас (bottom sheet) */
             .modal { padding:0; align-items:flex-end; }
-            .modal-win { flex-direction:column; height:95vh; max-height:95vh; border-radius:24px 24px 0 0; }
-            .mw-media { flex:0 0 270px; }
-            .mw-body { padding:24px 18px; }
+            .modal-win { flex-direction:column; height:94vh; max-height:94vh; border-radius:24px 24px 0 0; }
+            .mw-media { flex:0 0 248px; }
+            .mw-body { padding:22px 16px calc(20px + env(safe-area-inset-bottom)); }
+            .mw-close { top:12px; left:12px; width:38px; height:38px; font-size:1.2rem; }
             .mw-title { font-size:1.3rem; }
-            .mw-price { font-size:1.6rem; }
-            .mw-specs { grid-template-columns:1fr 1fr; }
-            .pkgs { grid-template-columns:1fr 1fr; }
-            .modal-simple .modal-win { padding:26px 20px; }
+            .mw-price { font-size:1.55rem; }
+            .mw-specs { grid-template-columns:1fr 1fr; gap:9px; }
+            .pkgs { grid-template-columns:1fr 1fr; gap:9px; }
+            .mw-buy { padding:16px; font-size:0.98rem; }
+            .mw-icon-btn { width:50px; }
+            .modal-simple .modal-win { padding:24px 18px calc(24px + env(safe-area-inset-bottom)); }
             .lb-nav { font-size:2.6rem; } .lb-close { font-size:2.3rem; }
+
+            .footer { padding:28px 18px calc(28px + env(safe-area-inset-bottom)); margin-top:34px; }
+            .scroll-top { bottom:calc(18px + env(safe-area-inset-bottom)); right:16px; width:46px; height:46px; }
         }
-        @media (max-width:380px) { .grid { gap:10px; } }
+        /* Жижиг утас */
+        @media (max-width:400px) {
+            .hero h1 { font-size:1.55rem; }
+            .hero p { font-size:0.88rem; }
+            .grid { gap:10px; }
+            .card-title { font-size:0.8rem; }
+            .type-switch button { font-size:0.74rem; padding:11px 2px; }
+            .type-switch button i { font-size:0.92rem; }
+        }
     </style>
 </head>
 <body>
@@ -540,16 +591,10 @@
 
     <div class="container">
 
-        <!-- ===================== HERO ===================== -->
+        <!-- ===================== HERO (цомхон) ===================== -->
         <section class="hero">
-            <div class="hero-badge"><i class="ri-verified-badge-fill"></i> МОНГОЛЫН АНХНЫ БАТАЛГААТ ПЛАТФОРМ</div>
-            <h1>Тоглоомын <span class="grad">аккоунт, түрээс, цэнэглэлт</span><br></h1>
-            <p>PUBG Mobile, MLBB болон бусад тоглоомын баталгаат аккоунт худалдаа, цэнэглэлт — түргэн шуурхай, аюулгүй баталгаатай.</p>
-            <div class="hero-actions">
-                <a href="#shop" class="btn btn-primary"><i class="ri-shopping-bag-3-line"></i> Дэлгүүр үзэх</a>
-                <a href="#shop" class="btn btn-ghost" onclick="setType('rent', document.getElementById('type-rent'))"><i class="ri-time-line"></i> Түрээс</a>
-                <a href="https://m.me/cm/AbadrhKBoffAja4U" target="_blank" class="btn btn-ghost"><i class="ri-messenger-line"></i> Групп чат</a>
-            </div>
+            <div class="hero-badge"><i class="ri-verified-badge-fill"></i> Монголын баталгаат тоглоомын дэлгүүр</div>
+            <h1>Тоглоомын <span class="grad">аккоунт, түрээс, цэнэглэлт</span></h1>
             <div class="hero-stats">
                 <div class="stat"><div class="stat-num" data-count="10000">0</div><div class="stat-lbl">Дагагч</div></div>
                 <div class="stat"><div class="stat-num" data-count="1000+">0</div><div class="stat-lbl">Зарагдсан</div></div>
@@ -561,9 +606,9 @@
         <!-- ===================== TRUST STRIP ===================== -->
         <div class="trust-strip">
             <div class="trust-track" id="trust-track"></div>
-        </div> -->
+        </div>
 
-        <!-- ===================== SHOP =====================
+        <!-- ===================== SHOP ===================== -->
         <div id="shop"></div>
 
         <!-- Type switch -->
@@ -596,15 +641,6 @@
             <div class="sk"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div></div></div>
             <div class="sk"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div></div></div>
             <div class="sk"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line s"></div></div></div>
-        </div>
-
-        <!-- ===================== HOW IT WORKS ===================== -->
-        <div class="sec-head"><h2><i class="ri-rocket-2-line"></i> Хэрхэн худалдаж авах вэ?</h2></div>
-        <div class="panel-grid">
-            <div class="info-card" style="position:relative"><span class="info-step-num">1</span><div class="info-ico"><i class="ri-search-eye-line"></i></div><h3>Бараагаа сонгох</h3><p>Дэлгүүрээс хүссэн аккоунт эсвэл цэнэглэлтийн багцаа сонгож, дэлгэрэнгүйг нь шалгаарай.</p></div>
-            <div class="info-card" style="position:relative"><span class="info-step-num">2</span><div class="info-ico"><i class="ri-messenger-line"></i></div><h3>Холбогдох</h3><p><b>Худалдаж авах</b> товчийг дарж Messenger-ээр админтай шууд холбогдоно.</p></div>
-            <div class="info-card" style="position:relative"><span class="info-step-num">3</span><div class="info-ico"><i class="ri-bank-card-line"></i></div><h3>Төлбөр төлөх</h3><p>Тохиролцсоны дараа төлбөрөө шилжүүлнэ. Дансны мэдээллийг админ өгнө.</p></div>
-            <div class="info-card" style="position:relative"><span class="info-step-num">4</span><div class="info-ico"><i class="ri-shield-check-line"></i></div><h3>Хүлээн авах</h3><p>Админ танд Аккоунтын мэдээлэл эсвэл цэнэглэлтээ шуурхай, баталгаатай хүлээлгэн өгнө.</p></div>
         </div>
 
         <!-- ===================== FAQ ===================== -->
@@ -1078,9 +1114,11 @@
     function animateStats(){
         if(animateStats._done)return; animateStats._done=true;
         document.querySelectorAll('.stat-num').forEach(el=>{
-            const target=parseFloat(el.dataset.count), dec=parseInt(el.dataset.dec||0); let cur=0;
-            const step=target/45;
-            const t=setInterval(()=>{ cur+=step; if(cur>=target){cur=target;clearInterval(t);} el.textContent=dec?cur.toFixed(dec):Math.floor(cur).toLocaleString(); },22);
+            const raw=String(el.dataset.count||'0');
+            const target=parseFloat(raw)||0, dec=parseInt(el.dataset.dec||0);
+            const suffix=raw.replace(/[0-9.,\s]/g,''); // жнь "+" тэмдэг хадгална
+            let cur=0; const step=target/45;
+            const t=setInterval(()=>{ cur+=step; if(cur>=target){cur=target;clearInterval(t);} el.textContent=(dec?cur.toFixed(dec):Math.floor(cur).toLocaleString())+suffix; },22);
         });
     }
 
